@@ -1,5 +1,6 @@
 # Menzil-FE
 
+## Commit Convention
 - feat:      새로운 기능 구현
 - fix:       버그, 오류 해결
 - chore:     src 또는 test 파일을 수정하지 않는 기타 변경 사항 ( 새로운 파일 생성, 파일 이동, 이름 변경 등 )
