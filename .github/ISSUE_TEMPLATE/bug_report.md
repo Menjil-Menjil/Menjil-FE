@@ -1,5 +1,5 @@
 ---
-name: 버그 이슈
+name: BUG_Report
 about: 제목 및 버그 발생 위치
 title: ''
 labels: ''
