@@ -207,8 +207,7 @@
 3. 비동기 함수를 사용할 때 `Promise`함수의 사용은 지양하고 `async`, `await`를 쓰도록 한다
    </div>
    </details>
-
-<hr>
+   
 </br>
 
 ## Commit Convention
