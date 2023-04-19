@@ -2,7 +2,7 @@
 name: BUG_Report
 about: 제목 및 버그 발생 위치
 title: ''
-labels: "버그\U0001F577️"
+labels: "버그\U0001F997"
 assignees: ''
 
 ---
