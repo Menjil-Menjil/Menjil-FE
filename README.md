@@ -2,7 +2,7 @@
 
 # 🗣️️ 컨벤션
 
-## Coding Conventions
+## 👩‍💻 Coding Conventions
 
 <details>
 <summary>명명규칙(Naming Conventions)</summary>
@@ -210,7 +210,14 @@
    
 </br>
 
-## Commit Convention
+## 🧵 Commit Convention
+
+<aside>
+📍  git commit message convention
+
+`ex) feat(변경한 파일) : 변경 내용 (/#issue num)`
+
+```plain
 - feat:      새로운 기능 구현
 - fix:       버그, 오류 해결
 - chore:     src 또는 test 파일을 수정하지 않는 기타 변경 사항 ( 새로운 파일 생성, 파일 이동, 이름 변경 등 )
@@ -224,3 +231,4 @@
 - ci:      CI 구성 파일 및 스크립트 변경
 - Merge: 다른브렌치를 merge하는 경우
 - Init : Initial commit을 하는 경우
+```
