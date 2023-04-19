@@ -1,7 +1,5 @@
 # Menzil-FE
 
-# 🗣️️ 컨벤션
-
 ## 👩‍💻 Coding Conventions
 
 <details>
