@@ -2,7 +2,7 @@
 
 # 🗣️️ 컨벤션
 
-## 👩‍💻 Coding Conventions
+## Coding Conventions
 
 <details>
 <summary>명명규칙(Naming Conventions)</summary>
