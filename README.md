@@ -1,4 +1,4 @@
-# Menzil-FE
+# Menjil-FE
 
 ## 👩‍💻 Coding Conventions
 
