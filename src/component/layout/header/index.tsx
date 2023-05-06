@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { Prompt } from "next/font/google";
 import {useState} from "react";
 import LoginModal from "@/component/layout/header/loginModal";
 
@@ -11,6 +10,7 @@ const HeaderSection = styled.header`
   border-bottom: 1px solid #e2e2e2;
   display: flex;
   align-items: center;
+  user-select: none;
   .category {
     display: flex;
     gap: 30px;
@@ -29,6 +29,9 @@ const HeaderSection = styled.header`
   .member {
     display: flex;
     gap: 30px;
+    .login {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -42,7 +45,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false)
 
   // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
-  const clickModal = () => setShowModal(!showModal)
+  const closeModal = () => setShowModal(!showModal)
 
   return (
     <>
@@ -68,14 +71,14 @@ const Header = () => {
           <StyledLink className="shop" href="/register">
             회원가입
           </StyledLink>
-          <div className="login" onClick={clickModal}>
+          <div className="login" onClick={closeModal}>
             로그인
           </div>
         </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}
-      {showModal && <LoginModal clickModal={clickModal} />}
+      {showModal && <LoginModal closeModal={closeModal} />}
     </>
   );
 };
