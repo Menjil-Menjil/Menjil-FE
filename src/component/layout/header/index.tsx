@@ -68,7 +68,7 @@ const Header = () => {
           </StyledLink>
         </div>
         <div className="member">
-          <StyledLink className="shop" href="/register">
+          <StyledLink href="/register">
             회원가입
           </StyledLink>
           <div className="login" onClick={closeModal}>
