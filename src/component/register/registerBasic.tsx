@@ -39,14 +39,10 @@ const RegisterBasic = ({dispatch}: propsType) => {
           <input type="number" placeholder="월" className="inputBox" style={{width: "100px"}}/>
 
           <div className="titleBox">가입유형</div>
-          <div className="radioContainer" style={{marginRight: "20px"}}>
-            <input type="radio" id="choice_menti" name="role" value="menti" className="radioBox"/>
-            <label htmlFor="choice_menti">멘티로 시작하기</label>
-          </div>
-          <div className="radioContainer">
-            <input type="radio" id="choice_mentor" name="role" value="mentor" className="radioBox"/>
-            <label htmlFor="choice_mentor">멘토로 시작하기</label>
-          </div>
+          <input type="radio" id="choice_menti" name="role" value="menti" className="selectBox"/>
+          <label htmlFor="choice_menti" style={{marginRight: "20px"}}>멘티로 시작하기</label>
+          <input type="radio" id="choice_mentor" name="role" value="mentor" className="selectBox"/>
+          <label htmlFor="choice_mentor">멘토로 시작하기</label>
 
         </InputContainer>
       </FormContainerDiv>

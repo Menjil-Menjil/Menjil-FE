@@ -4,7 +4,41 @@ import leftIc from "@/img/ic_arrow_left.png";
 import rightIc from "@/img/ic_arrow_right.png";
 import searchIc from "@/img/ic_search.png"
 import styled from "@emotion/styled";
-import {FormContainerDiv, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
+import {FormContainerDiv, InputContainer, PageCommentary, TitleBoxDiv} from "@/component/register/register.style";
+import {Commentary} from "@/component/register/registerHeader";
+
+export const ExplanationP = styled.p`
+  position: absolute;
+  transform: translateX(103px);
+  top: 457px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #6B6767;
+`;
+
+const interestList = [
+  {id: "choice_fe", value: "fe", text: "프론트엔드", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_be", value: "be", text: "백엔드", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_devops", value: "devops", text: "DevOps", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_ai", value: "ai", text: "AI", style: {width: "140px"}},
+  {id: "choice_game", value: "game", text: "게임", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_etc", value: "etc", text: "기타", style: {width: "140px", marginRight: "24px"}}
+];
+
+const techStackList = [
+  {id: "choice_react", value: "react", text: "React", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_flutter", value: "flutter", text: "Flutter", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_kotlin", value: "kotlin", text: "Kotlin", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_swift", value: "swift", text: "Swift", style: {width: "140px"}},
+  {id: "choice_nodejs", value: "nodejs", text: "Node.js", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_spring", value: "spring", text: "Spring", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_unreal", value: "unreal", text: "Unreal", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_tensorflow", value: "tensorflow", text: "Tensorflow", style: {width: "140px"}},
+  {id: "choice_docker", value: "docker", text: "Docker", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_aws", value: "aws", text: "AWS", style: {width: "140px", marginRight: "24px"}},
+];
 
 interface propsType {
   dispatch: any;
@@ -25,73 +59,29 @@ const RegisterTags = ({dispatch}: propsType) => {
       <FormContainerDiv>
         <TitleBoxDiv><span>관심 분야를 알려주세요</span></TitleBoxDiv>
         <InputContainer>
-          <div className="titleBox" >관심분야</div>
-          <input type="checkbox" id="choice_fe" name="interests" value="fe" className="checkBox"/>
-          <label htmlFor="choice_fe" style={{width: "140px", marginRight: "24px"}}>프론트엔드</label>
-          <input type="checkbox" id="choice_be" name="interests" value="be" className="checkBox"/>
-          <label htmlFor="choice_be" style={{width: "140px", marginRight: "24px"}}>백엔드</label>
-          <input type="checkbox" id="choice_devops" name="interests" value="devops" className="checkBox"/>
-          <label htmlFor="choice_devops" style={{width: "140px", marginRight: "24px"}}>DevOps</label>
-          <input type="checkbox" id="choice_ai" name="interests" value="ai" className="checkBox"/>
-          <label htmlFor="choice_ai" style={{width: "140px"}}>AI</label>
-          <input type="checkbox" id="choice_game" name="interests" value="game" className="checkBox"/>
-          <label htmlFor="choice_game" style={{width: "140px", marginRight: "24px"}}>게임</label>
-          <input type="checkbox" id="choice_etc" name="interests" value="etc" className="checkBox"/>
-          <label htmlFor="choice_etc" style={{width: "140px"}}>기타</label>
-          {/* 관심분야 style_2
-          <div className="radioContainer" style={{width: "148px", marginRight: "24px"}}>
-            <input type="checkbox" id="choice_fe" name="interests" value="fe" className="radioBox"/>
-            <label htmlFor="choice_fe" style={{width: "140px"}}>프론트엔드</label>
-          </div>
-          <div className="radioContainer" style={{width: "148px", marginRight: "24px"}}>
-            <input type="checkbox" id="choice_be" name="interests" value="be" className="radioBox"/>
-            <label htmlFor="choice_be" style={{width: "140px"}}>백엔드</label>
-          </div>
-          <div className="radioContainer" style={{width: "148px", marginRight: "24px"}}>
-            <input type="checkbox" id="choice_devops" name="interests" value="devops" className="radioBox"/>
-            <label htmlFor="choice_devops" style={{width: "140px"}}>DevOps</label>
-          </div>
-          <div className="radioContainer" style={{width: "148px"}}>
-            <input type="checkbox" id="choice_ai" name="interests" value="ai" className="radioBox"/>
-            <label htmlFor="choice_ai" style={{width: "140px"}}>AI</label>
-          </div>
-          <div className="radioContainer" style={{width: "148px", marginRight: "24px"}}>
-            <input type="checkbox" id="choice_game" name="interests" value="game" className="radioBox"/>
-            <label htmlFor="choice_game" style={{width: "140px"}}>게임</label>
-          </div>
-          <div className="radioContainer" style={{width: "148px"}}>
-            <input type="checkbox" id="choice_etc" name="interests" value="etc" className="radioBox"/>
-            <label htmlFor="choice_etc" style={{width: "140px"}}>기타</label>
-          </div>
-          */}
+          <div className="titleBox">관심분야</div>
+          <ExplanationP>중복으로 선택할 수 있어요</ExplanationP>
+          {interestList.map((item: any) => (
+            <>
+              <input type="checkbox" id={item.id} name="interests" value={item.value} className="selectBox"/>
+              <label htmlFor={item.id} style={item.style}>{item.text}</label>
+            </>
+          ))}
         </InputContainer>
         <InputContainer>
           <div className="titleBox" >기술스택</div>
           <div className="subtitleBox">인기/추천 기술스택</div>
-          <input type="checkbox" id="choice_react" name="tech_stack" value="react" className="checkBox"/>
-          <label htmlFor="choice_react" style={{width: "140px", marginRight: "24px"}}>React</label>
-          <input type="checkbox" id="choice_flutter" name="tech_stack" value="flutter" className="checkBox"/>
-          <label htmlFor="choice_flutter" style={{width: "140px", marginRight: "24px"}}>Flutter</label>
-          <input type="checkbox" id="choice_kotlin" name="tech_stack" value="kotlin" className="checkBox"/>
-          <label htmlFor="choice_kotlin" style={{width: "140px", marginRight: "24px"}}>Kotlin</label>
-          <input type="checkbox" id="choice_swift" name="tech_stack" value="swift" className="checkBox"/>
-          <label htmlFor="choice_swift" style={{width: "140px"}}>Swift</label>
-          <input type="checkbox" id="choice_spring" name="tech_stack" value="spring" className="checkBox"/>
-          <label htmlFor="choice_spring" style={{width: "140px", marginRight: "24px"}}>Spring</label>
-          <input type="checkbox" id="choice_nodejs" name="tech_stack" value="nodejs" className="checkBox"/>
-          <label htmlFor="choice_nodejs" style={{width: "140px", marginRight: "24px"}}>Node.js</label>
-          <input type="checkbox" id="choice_unreal" name="tech_stack" value="unreal" className="checkBox"/>
-          <label htmlFor="choice_unreal" style={{width: "140px", marginRight: "24px"}}>Unreal</label>
-          <input type="checkbox" id="choice_tensorflow" name="tech_stack" value="tensorflow" className="checkBox"/>
-          <label htmlFor="choice_tensorflow" style={{width: "140px"}}>Tensorflow</label>
-          <input type="checkbox" id="choice_docker" name="tech_stack" value="docker" className="checkBox"/>
-          <label htmlFor="choice_docker" style={{width: "140px", marginRight: "24px"}}>Docker</label>
-          <input type="checkbox" id="choice_aws" name="tech_stack" value="aws" className="checkBox"/>
-          <label htmlFor="choice_aws" style={{width: "140px", marginBottom: "15px"}}>AWS</label>
-          <div className="subtitleBox">내가 찾는 기술스택이 없다면?</div>
+          {techStackList.map((item: any) => (
+            <>
+              <input type="checkbox" id={item.id} name="tech_stack" value={item.value} className="selectBox"/>
+              <label htmlFor={item.id} style={item.style}>{item.text}</label>
+            </>
+          ))}
+          <div className="subtitleBox" style={{marginTop: "30px"}}>내가 찾는 기술스택이 없다면?</div>
           <div className="searchContainer">
             <input type="search" placeholder="검색해서 추가하기" className="searchBox" style={{width: "324px"}}/>
-            <Image src={searchIc} alt="찾기" className="icon" width={24} height={24}/>
+            <input id="submit" type="submit"/>
+            <label id="submit"><Image src={searchIc} alt="찾기" className="icon"/></label>
           </div>
         </InputContainer>
       </FormContainerDiv>

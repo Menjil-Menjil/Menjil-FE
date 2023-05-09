@@ -24,6 +24,15 @@ export const RegisterFormContainerDiv = styled.div`
   justify-content: space-around;
 `
 
+export const PageInformationDiv = styled.div`
+  width: 667px;
+  margin-top: 120px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+`;
+
 const Register = () => {
   const registerComponent = useSelector((state: RootState) => state.register.component);
   const dispatch = useDispatch();
@@ -42,7 +51,12 @@ const Register = () => {
   return (
     <>
       <RegisterContainerDiv>
-        <RegisterHeader progressNumber={registerProgressNumber(registerComponent)}/>
+        {(registerComponent!=="RegisterAdditionalInfo") &&
+            <RegisterHeader progressNumber={registerProgressNumber(registerComponent)}/>
+        }
+        {(registerComponent==="RegisterAdditionalInfo") &&
+            <PageInformationDiv>언제든 수정할 수 있으니 자유롭게 입력해주세요<br/>자세히 입력하면 더 정확한 멘토링을 받을 수 있어요</PageInformationDiv>
+        }
         <RegisterFormContainerDiv>
           {registerComponent === "RegisterBasic" && <RegisterBasic dispatch={dispatch}/>}
           {registerComponent === "RegisterEducation" && <RegisterEducation dispatch={dispatch}/>}

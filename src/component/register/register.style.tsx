@@ -33,10 +33,10 @@ export const InputContainer = styled.div`
     font-size: 20px;
     line-height: 30px;
   }
-  .inputBox {
+
+  input {
     height: 60px;
-    margin-top: 15px;
-    padding-left: 0.8em;
+    padding: 0 0.3em 0 0.8em;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
@@ -45,10 +45,20 @@ export const InputContainer = styled.div`
     font-size: 20px;
     line-height: 24px;
   }
+  input:focus {
+    outline-color: var(--highlighted-element);
+  }
+  
+  .inputBox {
+    margin-top: 15px;
+  }
   .inputBox::placeholder {
     color: var(--input-placeholder);
   }
-  .radioContainer {
+  .selectBox {
+    display: none;
+  }
+  .selectBox + label {
     width: 166px;
     height: 60px;
     margin-top: 15px;
@@ -58,26 +68,35 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    .radioBox {
-      display: none;
-    }
-    .radioBox + label {
-      width: 158px;
-      height: 52px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
-      color: var(--input-placeholder);
-    }
-    .radioBox:checked + label {
-      background-color: var(--selected-element);
-      color: black;
-    }
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--input-placeholder);
+  }
+  .selectBox + label:hover {
+    background-color: var(--selected-element);
+  }
+  .selectBox + label:active {
+    background-clip: content-box;
+    padding: 4px;
+    background-color: var(--selected-element);
+  }
+  .selectBox:checked + label {
+    background-color: var(--selected-element);
+    border: 1px solid var(--highlighted-element);
+    color: black;
+  }
+  .addBtn {
+    height: 60px;
+    background: #E3E2E2;
+    border: none;
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #6B6565;
   }
   .scoreRadioContainer {
     width: 300px;
@@ -104,61 +123,35 @@ export const InputContainer = styled.div`
       line-height: 24px;
       color: var(--input-placeholder);
     }
+    .scoreRadioBox + label:hover {
+      background-color: var(--selected-element);
+    }
     .scoreRadioBox:checked + label {
       background-color: var(--selected-element);
       color: black;
     }
   }
-  .checkBox {
-    display: none;
-  }
-  .checkBox + label {
-    width: 166px;
-    height: 60px;
-    margin-top: 15px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: var(--input-placeholder);
-  }
-  .checkBox:checked + label {
-    background-color: var(--selected-element);
-    border-color: var(--highlighted-element);
-    color: black;
-  }
   .searchContainer {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
     .icon {
-      position: relative;
-      top: 5px;
-      left: -40px;
+      transform: translateX(-40px);
+    }
+    .icon:hover {
+      border: 2px solid #f0f0f0;
+      border-radius: 4px;
+      transform: translateX(-42px);
+      background-color: #f0f0f0;
     }
     .searchBox {
-      height: 60px;
-      margin-top: 15px;
-      padding-left: 0.8em;
       padding-right: 48px;
-      box-sizing: border-box;
-      border: 1px solid rgba(0, 0, 0, 0.5);
-      border-radius: 12px;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
-      background-image: url("../../img/ic_search.png");
-      background-repeat: no-repeat;
-      background-size: 24px;
-      background-position: 160px center;
     }
     .searchBox::placeholder {
       color: var(--input-placeholder);
     }
+    > input[type=submit]{
+      display: none;
+    }
   }
 `;
-export const InputBox = styled.input``;
