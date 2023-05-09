@@ -155,3 +155,49 @@ export const InputContainer = styled.div`
     }
   }
 `;
+
+export const InputTextArea = styled.textarea`
+  width: 667px;
+  height: 276px;
+  resize: none;
+  margin-top: 15px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  :focus {
+    outline-color: var(--highlighted-element);
+  }
+  ::placeholder {
+    color: var(--input-placeholder);
+  }
+`;
+
+export const SaveBtnContainer = styled.div`
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  button {
+    height: 60px;
+    border: none;
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .saveBtn {
+    width: 149px;
+    background: var(--highlighted-element);
+  }
+  .afterBtn {
+    width: 210px;
+    background: #EFEFEF;
+  }
+`;
