@@ -10,7 +10,7 @@ import RegisterAdditionalInfo from "@/component/register/registerAdditionalInfo"
 export const RegisterContainerDiv = styled.div`
   width: 1000px;
   min-height: 600px;
-  margin: 5px 0 190px 0;
+  margin: 5px auto;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -20,6 +20,7 @@ export const RegisterContainerDiv = styled.div`
 export const RegisterFormContainerDiv = styled.div`
   width: 100%;
   margin-top: 35px;
+  margin-bottom: 100px;
   display: flex;
   justify-content: space-around;
 `
@@ -49,22 +50,20 @@ const Register = () => {
   };
 
   return (
-    <>
-      <RegisterContainerDiv>
-        {(registerComponent!=="RegisterAdditionalInfo") &&
-            <RegisterHeader progressNumber={registerProgressNumber(registerComponent)}/>
-        }
-        {(registerComponent==="RegisterAdditionalInfo") &&
-            <PageInformationDiv>언제든 수정할 수 있으니 자유롭게 입력해주세요<br/>자세히 입력하면 더 정확한 멘토링을 받을 수 있어요</PageInformationDiv>
-        }
-        <RegisterFormContainerDiv>
-          {registerComponent === "RegisterBasic" && <RegisterBasic dispatch={dispatch}/>}
-          {registerComponent === "RegisterEducation" && <RegisterEducation dispatch={dispatch}/>}
-          {registerComponent === "RegisterTags" && <RegisterTags dispatch={dispatch}/>}
-          {registerComponent === "RegisterAdditionalInfo" && <RegisterAdditionalInfo dispatch={dispatch}/>}
-        </RegisterFormContainerDiv>
-      </RegisterContainerDiv>
-    </>
+    <RegisterContainerDiv>
+      {(registerComponent!=="RegisterAdditionalInfo") &&
+          <RegisterHeader progressNumber={registerProgressNumber(registerComponent)}/>
+      }
+      {(registerComponent==="RegisterAdditionalInfo") &&
+          <PageInformationDiv>언제든 수정할 수 있으니 자유롭게 입력해주세요<br/>자세히 입력하면 더 정확한 멘토링을 받을 수 있어요</PageInformationDiv>
+      }
+      <RegisterFormContainerDiv>
+        {registerComponent === "RegisterBasic" && <RegisterBasic dispatch={dispatch}/>}
+        {registerComponent === "RegisterEducation" && <RegisterEducation dispatch={dispatch}/>}
+        {registerComponent === "RegisterTags" && <RegisterTags dispatch={dispatch}/>}
+        {registerComponent === "RegisterAdditionalInfo" && <RegisterAdditionalInfo dispatch={dispatch}/>}
+      </RegisterFormContainerDiv>
+    </RegisterContainerDiv>
   );
 }
 
