@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import Layout from "@/component/layout";
 import {Prompt} from "next/font/google";
+import React from "react";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -17,8 +19,14 @@ export default function App({ Component, pageProps }: AppProps) {
           --logo-font: ${prompt.style.fontFamily};
           /* color */
           --theme-color: #E68C23;
+          --input-placeholder: #AFAFAF;
+          --highlighted-element: #FF8A00;
+          --selected-element: #FBBC053B;
         }
       `}</style>
+      <Head>
+        <title>맨질맨질</title>
+      </Head>
       <Layout>
         <Component {...pageProps} />
       </Layout>
