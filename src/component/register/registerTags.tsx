@@ -1,11 +1,11 @@
 import {setRegister, setUser} from "@/redux/registerSlice";
 import Image from "next/image";
 import leftIc from "@/img/ic_arrow_left.png";
-import rightIc from "@/img/ic_arrow_right.png";
 import searchIc from "@/img/ic_search.png"
 import styled from "@emotion/styled";
-import {FormContainerDiv, InputContainer, PageCommentary, TitleBoxDiv} from "@/component/register/register.style";
-import {Commentary} from "@/component/register/registerHeader";
+import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
+import RightIc from "@/img/ic_arrow_right.svg";
+import LeftIc from "@/img/ic_arrow_left.svg";
 
 export const ExplanationP = styled.p`
   position: absolute;
@@ -19,25 +19,25 @@ export const ExplanationP = styled.p`
 `;
 
 const interestList = [
-  {id: "choice_fe", value: "fe", text: "프론트엔드", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_be", value: "be", text: "백엔드", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_devops", value: "devops", text: "DevOps", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_ai", value: "ai", text: "AI", style: {width: "140px"}},
-  {id: "choice_game", value: "game", text: "게임", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_etc", value: "etc", text: "기타", style: {width: "140px", marginRight: "24px"}}
+  {id: "choice_fe", value: "fe", text: "프론트엔드", style: {marginRight: "25px"}},
+  {id: "choice_be", value: "be", text: "백엔드", style: {marginRight: "25px"}},
+  {id: "choice_devops", value: "devops", text: "DevOps", style: {marginRight: "25px"}},
+  {id: "choice_ai", value: "ai", text: "AI", style: {}},
+  {id: "choice_game", value: "game", text: "게임", style: {marginRight: "25px"}},
+  {id: "choice_etc", value: "etc", text: "기타", style: {marginRight: "25px"}}
 ];
 
 const techStackList = [
-  {id: "choice_react", value: "react", text: "React", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_flutter", value: "flutter", text: "Flutter", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_kotlin", value: "kotlin", text: "Kotlin", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_swift", value: "swift", text: "Swift", style: {width: "140px"}},
-  {id: "choice_nodejs", value: "nodejs", text: "Node.js", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_spring", value: "spring", text: "Spring", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_unreal", value: "unreal", text: "Unreal", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_tensorflow", value: "tensorflow", text: "Tensorflow", style: {width: "140px"}},
-  {id: "choice_docker", value: "docker", text: "Docker", style: {width: "140px", marginRight: "24px"}},
-  {id: "choice_aws", value: "aws", text: "AWS", style: {width: "140px", marginRight: "24px"}},
+  {id: "choice_react", value: "react", text: "React", style: {marginRight: "25px"}},
+  {id: "choice_flutter", value: "flutter", text: "Flutter", style: {marginRight: "25px"}},
+  {id: "choice_kotlin", value: "kotlin", text: "Kotlin", style: {marginRight: "25px"}},
+  {id: "choice_swift", value: "swift", text: "Swift", style: {}},
+  {id: "choice_nodejs", value: "nodejs", text: "Node.js", style: {marginRight: "25px"}},
+  {id: "choice_spring", value: "spring", text: "Spring", style: {marginRight: "25px"}},
+  {id: "choice_unreal", value: "unreal", text: "Unreal", style: {marginRight: "25px"}},
+  {id: "choice_tensorflow", value: "tensorflow", text: "Tensorflow", style: {}},
+  {id: "choice_docker", value: "docker", text: "Docker", style: {marginRight: "25px"}},
+  {id: "choice_aws", value: "aws", text: "AWS", style: {marginRight: "25px"}},
 ];
 
 interface propsType {
@@ -55,7 +55,7 @@ const RegisterTags = ({dispatch}: propsType) => {
 
   return (
     <>
-      <Image src={leftIc} alt="이전" width={30} height={55} onClick={handleBackClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>관심 분야를 알려주세요</span></TitleBoxDiv>
         <InputContainer>
@@ -85,7 +85,7 @@ const RegisterTags = ({dispatch}: propsType) => {
           </div>
         </InputContainer>
       </FormContainerDiv>
-      <Image src={rightIc} alt="다음" width={30} height={55} onClick={handleNextClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn onClick={handleNextClick}><RightIc/></GoPageBtn>
     </>
   );
 };

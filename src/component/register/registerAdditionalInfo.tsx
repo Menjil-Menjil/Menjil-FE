@@ -1,15 +1,13 @@
 import {setRegister, setUser} from "@/redux/registerSlice";
-import Image from "next/image";
-import leftIc from "@/img/ic_arrow_left.png";
-import rightIc from "@/img/ic_arrow_right.png";
-import styled from "@emotion/styled";
 import {
-  FormContainerDiv,
+  FormContainerDiv, GoPageBtn,
   InputContainer,
   InputTextArea,
   SaveBtnContainer,
   TitleBoxDiv
 } from "@/component/register/register.style";
+import RightIc from "@/img/ic_arrow_right.svg";
+import LeftIc from "@/img/ic_arrow_left.svg";
 
 interface propsType {
   dispatch: any;
@@ -25,7 +23,7 @@ const RegisterAdditionalInfo = ({dispatch}: propsType) => {
 
   return (
     <>
-      <Image src={leftIc} alt="이전" width={30} height={55} onClick={handleBackClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>멘티님을 소개해주세요</span></TitleBoxDiv>
         <InputContainer>
@@ -43,7 +41,7 @@ const RegisterAdditionalInfo = ({dispatch}: propsType) => {
           <button className="saveBtn">저장</button>
         </SaveBtnContainer>
       </FormContainerDiv>
-      <Image src={rightIc} alt="다음" width={30} height={55} onClick={handleNextClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn><RightIc/></GoPageBtn>
     </>
   );
 };

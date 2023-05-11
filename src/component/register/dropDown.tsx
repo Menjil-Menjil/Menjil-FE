@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import downIc from "@/img/ic_dropdown.svg"
+import DownIc from "@/img/ic_dropdown.svg"
 import {useEffect, useRef, useState} from "react";
 
 export const DropDownBox = styled.div`
@@ -40,9 +40,9 @@ export const DropDownBox = styled.div`
   .caretIcon {
     transition: transform 250ms ease-out;
   }
-  .input[value=""] + label{
+  .input[value=""] + label {
     padding-left: 20px;
-    color: #AFAFAF;
+    color: var(--input-placeholder);
   }
   .input:checked + label > .caretIcon {
     transform: rotate(-180deg);
@@ -72,7 +72,7 @@ export const useDetectClose = (ref, initialState) => {
   const [isOpen, setIsOpen] = useState(initialState);
 
   useEffect(() => {
-    const pageClickEvent = e => {
+    const pageClickEvent = (e: any) => {
       if (ref.current && !ref.current.contains(e.target)) {
         setIsOpen(!isOpen);
       }
@@ -89,7 +89,13 @@ export const useDetectClose = (ref, initialState) => {
   return [isOpen, setIsOpen];
 }
 
-export const ScoreDropDown = ({ value, setScoreNumber, setIsOpen, isOpen}) => {
+interface scoreDropDownType {
+  value: string;
+  isOpen: boolean;
+  setScoreNumber: any;
+  setIsOpen: any;
+}
+export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
   const ValueClick = () => {
     setScoreNumber(value)
     setIsOpen(!isOpen)
@@ -124,12 +130,12 @@ const DropDown = ({id, valueList, placeHolder, widthVal}: propsType) => {
           <div>{placeHolder}</div>
         }
         <div>{dropDownValue}</div>
-        <Image src={downIc} alt="down" className="caretIcon"/>
+        <DownIc className="caretIcon"/>
       </label>
       {isOpen &&
         <div className="content">
           <ul>
-            {valueList.map((value, index) => (
+            {valueList.map((value: any, index: any) => (
               <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
             ))}
           </ul>

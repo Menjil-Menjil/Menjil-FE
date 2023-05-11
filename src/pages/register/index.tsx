@@ -15,6 +15,7 @@ export const RegisterContainerDiv = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  user-select: none;
 `
 
 export const RegisterFormContainerDiv = styled.div`
@@ -39,11 +40,11 @@ const Register = () => {
   const dispatch = useDispatch();
   const registerProgressNumber = (registerStep:string) => {
     if (registerStep==="RegisterBasic") {
-      return 25;
+      return 33;
     } else if (registerStep==="RegisterEducation") {
-      return 50;
+      return 66;
     } else if (registerStep==="RegisterTags") {
-      return 75;
+      return 100;
     } else if (registerStep==="RegisterAdditionalInfo") {
       return 100;
     } else return 0;

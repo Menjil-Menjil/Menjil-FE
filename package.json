@@ -25,6 +25,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "redux-devtools-extension": "^2.13.9"
   }
 }

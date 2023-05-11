@@ -1,10 +1,9 @@
 import Image from "next/image";
-import styled from "@emotion/styled";
-import leftIc from "@/img/ic_arrow_left.png"
-import rightIc from "@/img/ic_arrow_right.png"
 import {setRegister, setUser} from "@/redux/registerSlice";
-import {FormContainerDiv, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
+import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import DropDown from "@/component/register/dropDown";
+import RightIc from "@/img/ic_arrow_right.svg";
+import LeftIc from "@/img/ic_arrow_left.svg";
 
 interface propsType {
   dispatch: any;
@@ -20,7 +19,7 @@ const RegisterEducation = ({dispatch}: propsType) => {
 
   return (
     <>
-      <Image src={leftIc} alt="이전" width={30} height={55} onClick={handleBackClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>어디에서 공부하셨나요?</span></TitleBoxDiv>
         <InputContainer>
@@ -49,7 +48,7 @@ const RegisterEducation = ({dispatch}: propsType) => {
           </div>
         </InputContainer>
       </FormContainerDiv>
-      <Image src={rightIc} alt="다음" width={30} height={55} onClick={handleNextClick} style={{marginTop: "279px"}}/>
+      <GoPageBtn onClick={handleNextClick}><RightIc/></GoPageBtn>
     </>
   );
 };

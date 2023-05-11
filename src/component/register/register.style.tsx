@@ -1,5 +1,20 @@
 import styled from '@emotion/styled'
 
+export const GoPageBtn = styled.button`
+  width: 30px;
+  height: 55px;
+  background-color: transparent;
+  border: none;
+  margin-top: 279px;
+  cursor: pointer;
+  * {
+    fill: var(--highlighted-element);
+  }
+  :disabled * {
+    fill: #D3D3D3;
+  }
+`;
+
 export const FormContainerDiv = styled.div`
   width: 667px;
   height: 100%;
@@ -33,7 +48,6 @@ export const InputContainer = styled.div`
     font-size: 20px;
     line-height: 30px;
   }
-
   input {
     height: 60px;
     padding: 0 0.3em 0 0.8em;
@@ -46,23 +60,52 @@ export const InputContainer = styled.div`
     line-height: 24px;
   }
   input:focus {
-    outline-color: var(--highlighted-element);
+    border-color: var(--highlighted-element);
+    outline: none;
   }
-  
   .inputBox {
     margin-top: 15px;
   }
   .inputBox::placeholder {
     color: var(--input-placeholder);
   }
+  .nicknameCheckBtn {
+    width: 100px;
+    height: 37px;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    background: #FF8A00A6;
+    border: none;
+    border-radius: 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #6B6565;
+  }
+  .nicknameCheckBtn:disabled {
+    background: #E3E2E2;
+  }
+  .nicknameCheckTextDiv {
+    margin: 24px 0 0 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #2C8F47;
+  }
   .selectBox {
     display: none;
   }
   .selectBox + label {
-    width: 166px;
+    width: 140px;
     height: 60px;
     margin-top: 15px;
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
@@ -72,20 +115,17 @@ export const InputContainer = styled.div`
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    color: var(--input-placeholder);
+    cursor: pointer;
+    color: #302D2D;
   }
-  .selectBox + label:hover {
-    background-color: var(--selected-element);
-  }
-  .selectBox + label:active {
+  /*.selectBox + label:active {
     background-clip: content-box;
     padding: 4px;
     background-color: var(--selected-element);
-  }
+  }*/
   .selectBox:checked + label {
     background-color: var(--selected-element);
     border: 1px solid var(--highlighted-element);
-    color: black;
   }
   .addBtn {
     height: 60px;
@@ -121,6 +161,7 @@ export const InputContainer = styled.div`
       font-weight: 500;
       font-size: 20px;
       line-height: 24px;
+      cursor: pointer;
       color: var(--input-placeholder);
     }
     .scoreRadioBox + label:hover {
@@ -137,6 +178,7 @@ export const InputContainer = styled.div`
     align-items: center;
     .icon {
       transform: translateX(-40px);
+      cursor: pointer;
     }
     .icon:hover {
       border: 2px solid #f0f0f0;
@@ -191,6 +233,7 @@ export const SaveBtnContainer = styled.div`
     font-weight: 600;
     font-size: 24px;
     line-height: 29px;
+    cursor: pointer;
   }
   .saveBtn {
     width: 149px;
