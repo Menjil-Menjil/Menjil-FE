@@ -1,25 +1,16 @@
-import Image from "next/image";
-import {setRegister, setUser} from "@/redux/registerSlice";
 import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import DropDown from "@/component/register/dropDown";
 import RightIc from "@/img/ic_arrow_right.svg";
 import LeftIc from "@/img/ic_arrow_left.svg";
+import {useContext} from "react";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
-interface propsType {
-  dispatch: any;
-}
-
-const RegisterEducation = ({dispatch}: propsType) => {
-  const handleBackClick = ({e}: any) => {
-    dispatch(setRegister("RegisterBasic"))
-  }
-  const handleNextClick = ({e}: any) => {
-    dispatch(setRegister("RegisterTags"))
-  }
+const RegisterEducation = () => {
+  const {setComponent} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
-      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterBasic")}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>어디에서 공부하셨나요?</span></TitleBoxDiv>
         <InputContainer>
@@ -48,7 +39,7 @@ const RegisterEducation = ({dispatch}: propsType) => {
           </div>
         </InputContainer>
       </FormContainerDiv>
-      <GoPageBtn onClick={handleNextClick}><RightIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterTags")}><RightIc/></GoPageBtn>
     </>
   );
 };

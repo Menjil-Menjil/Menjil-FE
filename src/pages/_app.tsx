@@ -2,9 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "@/component/layout";
 import {Prompt} from "next/font/google";
-import {store} from "@/redux/store";
 import React from "react";
-import {Provider} from "react-redux";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -14,7 +12,7 @@ const prompt = Prompt({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
+    <>
       <style jsx global>{`
         :root {
           /* font */
@@ -32,6 +30,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </Provider>
+    </>
   );
 }

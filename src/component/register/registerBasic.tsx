@@ -1,10 +1,9 @@
-import Image from "next/image";
 import LeftIc from "@/img/ic_arrow_left.svg"
 import RightIc from "@/img/ic_arrow_right.svg"
-import {useState} from "react";
-import {setRegister, setUser} from "@/redux/registerSlice";
+import {useContext} from "react";
 import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import styled from "@emotion/styled";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const TestDiv = styled.div`
   width: 110px;
@@ -13,26 +12,8 @@ export const TestDiv = styled.div`
   background-color: #D9D9D9;
 `;
 
-interface propsType {
-  dispatch: any;
-}
-
-const RegisterBasic = ({dispatch}: propsType) => {
-  const [birth, setBirth] = useState({
-    year: "",
-    month: "",
-  })
-
-  const handleChange = ({e}: any) => {
-    const { name, value } = e.target
-    setBirth({ ...birth, [name]: value })
-  }
-
-  const handleNextClick = (e: any) => {
-    //e.preventDefault()
-    dispatch(setUser({ key: "birth", value: birth }))
-    dispatch(setRegister("RegisterEducation"))
-  }
+const RegisterBasic = () => {
+  const {setComponent} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
@@ -77,7 +58,7 @@ const RegisterBasic = ({dispatch}: propsType) => {
           </label>
         </InputContainer>
       </FormContainerDiv>
-      <GoPageBtn onClick={handleNextClick}><RightIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterEducation")}><RightIc/></GoPageBtn>
     </>
   );
 };

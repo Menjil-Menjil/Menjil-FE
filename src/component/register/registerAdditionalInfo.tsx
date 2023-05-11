@@ -1,4 +1,3 @@
-import {setRegister, setUser} from "@/redux/registerSlice";
 import {
   FormContainerDiv, GoPageBtn,
   InputContainer,
@@ -8,22 +7,15 @@ import {
 } from "@/component/register/register.style";
 import RightIc from "@/img/ic_arrow_right.svg";
 import LeftIc from "@/img/ic_arrow_left.svg";
+import {useContext} from "react";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
-interface propsType {
-  dispatch: any;
-}
-
-const RegisterAdditionalInfo = ({dispatch}: propsType) => {
-  const handleBackClick = ({e}: any) => {
-    dispatch(setRegister("RegisterTags"))
-  }
-  const handleNextClick = ({e}: any) => {
-    //e.preventDefault()
-  }
+const RegisterAdditionalInfo = () => {
+  const {setComponent} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
-      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterTags")}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>멘티님을 소개해주세요</span></TitleBoxDiv>
         <InputContainer>

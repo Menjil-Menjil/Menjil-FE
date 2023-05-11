@@ -1,11 +1,11 @@
-import {setRegister, setUser} from "@/redux/registerSlice";
 import Image from "next/image";
-import leftIc from "@/img/ic_arrow_left.png";
 import searchIc from "@/img/ic_search.png"
 import styled from "@emotion/styled";
 import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import RightIc from "@/img/ic_arrow_right.svg";
 import LeftIc from "@/img/ic_arrow_left.svg";
+import {useContext} from "react";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const ExplanationP = styled.p`
   position: absolute;
@@ -40,22 +40,12 @@ const techStackList = [
   {id: "choice_aws", value: "aws", text: "AWS", style: {marginRight: "25px"}},
 ];
 
-interface propsType {
-  dispatch: any;
-}
-
-const RegisterTags = ({dispatch}: propsType) => {
-  const handleBackClick = ({e}: any) => {
-    dispatch(setRegister("RegisterEducation"))
-  }
-  const handleNextClick = ({e}: any) => {
-    //e.preventDefault()
-    dispatch(setRegister("RegisterAdditionalInfo"))
-  }
+const RegisterTags = () => {
+  const {setComponent} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
-      <GoPageBtn onClick={handleBackClick}><LeftIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterEducation")}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>관심 분야를 알려주세요</span></TitleBoxDiv>
         <InputContainer>
@@ -85,7 +75,7 @@ const RegisterTags = ({dispatch}: propsType) => {
           </div>
         </InputContainer>
       </FormContainerDiv>
-      <GoPageBtn onClick={handleNextClick}><RightIc/></GoPageBtn>
+      <GoPageBtn onClick={() => setComponent("RegisterAdditionalInfo")}><RightIc/></GoPageBtn>
     </>
   );
 };
