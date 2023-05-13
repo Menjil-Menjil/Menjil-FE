@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import RightIc from "@/img/ic_arrow_right.svg"
 
 export const GoPageBtn = styled.button`
   width: 30px;

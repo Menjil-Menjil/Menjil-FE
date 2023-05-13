@@ -26,7 +26,7 @@ const RegisterEducation = () => {
           <input type="text" placeholder="예) 컴퓨터공학과" className="inputBox" style={{width: "667px"}}/>
           <input type="text" placeholder="예) 컴퓨터공학과" className="inputBox" style={{width: "458px", display:"inline", marginRight: "18px"}}/>
           <DropDown id={"type"} valueList={["복수전공", "부전공"]} placeHolder={"유형"} widthVal="189px"/>
-          <button className="addBtn" style={{width:"667px", marginTop:"20px"}}>전공 추가하기</button>
+          <button type="button" className="addBtn" style={{width:"667px", marginTop:"20px"}}>전공 추가하기</button>
           <div className="titleBox" >학점</div>
           <DropDown id={"score"} valueList={["1", "2", "3", "4"]} placeHolder={"점"} widthVal="120px"/>
           <div className="scoreRadioContainer" style={{marginLeft: "20px"}}>

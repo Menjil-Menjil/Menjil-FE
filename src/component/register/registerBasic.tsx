@@ -13,7 +13,7 @@ export const TestDiv = styled.div`
 `;
 
 const RegisterBasic = () => {
-  const {setComponent} = useContext<any>(RegisterComponentContext);
+  const {handleNextClick} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
@@ -39,7 +39,7 @@ const RegisterBasic = () => {
                  style={{width: "100px"}}/>
         </InputContainer>
         <InputContainer>
-          <button className="nicknameCheckBtn">중복확인</button>
+          <button type="button" className="nicknameCheckBtn">중복확인</button>
         </InputContainer>
         <InputContainer>
           <div className="nicknameCheckTextDiv">{"사용할 수 있는 닉네임입니다"}</div>
@@ -58,7 +58,7 @@ const RegisterBasic = () => {
           </label>
         </InputContainer>
       </FormContainerDiv>
-      <GoPageBtn onClick={() => setComponent("RegisterEducation")}><RightIc/></GoPageBtn>
+      <GoPageBtn type="submit" onClick={() => handleNextClick("RegisterEducation")}><RightIc/></GoPageBtn>
     </>
   );
 };

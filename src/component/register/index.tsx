@@ -4,7 +4,7 @@ import RegisterBasic from "@/component/register/registerBasic";
 import RegisterEducation from "@/component/register/registerEducation";
 import RegisterTags from "@/component/register/registerTags";
 import RegisterAdditionalInfo from "@/component/register/registerAdditionalInfo";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const RegisterContainerDiv = styled.div`
@@ -18,12 +18,17 @@ export const RegisterContainerDiv = styled.div`
   user-select: none;
 `
 
-export const RegisterFormContainerDiv = styled.div`
+export const RegisterInputContainerForm = styled.form`
   width: 100%;
   margin-top: 35px;
   margin-bottom: 100px;
   display: flex;
   justify-content: space-around;
+  form {
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
 `
 
 export const PageInformationDiv = styled.div`
@@ -57,12 +62,12 @@ const Register = () => {
       {(component==="RegisterAdditionalInfo") &&
           <PageInformationDiv>언제든 수정할 수 있으니 자유롭게 입력해주세요<br/>자세히 입력하면 더 정확한 멘토링을 받을 수 있어요</PageInformationDiv>
       }
-      <RegisterFormContainerDiv>
+      <RegisterInputContainerForm>
         {component === "RegisterBasic" && <RegisterBasic/>}
         {component === "RegisterEducation" && <RegisterEducation/>}
         {component === "RegisterTags" && <RegisterTags/>}
         {component === "RegisterAdditionalInfo" && <RegisterAdditionalInfo/>}
-      </RegisterFormContainerDiv>
+      </RegisterInputContainerForm>
     </RegisterContainerDiv>
   );
 };
