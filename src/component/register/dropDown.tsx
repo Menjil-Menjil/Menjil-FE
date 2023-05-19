@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import DownIc from "@/img/ic_dropdown.svg"
 import {useEffect, useRef, useState} from "react";
+import useDetectClose from "@/hooks/useDetectClose";
 
 export const DropDownBox = styled.div`
   height: 60px;
@@ -67,27 +68,6 @@ export const DropDownBox = styled.div`
     background-color: var(--selected-element);
   }
 `;
-
-export const useDetectClose = (ref, initialState) => {
-  const [isOpen, setIsOpen] = useState(initialState);
-
-  useEffect(() => {
-    const pageClickEvent = (e: any) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setIsOpen(!isOpen);
-      }
-    };
-
-    if (isOpen) {
-      window.addEventListener('click', pageClickEvent);
-    }
-
-    return () => {
-      window.removeEventListener('click', pageClickEvent);
-    };
-  }, [isOpen, ref]);
-  return [isOpen, setIsOpen];
-}
 
 interface scoreDropDownType {
   value: string;

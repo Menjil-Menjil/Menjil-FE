@@ -4,6 +4,7 @@ import {useContext} from "react";
 import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
+import {useForm} from "react-hook-form";
 
 export const TestDiv = styled.div`
   width: 110px;
@@ -13,7 +14,7 @@ export const TestDiv = styled.div`
 `;
 
 const RegisterBasic = () => {
-  const {handleNextClick} = useContext<any>(RegisterComponentContext);
+  const {handleNextClick, user} = useContext<any>(RegisterComponentContext);
 
   return (
     <>

@@ -25,6 +25,7 @@ const RegisterComponentProvider = ({children}: {children: React.ReactNode}) => {
 
   return (
     <RegisterComponentContext.Provider value={{
+      user,
       component,
       setComponent,
       handleNextClick,
