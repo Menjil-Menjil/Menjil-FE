@@ -60,12 +60,10 @@ const RegisterComponentProvider = ({children}: {children: React.ReactNode}) => {
   return (
     <RegisterComponentContext.Provider value={{
       component, // 회원가입 단계 컴포넌트 이름
-      setComponent,
       handleNextClick, // 버튼 "다음" 클릭
       handleBackClick, // 버튼 "이전" 클릭
       register,
-      errors, // input value 에러
-      isSubmitting,
+      errors, // input value 에러 출력
       isValid, // form data 유효한 입력 완료시, true
       isDirty, // input value 유효성 검사
       handleSubmit,

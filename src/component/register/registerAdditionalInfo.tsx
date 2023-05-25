@@ -11,11 +11,11 @@ import {useContext} from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 const RegisterAdditionalInfo = () => {
-  const {handleBackClick, register, setComponent} = useContext<any>(RegisterComponentContext);
+  const {handleBackClick, register} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
-      <GoPageBtn onClick={() => setComponent("RegisterTags")}><LeftIc/></GoPageBtn>
+      <GoPageBtn onClick={() => handleBackClick("RegisterTags")}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>멘티님을 소개해주세요</span></TitleBoxDiv>
         <InputContainer>

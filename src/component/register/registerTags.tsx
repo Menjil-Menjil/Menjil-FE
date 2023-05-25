@@ -18,26 +18,26 @@ export const ExplanationP = styled.p`
   color: #6B6767;
 `;
 
-const interestList = [
-  {id: "choice_fe", value: "fe", text: "프론트엔드", style: {marginRight: "25px"}},
-  {id: "choice_be", value: "be", text: "백엔드", style: {marginRight: "25px"}},
-  {id: "choice_devops", value: "devops", text: "DevOps", style: {marginRight: "25px"}},
-  {id: "choice_ai", value: "ai", text: "AI", style: {}},
-  {id: "choice_game", value: "game", text: "게임", style: {marginRight: "25px"}},
-  {id: "choice_etc", value: "etc", text: "기타", style: {marginRight: "25px"}}
+const fieldValList = [
+  {value: "fe", text: "프론트엔드"},
+  {value: "be", text: "백엔드"},
+  {value: "devops", text: "DevOps"},
+  {value: "ai", text: "AI"},
+  {value: "game", text: "게임"},
+  {value: "etc", text: "기타"}
 ];
 
-const techStackList = [
-  {id: "choice_react", value: "react", text: "React", style: {marginRight: "25px"}},
-  {id: "choice_flutter", value: "flutter", text: "Flutter", style: {marginRight: "25px"}},
-  {id: "choice_kotlin", value: "kotlin", text: "Kotlin", style: {marginRight: "25px"}},
-  {id: "choice_swift", value: "swift", text: "Swift", style: {}},
-  {id: "choice_nodejs", value: "nodejs", text: "Node.js", style: {marginRight: "25px"}},
-  {id: "choice_spring", value: "spring", text: "Spring", style: {marginRight: "25px"}},
-  {id: "choice_unreal", value: "unreal", text: "Unreal", style: {marginRight: "25px"}},
-  {id: "choice_tensorflow", value: "tensorflow", text: "Tensorflow", style: {}},
-  {id: "choice_docker", value: "docker", text: "Docker", style: {marginRight: "25px"}},
-  {id: "choice_aws", value: "aws", text: "AWS", style: {marginRight: "25px"}},
+const techStackValList = [
+  {value: "react", text: "React"},
+  {value: "flutter", text: "Flutter"},
+  {value: "kotlin", text: "Kotlin"},
+  {value: "swift", text: "Swift"},
+  {value: "nodejs", text: "Node.js"},
+  {value: "spring", text: "Spring"},
+  {value: "unreal", text: "Unreal"},
+  {value: "tensorflow", text: "Tensorflow"},
+  {value: "docker", text: "Docker"},
+  {value: "aws", text: "AWS"},
 ];
 
 const RegisterTags = () => {
@@ -51,30 +51,34 @@ const RegisterTags = () => {
         <InputContainer>
           <div className="titleBox">관심분야</div>
           <ExplanationP>중복으로 선택할 수 있어요</ExplanationP>
-          {interestList.map((item: any, index: any) => (
+          {fieldValList.map((item: any, index: any) => (
             <Fragment key={index}>
               <input type="checkbox"
-                     id={item.id}
-                     name="interests"
+                     id={"fields" + index}
+                     name="fields"
                      value={item.value}
                      className="selectBox"
                      {...register("fieldList", {required: true})}/>
-              <label htmlFor={item.id} style={item.style}>{item.text}</label>
+              <label htmlFor={"fields" + index}
+                     style={ // 4열만 오른쪽 여백 없음
+                (index+1)%4==0 ? {} : {marginRight: "25px"}}>{item.text}</label>
             </Fragment>
           ))}
         </InputContainer>
         <InputContainer>
           <div className="titleBox" >기술스택</div>
           <div className="subtitleBox">인기/추천 기술스택</div>
-          {techStackList.map((item: any, index: any) => (
+          {techStackValList.map((item: any, index: any) => (
             <Fragment key={index}>
               <input type="checkbox"
-                     id={item.id}
-                     name="tech_stack"
+                     id={"techStack" + index}
+                     name="techStack"
                      value={item.value}
                      className="selectBox"
                      {...register("techStackList", {required: true})}/>
-              <label htmlFor={item.id} style={item.style}>{item.text}</label>
+              <label htmlFor={"techStack" + index}
+                     style={ // 4열만 오른쪽 여백 없음
+                       (index+1)%4==0 ? {} : {marginRight: "25px"}}>{item.text}</label>
             </Fragment>
           ))}
           <div className="subtitleBox" style={{marginTop: "30px"}}>내가 찾는 기술스택이 없다면?</div>

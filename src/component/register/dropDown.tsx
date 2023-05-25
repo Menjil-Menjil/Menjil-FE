@@ -76,15 +76,15 @@ interface scoreDropDownType {
   setScoreNumber: any;
   setIsOpen: any;
 }
-export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
-  const ValueClick = () => {
-    setScoreNumber(value)
-    setIsOpen(!isOpen)
-  }
-  return(
-    <li onClick={ValueClick}>{value}</li>
-  )
-}
+// export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
+//   const ValueClick = () => {
+//     setScoreNumber(value)
+//     setIsOpen(!isOpen)
+//   }
+//   return(
+//     <li onClick={ValueClick}>{value}</li>
+//   )
+// }
 
 interface propsType {
   id: string;
@@ -96,21 +96,24 @@ interface propsType {
 
 const DropDown = ({id, valueList, placeHolder, widthVal, isRequired}: propsType) => {
   const {register, setValue, watch} = useContext<any>(RegisterComponentContext);
+  // watch : 유저 객체에 저장된 value 가져오기 - "다음"버튼으로 컴포넌트 이동해도 이전 값 불러와서 유지
 
   const dropDownRef = useRef();
   const [dropDownValue, setDropDownValue] = useState(watch(id));
   //const valueList = ["1", "2", "3", "4"]
 
+  // 배경 클릭 감지하여 드롭다운 창 닫기
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+
   const selectOnChange = (e: any) => {
     setIsOpen(!isOpen)
     //setValue(dropDownValue)
   }
 
   const valueOnClick = (value: any) => {
-    setDropDownValue(value)
+    setDropDownValue(value) // input value 업데이트
     setIsOpen(!isOpen)
-    setValue(id, value)
+    setValue(id, value) // 유저 폼 객체의 "id"항목에 value 저장
   }
 
   return(
