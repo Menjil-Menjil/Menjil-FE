@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
-const useDetectClose = (ref, initialState) => {
+const useDetectClose = (ref: any, initialState: any) => {
     const [isOpen, setIsOpen] = useState(initialState);
 
     useEffect(() => {
-        const pageClickEvent = e => {
+        const pageClickEvent = (e: any) => {
           if (ref.current && !ref.current.contains(e.target)) {
             setIsOpen(!isOpen);
           }

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import {FormContainerDiv, GoPageBtn, InputContainer, TitleBoxDiv} from "@/component/register/register.style";
 import RightIc from "@/img/ic_arrow_right.svg";
 import LeftIc from "@/img/ic_arrow_left.svg";
-import {useContext} from "react";
+import {Fragment, useContext} from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const ExplanationP = styled.p`
@@ -41,31 +41,41 @@ const techStackList = [
 ];
 
 const RegisterTags = () => {
-  const {setComponent} = useContext<any>(RegisterComponentContext);
+  const {handleNextClick, handleBackClick, register, isValid} = useContext<any>(RegisterComponentContext);
 
   return (
     <>
-      <GoPageBtn onClick={() => setComponent("RegisterEducation")}><LeftIc/></GoPageBtn>
+      <GoPageBtn onClick={() => handleBackClick("RegisterEducation")}><LeftIc/></GoPageBtn>
       <FormContainerDiv>
         <TitleBoxDiv><span>관심 분야를 알려주세요</span></TitleBoxDiv>
         <InputContainer>
           <div className="titleBox">관심분야</div>
           <ExplanationP>중복으로 선택할 수 있어요</ExplanationP>
-          {interestList.map((item: any) => (
-            <>
-              <input type="checkbox" id={item.id} name="interests" value={item.value} className="selectBox"/>
+          {interestList.map((item: any, index: any) => (
+            <Fragment key={index}>
+              <input type="checkbox"
+                     id={item.id}
+                     name="interests"
+                     value={item.value}
+                     className="selectBox"
+                     {...register("fieldList", {required: true})}/>
               <label htmlFor={item.id} style={item.style}>{item.text}</label>
-            </>
+            </Fragment>
           ))}
         </InputContainer>
         <InputContainer>
           <div className="titleBox" >기술스택</div>
           <div className="subtitleBox">인기/추천 기술스택</div>
-          {techStackList.map((item: any) => (
-            <>
-              <input type="checkbox" id={item.id} name="tech_stack" value={item.value} className="selectBox"/>
+          {techStackList.map((item: any, index: any) => (
+            <Fragment key={index}>
+              <input type="checkbox"
+                     id={item.id}
+                     name="tech_stack"
+                     value={item.value}
+                     className="selectBox"
+                     {...register("techStackList", {required: true})}/>
               <label htmlFor={item.id} style={item.style}>{item.text}</label>
-            </>
+            </Fragment>
           ))}
           <div className="subtitleBox" style={{marginTop: "30px"}}>내가 찾는 기술스택이 없다면?</div>
           <div className="searchContainer">
@@ -75,7 +85,7 @@ const RegisterTags = () => {
           </div>
         </InputContainer>
       </FormContainerDiv>
-      <GoPageBtn onClick={() => setComponent("RegisterAdditionalInfo")}><RightIc/></GoPageBtn>
+      <GoPageBtn type="submit" disabled={!isValid} onClick={() => handleNextClick("RegisterAdditionalInfo")}><RightIc/></GoPageBtn>
     </>
   );
 };

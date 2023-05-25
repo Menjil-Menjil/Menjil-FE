@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import DownIc from "@/img/ic_dropdown.svg"
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import useDetectClose from "@/hooks/useDetectClose";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const DropDownBox = styled.div`
   height: 60px;
@@ -90,23 +91,44 @@ interface propsType {
   placeHolder: string;
   valueList: any;
   widthVal: string;
+  isRequired: boolean;
 }
 
-const DropDown = ({id, valueList, placeHolder, widthVal}: propsType) => {
+const DropDown = ({id, valueList, placeHolder, widthVal, isRequired}: propsType) => {
+  const {register, setValue, watch} = useContext<any>(RegisterComponentContext);
+
   const dropDownRef = useRef();
-  const [dropDownValue, setDropDownValue] = useState("");
+  const [dropDownValue, setDropDownValue] = useState(watch(id));
   //const valueList = ["1", "2", "3", "4"]
 
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+  const selectOnChange = (e: any) => {
+    setIsOpen(!isOpen)
+    //setValue(dropDownValue)
+  }
+
+  const valueOnClick = (value: any) => {
+    setDropDownValue(value)
+    setIsOpen(!isOpen)
+    setValue(id, value)
+  }
 
   return(
     <DropDownBox ref={dropDownRef} style={{width: widthVal}}>
-      <input id={id} type="checkbox"
+      <input id={id}
+             type="checkbox"
              className="input"
-             onChange={() => setIsOpen(!isOpen)}
-             checked={isOpen} value={dropDownValue}/>
+             // onChange={() => {
+             //   setValue(id, dropDownValue)
+             //   setIsOpen(!isOpen)
+             // }}
+             checked={isOpen}
+             value={dropDownValue}
+             {...register(id, {
+               onChange: selectOnChange
+             })}/>
       <label className="dropdownLabel" htmlFor={id}>
-        {dropDownValue=="" &&
+        {dropDownValue==undefined &&
           <div>{placeHolder}</div>
         }
         <div>{dropDownValue}</div>
@@ -116,7 +138,8 @@ const DropDown = ({id, valueList, placeHolder, widthVal}: propsType) => {
         <div className="content">
           <ul>
             {valueList.map((value: any, index: any) => (
-              <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              // <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <li key={index} onClick={(e) => valueOnClick(value)}>{value}</li>
             ))}
           </ul>
         </div>

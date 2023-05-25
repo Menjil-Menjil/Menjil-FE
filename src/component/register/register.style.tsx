@@ -7,12 +7,13 @@ export const GoPageBtn = styled.button`
   background-color: transparent;
   border: none;
   margin-top: 279px;
-  cursor: pointer;
   * {
     fill: var(--highlighted-element);
+    cursor: pointer;
   }
   :disabled * {
     fill: #D3D3D3;
+    cursor: auto;
   }
 `;
 
@@ -64,6 +65,14 @@ export const InputContainer = styled.div`
     border-color: var(--highlighted-element);
     outline: none;
   }
+  input[aria-invalid="true"] {
+    border-color: #EF2626;
+    outline: none;
+  }
+  input[aria-invalid="false"] {
+    border-color: #2C8F47;
+    outline: none;
+  }
   .inputBox {
     margin-top: 15px;
   }
@@ -84,10 +93,12 @@ export const InputContainer = styled.div`
     font-size: 16px;
     line-height: 19px;
     text-align: center;
-    color: #6B6565;
+    color: black;
   }
   .nicknameCheckBtn:disabled {
+    cursor: auto;
     background: #E3E2E2;
+    color: #6B6565;
   }
   .nicknameCheckTextDiv {
     margin: 24px 0 0 20px;
@@ -96,7 +107,7 @@ export const InputContainer = styled.div`
     font-size: 16px;
     line-height: 19px;
     text-align: center;
-    color: #2C8F47;
+    color: #EF2626;
   }
   .selectBox {
     display: none;

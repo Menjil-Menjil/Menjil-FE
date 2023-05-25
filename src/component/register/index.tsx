@@ -41,7 +41,7 @@ export const PageInformationDiv = styled.div`
 `;
 
 const Register = () => {
-  const {component} = useContext<any>(RegisterComponentContext);
+  const {component, handleSubmit, onValid} = useContext<any>(RegisterComponentContext);
   const registerProgressNumber = (registerStep:string) => {
     if (registerStep==="RegisterBasic") {
       return 33;
@@ -62,7 +62,9 @@ const Register = () => {
       {(component==="RegisterAdditionalInfo") &&
           <PageInformationDiv>언제든 수정할 수 있으니 자유롭게 입력해주세요<br/>자세히 입력하면 더 정확한 멘토링을 받을 수 있어요</PageInformationDiv>
       }
-      <RegisterInputContainerForm>
+      <RegisterInputContainerForm onSubmit={
+        // handleSubmit함수를 onSubmit props로 보내준다
+        handleSubmit(onValid)}>
         {component === "RegisterBasic" && <RegisterBasic/>}
         {component === "RegisterEducation" && <RegisterEducation/>}
         {component === "RegisterTags" && <RegisterTags/>}
