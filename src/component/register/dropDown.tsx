@@ -131,7 +131,7 @@ const DropDown = ({id, valueList, placeHolder, widthVal, isRequired}: propsType)
                onChange: selectOnChange
              })}/>
       <label className="dropdownLabel" htmlFor={id}>
-        {dropDownValue==undefined &&
+        {(dropDownValue==undefined||dropDownValue=="") &&
           <div>{placeHolder}</div>
         }
         <div>{dropDownValue}</div>
