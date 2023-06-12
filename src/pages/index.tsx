@@ -1,22 +1,9 @@
-import styled from "@emotion/styled";
-import { Inter } from "next/font/google";
+import Main from "@/pages/main";
 
-const inter = Inter({ subsets: ["latin"] });
-
-const StyledWrap = styled.div`
-  background-color: hotpink;
-  div {
-    font-size: 24px;
-  }
-`;
-
-const Home = () => {
+export default function Home() {
   return (
-    <StyledWrap>
-      <h2>블로그 Home</h2>
-      <div>Blog</div>
-    </StyledWrap>
+    <>
+      <Main />
+    </>
   );
-};
-
-export default Home;
+}
