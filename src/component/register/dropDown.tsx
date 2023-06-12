@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import DownIc from "@/img/ic_dropdown.svg"
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
+import useDetectClose from "@/hooks/useDetectClose";
+import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const DropDownBox = styled.div`
   height: 60px;
@@ -68,65 +70,68 @@ export const DropDownBox = styled.div`
   }
 `;
 
-export const useDetectClose = (ref, initialState) => {
-  const [isOpen, setIsOpen] = useState(initialState);
-
-  useEffect(() => {
-    const pageClickEvent = (e: any) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setIsOpen(!isOpen);
-      }
-    };
-
-    if (isOpen) {
-      window.addEventListener('click', pageClickEvent);
-    }
-
-    return () => {
-      window.removeEventListener('click', pageClickEvent);
-    };
-  }, [isOpen, ref]);
-  return [isOpen, setIsOpen];
-}
-
 interface scoreDropDownType {
   value: string;
   isOpen: boolean;
   setScoreNumber: any;
   setIsOpen: any;
 }
-export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
-  const ValueClick = () => {
-    setScoreNumber(value)
-    setIsOpen(!isOpen)
-  }
-  return(
-    <li onClick={ValueClick}>{value}</li>
-  )
-}
+// export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
+//   const ValueClick = () => {
+//     setScoreNumber(value)
+//     setIsOpen(!isOpen)
+//   }
+//   return(
+//     <li onClick={ValueClick}>{value}</li>
+//   )
+// }
 
 interface propsType {
   id: string;
   placeHolder: string;
   valueList: any;
   widthVal: string;
+  isRequired: boolean;
 }
 
-const DropDown = ({id, valueList, placeHolder, widthVal}: propsType) => {
+const DropDown = ({id, valueList, placeHolder, widthVal, isRequired}: propsType) => {
+  const {register, setValue, watch} = useContext<any>(RegisterComponentContext);
+  // watch : 유저 객체에 저장된 value 가져오기 - "다음"버튼으로 컴포넌트 이동해도 이전 값 불러와서 유지
+
   const dropDownRef = useRef();
-  const [dropDownValue, setDropDownValue] = useState("");
+  const [dropDownValue, setDropDownValue] = useState(watch(id));
   //const valueList = ["1", "2", "3", "4"]
 
+  // 배경 클릭 감지하여 드롭다운 창 닫기
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+
+  const selectOnChange = (e: any) => {
+    setIsOpen(!isOpen)
+    //setValue(dropDownValue)
+  }
+
+  const valueOnClick = (value: any) => {
+    setDropDownValue(value) // input value 업데이트
+    setIsOpen(!isOpen)
+    setValue(id, value) // 유저 폼 객체의 "id"항목에 value 저장
+  }
 
   return(
     <DropDownBox ref={dropDownRef} style={{width: widthVal}}>
-      <input id={id} type="checkbox"
+      <input id={id}
+             type="checkbox"
              className="input"
-             onChange={() => setIsOpen(!isOpen)}
-             checked={isOpen} value={dropDownValue}/>
+             // onChange={() => {
+             //   setValue(id, dropDownValue)
+             //   setIsOpen(!isOpen)
+             // }}
+             checked={isOpen}
+             value={dropDownValue}
+             {...register(id, {
+               onChange: selectOnChange
+             })}/>
       <label className="dropdownLabel" htmlFor={id}>
-        {dropDownValue=="" &&
+        {(dropDownValue==undefined||dropDownValue=="") &&
           <div>{placeHolder}</div>
         }
         <div>{dropDownValue}</div>
@@ -136,7 +141,8 @@ const DropDown = ({id, valueList, placeHolder, widthVal}: propsType) => {
         <div className="content">
           <ul>
             {valueList.map((value: any, index: any) => (
-              <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              // <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <li key={index} onClick={(e) => valueOnClick(value)}>{value}</li>
             ))}
           </ul>
         </div>
