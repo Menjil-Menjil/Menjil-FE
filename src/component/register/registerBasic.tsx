@@ -20,11 +20,22 @@ export const TestDiv = styled.div`
 `;
 
 const RegisterBasic = () => {
-  const { handleNextClick, register, errors, isValid, isDirty } =
+  const { handleNextClick, register, errors, isValid, isDirty, trigger } =
     useContext<any>(RegisterComponentContext);
+
+  const [duplicateName, setDuplicateName] = useState<string>("");
+
+  const duplicateColor = () => {
+    //input 박스 색상 변경
+    if (errors.nickname !== undefined) return 1; //잘못된 닉네임
+    if (duplicateName !== "") return 2; //중복확인 성공 시
+    else return 3; //둘다 아닌 경우
+  };
 
   const [nicknameCheck, setNameCheck] = useState<string>("");
   const nicknameChange = (e: any) => {
+    trigger("nickname");
+    setDuplicateName("");
     return setNameCheck(e.target.value);
   };
 
@@ -34,7 +45,8 @@ const RegisterBasic = () => {
         `https://www.menjil-menjil.com/users/check-nickname?nickname=${nicknameCheck}`
       )
       .then((res) => {
-        console.log(res);
+        setDuplicateName(res.data.status);
+        console.log(res.data.status);
       });
     return res;
   };
@@ -55,9 +67,7 @@ const RegisterBasic = () => {
             placeholder="특수문자 제외 10자 이하"
             className="inputBox"
             style={{ width: "367px", marginRight: "36px" }}
-            aria-invalid={
-              !isDirty ? undefined : errors.nickname ? "true" : "false"
-            }
+            aria-invalid={duplicateColor()}
             {...register("nickname", {
               required: true,
               minLength: {
@@ -82,25 +92,32 @@ const RegisterBasic = () => {
         <InputContainer>
           <div className="titleBox">생년월일</div>
           <input
+            list="fruitslist"
             type="number"
             placeholder="년(4자리)"
             className="inputBox"
+            min="1900"
+            max="2900"
             style={{ width: "144px", marginRight: "20px" }}
             {...register("birthYear", {
               required: true,
-              min: 1900,
-              max: 2900,
             })}
           />
+          <datalist id="fruitslist">
+            <option value="1900" />
+            <option value="2000" />
+            <option value="2100" />
+            <option value="2200" />
+          </datalist>
           <input
             type="number"
             placeholder="월"
             className="inputBox"
+            min="1"
+            max="12"
             style={{ width: "100px" }}
             {...register("birthMonth", {
               required: true,
-              min: 1,
-              max: 12,
             })}
           />
         </InputContainer>
@@ -108,18 +125,23 @@ const RegisterBasic = () => {
           <button
             type="button"
             className="nicknameCheckBtn"
-            disabled={!isDirty ? true : !!errors.nickname}
+            disabled={nicknameCheck === "" ? true : !!errors.nickname}
             onClick={duplicateCheck}
           >
             중복확인
           </button>
         </InputContainer>
         <InputContainer>
-          <div className="nicknameCheckTextDiv">
-            {
-              // validation fail 시 에러 메세지 표시
-              errors?.nickname?.message
+          <div
+            className="nicknameCheckTextDiv"
+            style={
+              duplicateName === "" ? { color: "#ef2626" } : { color: "#2c8f47" }
             }
+          >
+            {/* // validation fail 시 에러 메세지 표시 */}
+            {duplicateName === ""
+              ? errors?.nickname?.message
+              : "사용 가능합니다."}
           </div>
         </InputContainer>
         <InputContainer>
@@ -162,7 +184,7 @@ const RegisterBasic = () => {
       </FormContainerDiv>
       <GoPageBtn
         type="submit"
-        disabled={!isValid}
+        disabled={!isValid || duplicateName === ""}
         onClick={() => handleNextClick("RegisterEducation")}
       >
         <RightIc />

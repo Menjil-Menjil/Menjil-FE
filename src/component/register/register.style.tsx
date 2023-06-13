@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
-import RightIc from "@/img/ic_arrow_right.svg"
+import styled from "@emotion/styled";
+import RightIc from "@/img/ic_arrow_right.svg";
 
 export const GoPageBtn = styled.button`
   width: 30px;
@@ -12,11 +12,10 @@ export const GoPageBtn = styled.button`
     cursor: pointer;
   }
   :disabled * {
-    fill: #D3D3D3;
+    fill: #d3d3d3;
     cursor: auto;
   }
 `;
-
 export const FormContainerDiv = styled.div`
   width: 667px;
   height: 100%;
@@ -31,11 +30,11 @@ export const TitleBoxDiv = styled.div`
   line-height: 43px;
   > span {
     padding: 0 0.3em;
-    background: linear-gradient(to top, #FBBC053B 50%, transparent 50%);
+    background: linear-gradient(to top, #fbbc053b 50%, transparent 50%);
   }
 `;
 export const InputContainer = styled.div`
-  .titleBox{
+  .titleBox {
     margin-top: 50px;
     font-style: normal;
     font-weight: 700;
@@ -65,12 +64,16 @@ export const InputContainer = styled.div`
     border-color: var(--highlighted-element);
     outline: none;
   }
-  input[aria-invalid="true"] {
-    border-color: #EF2626;
+  input[aria-invalid="1"] {
+    border-color: #ef2626;
     outline: none;
   }
-  input[aria-invalid="false"] {
-    border-color: #2C8F47;
+  input[aria-invalid="2"] {
+    border-color: #2c8f47;
+    outline: none;
+  }
+  input[aria-invalid="3"] {
+    border-color: #000000;
     outline: none;
   }
   .inputBox {
@@ -85,7 +88,7 @@ export const InputContainer = styled.div`
     margin-top: 15px;
     margin-bottom: 12px;
     cursor: pointer;
-    background: #FF8A00A6;
+    background: #ff8a00a6;
     border: none;
     border-radius: 12px;
     font-style: normal;
@@ -97,8 +100,8 @@ export const InputContainer = styled.div`
   }
   .nicknameCheckBtn:disabled {
     cursor: auto;
-    background: #E3E2E2;
-    color: #6B6565;
+    background: #e3e2e2;
+    color: #6b6565;
   }
   .nicknameCheckTextDiv {
     margin: 24px 0 0 20px;
@@ -107,7 +110,6 @@ export const InputContainer = styled.div`
     font-size: 16px;
     line-height: 19px;
     text-align: center;
-    color: #EF2626;
   }
   .selectBox {
     display: none;
@@ -128,7 +130,7 @@ export const InputContainer = styled.div`
     font-size: 20px;
     line-height: 24px;
     cursor: pointer;
-    color: #302D2D;
+    color: #302d2d;
   }
   /*.selectBox + label:active {
     background-clip: content-box;
@@ -141,14 +143,14 @@ export const InputContainer = styled.div`
   }
   .addBtn {
     height: 60px;
-    background: #E3E2E2;
+    background: #e3e2e2;
     border: none;
     border-radius: 12px;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    color: #6B6565;
+    color: #6b6565;
   }
   .scoreRadioContainer {
     width: 300px;
@@ -204,7 +206,7 @@ export const InputContainer = styled.div`
     .searchBox::placeholder {
       color: var(--input-placeholder);
     }
-    > input[type=submit]{
+    > input[type="submit"] {
       display: none;
     }
   }
@@ -253,6 +255,6 @@ export const SaveBtnContainer = styled.div`
   }
   .afterBtn {
     width: 210px;
-    background: #EFEFEF;
+    background: #efefef;
   }
 `;
