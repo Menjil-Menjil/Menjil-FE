@@ -149,7 +149,7 @@
   const name = "Capt. Janeway";
 
   // good
-  const name = "Capt. Janeway";
+  const name = 'Capt. Janeway';
   ```
 
 2. 프로그램에서 문자열을 생성하는 경우는 문자열 연결이 아닌 `template strings`를 이용한다.
