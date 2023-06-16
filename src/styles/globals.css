@@ -2,61 +2,51 @@
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Black.woff") format("woff");
   font-weight: 900;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-ExtraBold.woff") format("woff");
   font-weight: 800;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Bold.woff") format("woff");
   font-weight: 700;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-SemiBold.woff") format("woff");
   font-weight: 600;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Medium.woff") format("woff");
-
   font-weight: 500;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Regular.woff") format("woff");
   font-weight: 400;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Light.woff") format("woff");
   font-weight: 300;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-ExtraLight.woff") format("woff");
   font-weight: 200;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/pretendard/Pretendard-Thin.woff") format("woff");
   font-weight: 100;
-  /* 추가적인 폰트 속성 설정 (e.g., font-weight, font-style) */
 }
 
-/* body {
-  font-family: "Pretendard", sans-serif;
-} */
+* {
+  font-family: "Pretendard";
+}

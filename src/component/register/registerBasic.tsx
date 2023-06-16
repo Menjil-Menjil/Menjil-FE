@@ -22,13 +22,23 @@ const RegisterBasic = () => {
   const { handleNextClick, register, errors, isValid, isDirty, trigger } =
     useContext<any>(RegisterComponentContext);
 
-  const [duplicateName, setDuplicateName] = useState<string>("");
+  const [duplicateName, setDuplicateName] = useState<any>("");
 
   const duplicateColor = () => {
     //input 박스 색상 변경
-    if (errors.nickname !== undefined) return 1; //잘못된 닉네임
+    if (errors.nickname !== undefined || duplicateName === 409) return 1; //잘못된 닉네임
     if (duplicateName !== "") return 2; //중복확인 성공 시
     else return 3; //둘다 아닌 경우
+  };
+  const checkMessage = () => {
+    switch (duplicateName) {
+      case "OK":
+        return "사용할 수 있는 닉네임입니다";
+      case 409:
+        return "이미 사용중인 닉네임입니다";
+      default:
+        return errors?.nickname?.message;
+    }
   };
 
   const [nicknameCheck, setNameCheck] = useState<string>("");
@@ -38,16 +48,19 @@ const RegisterBasic = () => {
     return setNameCheck(e.target.value);
   };
 
+  setTimeout(() => console.log(duplicateName), 2000);
   const duplicateCheck = async () => {
-    const res = await axios
-      .get(
-        `https://www.menjil-menjil.com/users/check-nickname?nickname=${nicknameCheck}`
-      )
-      .then((res) => {
-        setDuplicateName(res.data.status);
-        console.log(res.data.status);
-      });
-    return res;
+    try {
+      const res = await axios
+        .get(
+          `https://www.menjil-menjil.com/users/check-nickname?nickname=${nicknameCheck}`
+        )
+        .then((res) => {
+          setDuplicateName(res.data.status);
+        });
+    } catch (e: any) {
+      setDuplicateName(e.response.status);
+    }
   };
 
   return (
@@ -127,13 +140,13 @@ const RegisterBasic = () => {
           <div
             className="nicknameCheckTextDiv"
             style={
-              duplicateName === "" ? { color: "#ef2626" } : { color: "#2c8f47" }
+              duplicateName !== "OK"
+                ? { color: "#ef2626" }
+                : { color: "#2c8f47" }
             }
           >
             {/* // validation fail 시 에러 메세지 표시 */}
-            {duplicateName === ""
-              ? errors?.nickname?.message
-              : "사용할 수 있는 닉네임입니다"}
+            {checkMessage()}
           </div>
         </InputContainer>
         <InputContainer>
@@ -176,7 +189,7 @@ const RegisterBasic = () => {
       </FormContainerDiv>
       <GoPageBtn
         type="submit"
-        disabled={!isValid || duplicateName === ""}
+        disabled={!isValid || duplicateName !== "OK"}
         onClick={() => handleNextClick("RegisterEducation")}
       >
         <RightIc />

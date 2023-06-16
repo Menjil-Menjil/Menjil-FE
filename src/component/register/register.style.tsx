@@ -25,7 +25,6 @@ export const FormContainerDiv = styled.div`
 export const TitleBoxDiv = styled.div`
   width: 100%;
   margin-bottom: 50px;
-  font-family: "Pretendard";
   font-weight: 700;
   font-size: 36px;
   line-height: 43px;
@@ -45,7 +44,6 @@ export const TitleBoxDiv = styled.div`
 export const InputContainer = styled.div`
   .titleBox {
     margin-top: 50px;
-    font-family: "Pretendard";
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
@@ -53,7 +51,6 @@ export const InputContainer = styled.div`
   .subtitleBox {
     color: #525252;
     margin-top: 15px;
-    font-family: "Pretendard";
     font-weight: 700;
     font-size: 20px;
     line-height: 30px;
@@ -64,7 +61,6 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -87,7 +83,6 @@ export const InputContainer = styled.div`
   }
   .inputBox {
     margin-top: 15px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
   }
@@ -103,7 +98,6 @@ export const InputContainer = styled.div`
     background: #ff8a00a6;
     border: none;
     border-radius: 12px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -117,7 +111,6 @@ export const InputContainer = styled.div`
   }
   .nicknameCheckTextDiv {
     margin: 24px 0 0 20px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -137,7 +130,6 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -158,7 +150,6 @@ export const InputContainer = styled.div`
     background: #e3e2e2;
     border: none;
     border-radius: 12px;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -183,7 +174,6 @@ export const InputContainer = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 10px;
-      font-family: "Pretendard";
       font-weight: 500;
       font-size: 20px;
       line-height: 24px;
@@ -233,7 +223,6 @@ export const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -255,7 +244,6 @@ export const SaveBtnContainer = styled.div`
     height: 60px;
     border: none;
     border-radius: 12px;
-    font-family: "Pretendard";
     font-weight: 600;
     font-size: 24px;
     line-height: 29px;
@@ -268,7 +256,6 @@ export const SaveBtnContainer = styled.div`
   .afterBtn {
     width: 210px;
     background: #efefef;
-    font-family: "Pretendard";
     font-weight: 500;
     font-size: 24px;
     color: #646464;
