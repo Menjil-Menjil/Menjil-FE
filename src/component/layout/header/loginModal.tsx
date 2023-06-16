@@ -3,6 +3,7 @@ import Image from "next/image";
 import closeIc from "@/img/ic_close.png";
 import googleIc from "@/img/ic_google.png";
 import kakaoIc from "@/img/ic_kakao.png";
+import Link from "next/link";
 
 // 모달 창 뒷배경
 export const LoginModalBox = styled.div`
@@ -136,7 +137,7 @@ const LoginModal = ({ closeModal }: clickModalType) => {
               <br />
               멘토를 만나는 곳
             </div>
-            <a
+            <Link
               className="google"
               href="https://www.menjil-menjil.com/auth/google"
             >
@@ -148,8 +149,8 @@ const LoginModal = ({ closeModal }: clickModalType) => {
                 height={18}
               />
               <div className="googleText">구글 로그인</div>
-            </a>
-            <a
+            </Link>
+            <Link
               className="kakao"
               href="https://www.menjil-menjil.com/auth/kakao"
             >
@@ -161,13 +162,13 @@ const LoginModal = ({ closeModal }: clickModalType) => {
                 height={18}
               />
               <div className="kakaoText">카카오 로그인</div>
-            </a>
+            </Link>
             <div className="loginState">
               <input type="checkbox" id="keepLoggedIn" name="keepLoggedIn" />
               <label htmlFor="keepLoggedIn">로그인 상태 유지</label>
             </div>
             <div className="register">
-              <a href="/register">아직 회원이 아니신가요?</a>
+              <Link href="/register">아직 회원이 아니신가요?</Link>
             </div>
           </div>
         </div>
