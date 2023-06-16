@@ -1,7 +1,6 @@
 import LeftIc from "@/img/ic_arrow_left.svg";
 import RightIc from "@/img/ic_arrow_right.svg";
 import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import {
   FormContainerDiv,
   GoPageBtn,
@@ -92,7 +91,6 @@ const RegisterBasic = () => {
         <InputContainer>
           <div className="titleBox">생년월일</div>
           <input
-            list="fruitslist"
             type="number"
             placeholder="년(4자리)"
             className="inputBox"
@@ -103,12 +101,6 @@ const RegisterBasic = () => {
               required: true,
             })}
           />
-          <datalist id="fruitslist">
-            <option value="1900" />
-            <option value="2000" />
-            <option value="2100" />
-            <option value="2200" />
-          </datalist>
           <input
             type="number"
             placeholder="월"
@@ -141,7 +133,7 @@ const RegisterBasic = () => {
             {/* // validation fail 시 에러 메세지 표시 */}
             {duplicateName === ""
               ? errors?.nickname?.message
-              : "사용 가능합니다."}
+              : "사용할 수 있는 닉네임입니다"}
           </div>
         </InputContainer>
         <InputContainer>

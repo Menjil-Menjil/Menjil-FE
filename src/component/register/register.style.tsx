@@ -23,20 +23,31 @@ export const FormContainerDiv = styled.div`
   flex-wrap: wrap;
 `;
 export const TitleBoxDiv = styled.div`
+  width: 100%;
+  position: relative;
   margin-bottom: 50px;
-  font-style: normal;
+  font-family: "Pretendard";
   font-weight: 700;
   font-size: 36px;
   line-height: 43px;
+  display: inline-flex;
   > span {
     padding: 0 0.3em;
     background: linear-gradient(to top, #fbbc053b 50%, transparent 50%);
+  }
+  .afterWrite {
+    position: absolute;
+    right: 0;
+    font-weight: 600;
+    font-size: 18px;
+    color: #707070;
+    text-decoration-line: underline;
   }
 `;
 export const InputContainer = styled.div`
   .titleBox {
     margin-top: 50px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
@@ -44,7 +55,7 @@ export const InputContainer = styled.div`
   .subtitleBox {
     color: #525252;
     margin-top: 15px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 700;
     font-size: 20px;
     line-height: 30px;
@@ -55,7 +66,7 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -73,11 +84,14 @@ export const InputContainer = styled.div`
     outline: none;
   }
   input[aria-invalid="3"] {
-    border-color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     outline: none;
   }
   .inputBox {
     margin-top: 15px;
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-size: 20px;
   }
   .inputBox::placeholder {
     color: var(--input-placeholder);
@@ -91,7 +105,7 @@ export const InputContainer = styled.div`
     background: #ff8a00a6;
     border: none;
     border-radius: 12px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -105,7 +119,7 @@ export const InputContainer = styled.div`
   }
   .nicknameCheckTextDiv {
     margin: 24px 0 0 20px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -117,7 +131,7 @@ export const InputContainer = styled.div`
   .selectBox + label {
     width: 140px;
     height: 60px;
-    margin-top: 15px;
+    margin-top: 20px;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -125,7 +139,7 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -146,7 +160,7 @@ export const InputContainer = styled.div`
     background: #e3e2e2;
     border: none;
     border-radius: 12px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -171,7 +185,7 @@ export const InputContainer = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 10px;
-      font-style: normal;
+      font-family: "Pretendard";
       font-weight: 500;
       font-size: 20px;
       line-height: 24px;
@@ -221,7 +235,7 @@ export const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  font-style: normal;
+  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -243,7 +257,7 @@ export const SaveBtnContainer = styled.div`
     height: 60px;
     border: none;
     border-radius: 12px;
-    font-style: normal;
+    font-family: "Pretendard";
     font-weight: 600;
     font-size: 24px;
     line-height: 29px;
@@ -256,5 +270,9 @@ export const SaveBtnContainer = styled.div`
   .afterBtn {
     width: 210px;
     background: #efefef;
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-size: 24px;
+    color: #646464;
   }
 `;

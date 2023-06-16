@@ -15,6 +15,7 @@ interface UserFormInterface {
   score: any; // 학점
   scoreRange: string; // "초반", "중반", "후반"
   graduateDate: any; // 졸업년도. YYYY. Date가 아닌 int로 처리
+  graduateMonth: any;
   major: string; // 본전공
   // subMajor: string // 복수전공, 값이 없으면 null
   // minor: string // 부전공, 값이 없으면 null

@@ -41,7 +41,7 @@ export const LoginModalContent = styled.div`
     background-color: #ffffff;
     .copy {
       margin: 71px;
-      font-style: normal;
+      font-family: "Pretendard";
       font-weight: 700;
       font-size: 24px;
       line-height: 36px;
@@ -77,7 +77,7 @@ export const LoginModalContent = styled.div`
     .loginState {
       width: 300px;
       margin-top: 11px;
-      font-style: normal;
+      font-family: "Pretendard";
       font-weight: 400;
       font-size: 15px;
       line-height: 18px;

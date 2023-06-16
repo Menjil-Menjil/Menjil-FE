@@ -12,7 +12,7 @@ export const DropDownBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   position: relative;
-  font-style: normal;
+  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
