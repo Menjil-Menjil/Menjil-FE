@@ -106,7 +106,9 @@ const DropDown = ({
   );
   // watch : 유저 객체에 저장된 value 가져오기 - "다음"버튼으로 컴포넌트 이동해도 이전 값 불러와서 유지
 
-  const dropDownRef = useRef();
+  // 타입 오류 해결: https://velog.io/@dev_hikun/react-%EC%9E%90%EC%A3%BC%EA%B2%AA%EB%8A%94-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95
+  const dropDownRef = useRef(null);
+
   const [dropDownValue, setDropDownValue] = useState(watch(id));
   //const valueList = ["1", "2", "3", "4"]
 
