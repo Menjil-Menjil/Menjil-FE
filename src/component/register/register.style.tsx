@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
-import RightIc from "@/img/ic_arrow_right.svg"
+import styled from "@emotion/styled";
+import RightIc from "@/img/ic_arrow_right.svg";
 
 export const GoPageBtn = styled.button`
   width: 30px;
@@ -12,11 +12,10 @@ export const GoPageBtn = styled.button`
     cursor: pointer;
   }
   :disabled * {
-    fill: #D3D3D3;
+    fill: #d3d3d3;
     cursor: auto;
   }
 `;
-
 export const FormContainerDiv = styled.div`
   width: 667px;
   height: 100%;
@@ -24,20 +23,27 @@ export const FormContainerDiv = styled.div`
   flex-wrap: wrap;
 `;
 export const TitleBoxDiv = styled.div`
+  width: 100%;
   margin-bottom: 50px;
-  font-style: normal;
   font-weight: 700;
   font-size: 36px;
   line-height: 43px;
+  display: inline-flex;
+  justify-content: space-between;
   > span {
     padding: 0 0.3em;
-    background: linear-gradient(to top, #FBBC053B 50%, transparent 50%);
+    background: linear-gradient(to top, #fbbc053b 50%, transparent 50%);
+  }
+  .afterWrite {
+    font-weight: 600;
+    font-size: 18px;
+    color: #707070;
+    text-decoration-line: underline;
   }
 `;
 export const InputContainer = styled.div`
-  .titleBox{
+  .titleBox {
     margin-top: 50px;
-    font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
@@ -45,7 +51,6 @@ export const InputContainer = styled.div`
   .subtitleBox {
     color: #525252;
     margin-top: 15px;
-    font-style: normal;
     font-weight: 700;
     font-size: 20px;
     line-height: 30px;
@@ -56,7 +61,6 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
@@ -65,16 +69,22 @@ export const InputContainer = styled.div`
     border-color: var(--highlighted-element);
     outline: none;
   }
-  input[aria-invalid="true"] {
-    border-color: #EF2626;
+  input[aria-invalid="1"] {
+    border-color: #ef2626;
     outline: none;
   }
-  input[aria-invalid="false"] {
-    border-color: #2C8F47;
+  input[aria-invalid="2"] {
+    border-color: #2c8f47;
+    outline: none;
+  }
+  input[aria-invalid="3"] {
+    border: 1px solid rgba(0, 0, 0, 0.5);
     outline: none;
   }
   .inputBox {
     margin-top: 15px;
+    font-weight: 500;
+    font-size: 20px;
   }
   .inputBox::placeholder {
     color: var(--input-placeholder);
@@ -85,10 +95,9 @@ export const InputContainer = styled.div`
     margin-top: 15px;
     margin-bottom: 12px;
     cursor: pointer;
-    background: #FF8A00A6;
+    background: #ff8a00a6;
     border: none;
     border-radius: 12px;
-    font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -97,17 +106,15 @@ export const InputContainer = styled.div`
   }
   .nicknameCheckBtn:disabled {
     cursor: auto;
-    background: #E3E2E2;
-    color: #6B6565;
+    background: #e3e2e2;
+    color: #6b6565;
   }
   .nicknameCheckTextDiv {
     margin: 24px 0 0 20px;
-    font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     text-align: center;
-    color: #EF2626;
   }
   .selectBox {
     display: none;
@@ -115,7 +122,7 @@ export const InputContainer = styled.div`
   .selectBox + label {
     width: 140px;
     height: 60px;
-    margin-top: 15px;
+    margin-top: 20px;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -123,12 +130,11 @@ export const InputContainer = styled.div`
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 12px;
-    font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
     cursor: pointer;
-    color: #302D2D;
+    color: #302d2d;
   }
   /*.selectBox + label:active {
     background-clip: content-box;
@@ -141,14 +147,13 @@ export const InputContainer = styled.div`
   }
   .addBtn {
     height: 60px;
-    background: #E3E2E2;
+    background: #e3e2e2;
     border: none;
     border-radius: 12px;
-    font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    color: #6B6565;
+    color: #6b6565;
   }
   .scoreRadioContainer {
     width: 300px;
@@ -169,7 +174,6 @@ export const InputContainer = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 10px;
-      font-style: normal;
       font-weight: 500;
       font-size: 20px;
       line-height: 24px;
@@ -204,7 +208,7 @@ export const InputContainer = styled.div`
     .searchBox::placeholder {
       color: var(--input-placeholder);
     }
-    > input[type=submit]{
+    > input[type="submit"] {
       display: none;
     }
   }
@@ -219,7 +223,6 @@ export const InputTextArea = styled.textarea`
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -241,7 +244,6 @@ export const SaveBtnContainer = styled.div`
     height: 60px;
     border: none;
     border-radius: 12px;
-    font-style: normal;
     font-weight: 600;
     font-size: 24px;
     line-height: 29px;
@@ -253,6 +255,9 @@ export const SaveBtnContainer = styled.div`
   }
   .afterBtn {
     width: 210px;
-    background: #EFEFEF;
+    background: #efefef;
+    font-weight: 500;
+    font-size: 24px;
+    color: #646464;
   }
 `;

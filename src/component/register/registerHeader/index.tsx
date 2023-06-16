@@ -13,32 +13,36 @@ export const ProgressBar = styled.progress`
   margin: 50px auto;
   appearance: none;
   display: flex;
-  ::-webkit-progress-bar{
+  ::-webkit-progress-bar {
     background: #f0f0f0;
     border-radius: 25px;
   }
-  ::-webkit-progress-value{
-    border-radius:25px;
+  ::-webkit-progress-value {
+    border-radius: 25px;
     background: var(--highlighted-element);
   }
-`
+`;
 export const Commentary = styled.div`
   margin-top: 5px;
-  font-style: normal;
+  line-height: 30px;
+  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
-  line-height: 30px;
 `;
 
-interface propsType{
+interface propsType {
   progressNumber: number;
 }
 
-const RegisterHeader = ({progressNumber}:propsType) => {
-  return(
+const RegisterHeader = ({ progressNumber }: propsType) => {
+  return (
     <HeaderContainer>
-      <ProgressBar value={progressNumber} max="100"/>
-      <Commentary>반갑습니다 {"최병준"}님!<br/>시작하기 전 몇 가지 정보가 필요해요</Commentary>
+      <ProgressBar value={progressNumber} max="100" />
+      <Commentary>
+        반갑습니다 {"최병준"}님!
+        <br />
+        시작하기 전 몇 가지 정보가 필요해요
+      </Commentary>
     </HeaderContainer>
   );
 };
