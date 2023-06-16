@@ -24,20 +24,18 @@ export const FormContainerDiv = styled.div`
 `;
 export const TitleBoxDiv = styled.div`
   width: 100%;
-  position: relative;
   margin-bottom: 50px;
   font-family: "Pretendard";
   font-weight: 700;
   font-size: 36px;
   line-height: 43px;
   display: inline-flex;
+  justify-content: space-between;
   > span {
     padding: 0 0.3em;
     background: linear-gradient(to top, #fbbc053b 50%, transparent 50%);
   }
   .afterWrite {
-    position: absolute;
-    right: 0;
     font-weight: 600;
     font-size: 18px;
     color: #707070;
