@@ -1,18 +1,20 @@
-FROM node:16.13.2-alpine AS builder
+FROM node:18-alpine AS base
 
+# Install dependencies only when needed
+FROM base AS deps
 RUN apk add --no-cache libc6-compat
-
-# Directory 지정
 WORKDIR /
 
 # Install dependencies
 COPY package.json ./
 COPY yarn.lock ./
-
-RUN yarn
+RUN yarn --frozen-lockfile --production;
 RUN rm -rf ./.next/cache
 
-# 필요한 모든 파일을 복사
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build
