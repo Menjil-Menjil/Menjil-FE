@@ -1,19 +1,21 @@
-FROM node:16.13.2-alpine
+FROM node:16.13.2-alpine AS builder
+
+RUN apk add --no-cache libc6-compat
 
 # Directory 지정
 WORKDIR /
 
-# 의존성 설치를 위해 package.json, yarn.lock 복사
+# Install dependencies
 COPY package.json ./
 COPY yarn.lock ./
 
-# 의존성 설치
 RUN yarn
+RUN rm -rf ./.next/cache
 
 # 필요한 모든 파일을 복사
 COPY . .
 
-# next.js build
+# Build
 RUN yarn add sharp
 RUN yarn build
 
