@@ -69,13 +69,11 @@ const RegisterComponentProvider = ({
     if (data.awards == undefined || data.awards == "") data.awards = null;
     if (data.activity == undefined || data.activity == "") data.activity = null;
 
-    console.log("성공!");
     console.log(JSON.stringify(data));
-    console.log(typeof data.birthYear);
   };
 
   const handleNextClick = async (component: string) => {
-    await new Promise((r) => setTimeout(r, 500)); // delay for isSubmitting
+    //await new Promise((r) => setTimeout(r, 500)); // delay for isSubmitting
     setComponent(component);
   };
 

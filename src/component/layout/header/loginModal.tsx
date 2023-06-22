@@ -122,6 +122,7 @@ interface clickModalType {
   closeModal: any;
 }
 const LoginModal = ({ closeModal }: clickModalType) => {
+  console.log(process.env.NEXT_PUBLIC_API_URL + "/auth/google");
   return (
     <LoginModalBox>
       {/* // 모달을 닫는 state함수가 아래로 전파되는 것을 막아줌 */}
@@ -138,7 +139,7 @@ const LoginModal = ({ closeModal }: clickModalType) => {
             </div>
             <a
               className="google"
-              href="https://www.menjil-menjil.com/auth/google"
+              href={process.env.NEXT_PUBLIC_API_URL + "/auth/google"}
             >
               <Image
                 src={googleIc}
@@ -147,11 +148,18 @@ const LoginModal = ({ closeModal }: clickModalType) => {
                 width={18}
                 height={18}
               />
-              <div className="googleText">구글 로그인</div>
+              <div
+                className="googleText"
+                onClick={() =>
+                  console.log(process.env.NEXT_PUBLIC_API_URL + "/auth/google")
+                }
+              >
+                구글 로그인
+              </div>
             </a>
             <a
               className="kakao"
-              href="https://www.menjil-menjil.com/auth/kakao"
+              href={process.env.NEXT_PUBLIC_API_URL + "/auth/kakao"}
             >
               <Image
                 src={kakaoIc}

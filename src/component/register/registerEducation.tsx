@@ -11,7 +11,7 @@ import { useContext } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 const RegisterEducation = () => {
-  const { handleNextClick, handleBackClick, register, isValid } =
+  const { handleNextClick, handleBackClick, register, isValid, handleSubmit } =
     useContext<any>(RegisterComponentContext);
 
   return (
@@ -148,9 +148,11 @@ const RegisterEducation = () => {
         </InputContainer>
       </FormContainerDiv>
       <GoPageBtn
-        type="submit"
+        // type="submit"
         disabled={!isValid}
-        onClick={() => handleNextClick("RegisterTags")}
+        onClick={() => {
+          handleNextClick("RegisterTags");
+        }}
       >
         <RightIc />
       </GoPageBtn>

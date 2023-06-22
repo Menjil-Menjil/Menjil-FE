@@ -48,7 +48,7 @@ const techStackValList = [
 ];
 
 const RegisterTags = () => {
-  const { handleNextClick, handleBackClick, register, isValid } =
+  const { handleNextClick, handleBackClick, register, isValid, handleSubmit } =
     useContext<any>(RegisterComponentContext);
 
   return (
@@ -130,9 +130,11 @@ const RegisterTags = () => {
         </InputContainer>
       </FormContainerDiv>
       <GoPageBtn
-        type="submit"
+        // type="submit"
         disabled={!isValid}
-        onClick={() => handleNextClick("RegisterAdditionalInfo")}
+        onClick={() => {
+          handleNextClick("RegisterAdditionalInfo");
+        }}
       >
         <RightIc />
       </GoPageBtn>

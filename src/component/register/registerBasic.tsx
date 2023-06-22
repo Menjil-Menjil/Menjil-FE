@@ -19,8 +19,15 @@ export const TestDiv = styled.div`
 `;
 
 const RegisterBasic = () => {
-  const { handleNextClick, register, errors, isValid, isDirty, trigger } =
-    useContext<any>(RegisterComponentContext);
+  const {
+    handleNextClick,
+    register,
+    errors,
+    isValid,
+    isDirty,
+    trigger,
+    handleSubmit,
+  } = useContext<any>(RegisterComponentContext);
 
   const [duplicateName, setDuplicateName] = useState<any>("");
 
@@ -48,12 +55,11 @@ const RegisterBasic = () => {
     return setNameCheck(e.target.value);
   };
 
-  setTimeout(() => console.log(duplicateName), 2000);
   const duplicateCheck = async () => {
     try {
       const res = await axios
         .get(
-          `https://www.menjil-menjil.com/users/check-nickname?nickname=${nicknameCheck}`
+          `${process.env.NEXT_PUBLIC_API_URL}/users/check-nickname?nickname=${nicknameCheck}`
         )
         .then((res) => {
           setDuplicateName(res.data.status);
@@ -188,9 +194,11 @@ const RegisterBasic = () => {
         </InputContainer>
       </FormContainerDiv>
       <GoPageBtn
-        type="submit"
+        // type="submit"
         disabled={!isValid || duplicateName !== "OK"}
-        onClick={() => handleNextClick("RegisterEducation")}
+        onClick={() => {
+          handleNextClick("RegisterEducation");
+        }}
       >
         <RightIc />
       </GoPageBtn>

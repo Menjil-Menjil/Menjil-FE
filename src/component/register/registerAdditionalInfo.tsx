@@ -12,9 +12,12 @@ import { useContext } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 const RegisterAdditionalInfo = () => {
-  const { handleBackClick, register } = useContext<any>(
+  const { handleBackClick, register, handleSubmit } = useContext<any>(
     RegisterComponentContext
   );
+  const func = () => {
+    console.log();
+  };
 
   return (
     <>
@@ -50,12 +53,18 @@ const RegisterAdditionalInfo = () => {
         </InputContainer>
         <SaveBtnContainer>
           <button className="afterBtn">다음에 작성하기</button>
-          <button type="submit" className="saveBtn">
+          <button
+            type="submit"
+            className="saveBtn"
+            onSubmit={() => {
+              handleSubmit();
+            }}
+          >
             저장
           </button>
         </SaveBtnContainer>
       </FormContainerDiv>
-      <GoPageBtn type="submit">
+      <GoPageBtn>
         <RightIc />
       </GoPageBtn>
     </>
