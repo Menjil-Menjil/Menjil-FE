@@ -23,6 +23,9 @@ RUN yarn build
 FROM base AS runner
 WORKDIR /
 ENV NODE_ENV=production
+
+COPY --from=builder package.json ./
+COPY --from=builder yarn.lock ./
 COPY --from=builder next.config.js ./
 COPY --from=builder public ./public
 COPY --from=builder .next ./.next
