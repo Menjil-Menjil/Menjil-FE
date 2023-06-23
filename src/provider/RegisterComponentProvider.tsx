@@ -62,6 +62,7 @@ const RegisterComponentProvider = ({
     data.birthMonth = parseInt(data.birthMonth);
     // data.role = "MENTEE"
     data.graduateDate = parseInt(data.graduateDate);
+    data.graduateMonth = parseInt(data.graduateMonth);
     data.score = parseInt(data.score);
     if (data.career == undefined || data.career == "") data.career = null;
     if (data.certificate == undefined || data.certificate == "")
