@@ -41,7 +41,6 @@ const RegisterComponentProvider = ({
     register,
     formState: { errors, isValid, isDirty },
     handleSubmit,
-    setError,
     watch,
     setValue,
     getValues,
