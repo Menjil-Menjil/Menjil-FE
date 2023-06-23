@@ -1,14 +1,22 @@
 import styled from "@emotion/styled";
 
 const FooterSection = styled.footer`
-  width: 1000px;
+  width: 100%;
   height: 900px;
   margin: 0 auto;
   border-top: 1px solid #e2e2e2;
+  .footerText {
+    margin-left: 200px;
+  }
 `;
 
 const Footer = () => {
-  return <FooterSection>Copyright &copy;팀 슈퍼주니어</FooterSection>;
+  return (
+    <FooterSection>
+      {" "}
+      <div className="footerText">Copyright &copy;팀 슈퍼주니어</div>
+    </FooterSection>
+  );
 };
 
 export default Footer;

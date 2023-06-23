@@ -1,0 +1,77 @@
+name: Next.js ci/cd
+
+on:
+  push:
+    branches:
+      - main
+      
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: create .env file
+        shell: bash
+        run: |
+          touch .env
+          echo "${{secrets.env}}" > .env
+
+      - name: Install and Build 🔧
+        run: |
+          yarn install
+          yarn build
+
+      ## Docker
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_REPO_FE }}:latest
+ 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: connect EC2 instance and deploy docker images to Dev server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.AWS_EC2_HOST_IP }}
+          username: ${{ secrets.AWS_EC2_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+
+           # kill container -> remove container -> remove image -> pull new image -> run
+          script: |
+            sudo docker kill ${{ secrets.PROJECT_NAME }}  
+            sudo docker rm ${{ secrets.PROJECT_NAME }} 
+            sudo docker rmi ${{ secrets.DOCKERHUB_REPO_FE }}
+
+            sudo docker pull ${{ secrets.DOCKERHUB_REPO_FE }}:latest
+            sudo docker run -d --name ${{ secrets.PROJECT_NAME }} -p 3000:3000 ${{ secrets.DOCKERHUB_REPO_FE }}:latest
+          
+          # script: |
+          #   cd /home/ubuntu/test/Menjil-FE
+          #   git pull
+          #   git remote update
+          #   git checkout -t origin/develop
+          #   pm2 stop yarn
+          #   pm2 delete yarn
+          #   yarn install
+          #   yarn build
+          #   pm2 start yarn -- start

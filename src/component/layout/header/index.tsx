@@ -1,23 +1,26 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import {useState} from "react";
+import { useState } from "react";
 import LoginModal from "@/component/layout/header/loginModal";
 
 const HeaderSection = styled.header`
-  width: 1000px;
+  width: 100%;
   height: 110px;
   margin: 0 auto;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
   align-items: center;
   user-select: none;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 20px;
   .category {
     display: flex;
-    gap: 30px;
+    gap: 60px;
     align-items: center;
     flex-grow: 1;
     .logo {
-      margin: 0 10px;
+      margin-left: 200px;
       font-family: var(--logo-font);
       font-style: normal;
       font-weight: 700;
@@ -30,22 +33,22 @@ const HeaderSection = styled.header`
     display: flex;
     gap: 30px;
     .login {
-      cursor: pointer;
+      margin-right: 200px;
     }
   }
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #3f3f3f;
 `;
 
 const Header = () => {
   // 모달 버튼 클릭 유무를 저장할 state
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
-  const closeModal = () => setShowModal(!showModal)
+  const closeModal = () => setShowModal(!showModal);
 
   return (
     <>
@@ -68,12 +71,10 @@ const Header = () => {
           </StyledLink>
         </div>
         <div className="member">
-          <StyledLink href="/register">
-            회원가입
-          </StyledLink>
-          <div className="login" onClick={closeModal}>
+          <StyledLink href="/register">회원가입</StyledLink>
+          <StyledLink href="" className="login" onClick={closeModal}>
             로그인
-          </div>
+          </StyledLink>
         </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
