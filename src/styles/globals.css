@@ -17,7 +17,7 @@
 
 @font-face {
   font-family: "Pretendard";
-  src: url("/fonts/pretendard/Pretendard-SemiBold.woff") format("woff");
+  src: url("public/fonts/pretendard/Pretendard-SemiBold.woff") format("woff");
   font-weight: 600;
 }
 @font-face {
