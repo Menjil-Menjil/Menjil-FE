@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import { type } from "os";
 
 interface UserFormInterface {
   // 유저 정보 객체
@@ -40,7 +39,7 @@ const RegisterComponentProvider = ({
 
   const {
     register,
-    formState: { errors, isSubmitting, isValid, isDirty },
+    formState: { errors, isValid, isDirty },
     handleSubmit,
     setError,
     watch,
