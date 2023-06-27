@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import { type } from "os";
 
 interface UserFormInterface {
   // 유저 정보 객체
@@ -40,9 +39,8 @@ const RegisterComponentProvider = ({
 
   const {
     register,
-    formState: { errors, isSubmitting, isValid, isDirty },
+    formState: { errors, isValid, isDirty },
     handleSubmit,
-    setError,
     watch,
     setValue,
     getValues,
@@ -62,6 +60,7 @@ const RegisterComponentProvider = ({
     data.birthMonth = parseInt(data.birthMonth);
     // data.role = "MENTEE"
     data.graduateDate = parseInt(data.graduateDate);
+    data.graduateMonth = parseInt(data.graduateMonth);
     data.score = parseInt(data.score);
     if (data.career == undefined || data.career == "") data.career = null;
     if (data.certificate == undefined || data.certificate == "")

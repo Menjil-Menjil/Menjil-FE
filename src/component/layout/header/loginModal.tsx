@@ -169,7 +169,7 @@ const LoginModal = ({ closeModal }: clickModalType) => {
               <label htmlFor="keepLoggedIn">로그인 상태 유지</label>
             </div>
             <div className="register">
-              <Link href="/register">아직 회원이 아니신가요?</Link>
+              <Link href="/register" onClick={closeModal}>아직 회원이 아니신가요?</Link>
             </div>
           </div>
         </div>
