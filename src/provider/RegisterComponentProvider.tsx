@@ -37,7 +37,7 @@ const RegisterComponentProvider = ({
 }) => {
   // const [user, setUser] = useState<UserFormInterface>();
   const [component, setComponent] = useState("RegisterBasic");
-
+  const [nicknameCheck, setNameCheck] = useState<string>("");
   const {
     register,
     formState: { errors, isSubmitting, isValid, isDirty },
@@ -97,6 +97,8 @@ const RegisterComponentProvider = ({
         getValues,
         trigger,
         onValid: onSubmit,
+        nicknameCheck,
+        setNameCheck,
       }}
     >
       {children}

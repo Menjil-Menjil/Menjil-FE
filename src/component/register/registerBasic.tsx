@@ -27,6 +27,8 @@ const RegisterBasic = () => {
     isDirty,
     trigger,
     handleSubmit,
+    nicknameCheck,
+    setNameCheck,
   } = useContext<any>(RegisterComponentContext);
 
   const [duplicateName, setDuplicateName] = useState<any>("");
@@ -48,7 +50,6 @@ const RegisterBasic = () => {
     }
   };
 
-  const [nicknameCheck, setNameCheck] = useState<string>("");
   const nicknameChange = (e: any) => {
     trigger("nickname");
     setDuplicateName("");
