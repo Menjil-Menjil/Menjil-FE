@@ -4,6 +4,7 @@ import Layout from "@/component/layout";
 import { Prompt } from "next/font/google";
 import React from "react";
 import "../styles/globals.css";
+import { SessionProvider } from "next-auth/react";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -28,9 +29,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>맨질맨질</title>
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SessionProvider session={pageProps.session}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SessionProvider>
     </>
   );
 }
