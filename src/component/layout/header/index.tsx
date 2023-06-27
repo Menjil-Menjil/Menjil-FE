@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useState } from "react";
-import LoginModal from "@/component/layout/header/loginModal";
+import RegisterModal from "./modal/registerModal";
+import LoginModal from "./modal/loginModal";
 
 const HeaderSection = styled.header`
   width: 100%;
@@ -45,10 +46,18 @@ const StyledLink = styled(Link)`
 
 const Header = () => {
   // 모달 버튼 클릭 유무를 저장할 state
-  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
-  const closeModal = () => setShowModal(!showModal);
+  const closeLoginModal = () => setShowLoginModal(!showLoginModal);
+  const closeRegisterModal = () => setShowRegisterModal(!showRegisterModal);
+
+  //모달 변경 함수
+  const changeModal = () => {
+    setShowRegisterModal(!showRegisterModal);
+    setShowLoginModal(!showLoginModal);
+  };
 
   return (
     <>
@@ -71,15 +80,29 @@ const Header = () => {
           </StyledLink>
         </div>
         <div className="member">
-          <StyledLink href="/register">회원가입</StyledLink>
-          <StyledLink href="" className="login" onClick={closeModal}>
+          {/* <StyledLink href="/register">회원가입</StyledLink> */}
+          <StyledLink href="" className="register" onClick={closeRegisterModal}>
+            회원가입
+          </StyledLink>
+          <StyledLink href="" className="login" onClick={closeLoginModal}>
             로그인
           </StyledLink>
         </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}
-      {showModal && <LoginModal closeModal={closeModal} />}
+      {showRegisterModal && (
+        <RegisterModal
+          closeRegisterModal={closeRegisterModal}
+          changeModal={changeModal}
+        />
+      )}
+      {showLoginModal && (
+        <LoginModal
+          closeLoginModal={closeLoginModal}
+          changeModal={changeModal}
+        />
+      )}
     </>
   );
 };

@@ -11,12 +11,20 @@ import { useContext } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 const RegisterEducation = () => {
-  const { handleNextClick, handleBackClick, register, isValid, handleSubmit } =
-    useContext<any>(RegisterComponentContext);
-
+  const {
+    handleNextClick,
+    handleBackClick,
+    register,
+    isValid,
+    watch
+  } = useContext<any>(RegisterComponentContext);
   return (
     <>
-      <GoPageBtn onClick={() => handleBackClick("RegisterBasic")}>
+      <GoPageBtn
+        onClick={() => {
+          handleBackClick("RegisterBasic");
+        }}
+      >
         <LeftIc />
       </GoPageBtn>
       <FormContainerDiv>
@@ -99,7 +107,6 @@ const RegisterEducation = () => {
             valueList={["복수전공", "부전공"]}
             placeHolder={"유형"}
             widthVal="189px"
-            isRequired={false}
           />
           <button
             type="button"
@@ -114,7 +121,6 @@ const RegisterEducation = () => {
             valueList={["1", "2", "3", "4"]}
             placeHolder={"점"}
             widthVal="120px"
-            isRequired={true}
           />
           <div className="scoreRadioContainer" style={{ marginLeft: "20px" }}>
             <input
@@ -149,7 +155,8 @@ const RegisterEducation = () => {
       </FormContainerDiv>
       <GoPageBtn
         // type="submit"
-        disabled={!isValid}
+        // 학점("score")에 대한 값이 드롭박스 컴포넌트(div)로 설정되기 때문에 required 속성 대신 직접 값을 검사한다
+        disabled={!isValid || !watch("score")}
         onClick={() => {
           handleNextClick("RegisterTags");
         }}
