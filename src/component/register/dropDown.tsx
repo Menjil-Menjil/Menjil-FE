@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import Image from "next/image";
 import DownIc from "@/img/ic_dropdown.svg";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import useDetectClose from "@/hooks/useDetectClose";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
@@ -70,28 +69,11 @@ export const DropDownBox = styled.div`
   }
 `;
 
-interface scoreDropDownType {
-  value: string;
-  isOpen: boolean;
-  setScoreNumber: any;
-  setIsOpen: any;
-}
-// export const ScoreDropDown = ({value, setScoreNumber, setIsOpen, isOpen}: scoreDropDownType) => {
-//   const ValueClick = () => {
-//     setScoreNumber(value)
-//     setIsOpen(!isOpen)
-//   }
-//   return(
-//     <li onClick={ValueClick}>{value}</li>
-//   )
-// }
-
 interface propsType {
   id: string;
   placeHolder: string;
   valueList: any;
   widthVal: string;
-  isRequired: boolean;
 }
 
 const DropDown = ({
@@ -99,9 +81,8 @@ const DropDown = ({
   valueList,
   placeHolder,
   widthVal,
-  isRequired,
 }: propsType) => {
-  const { register, setValue, watch } = useContext<any>(
+  const { setValue, watch } = useContext<any>(
     RegisterComponentContext
   );
   // watch : 유저 객체에 저장된 value 가져오기 - "다음"버튼으로 컴포넌트 이동해도 이전 값 불러와서 유지
@@ -110,20 +91,14 @@ const DropDown = ({
   const dropDownRef = useRef(null);
 
   const [dropDownValue, setDropDownValue] = useState(watch(id));
-  //const valueList = ["1", "2", "3", "4"]
 
   // 배경 클릭 감지하여 드롭다운 창 닫기
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
 
-  const selectOnChange = (e: any) => {
-    setIsOpen(!isOpen);
-    //setValue(dropDownValue)
-  };
-
   const valueOnClick = (value: any) => {
     setDropDownValue(value); // input value 업데이트
     setIsOpen(!isOpen);
-    setValue(id, value); // 유저 폼 객체의 "id"항목에 value 저장
+    setValue(id, value); // react hook form 의 "id" 필드에 value 저장
   };
 
   return (
@@ -132,15 +107,11 @@ const DropDown = ({
         id={id}
         type="checkbox"
         className="input"
-        // onChange={() => {
-        //   setValue(id, dropDownValue)
-        //   setIsOpen(!isOpen)
-        // }}
+        onChange={() => {
+          setIsOpen(!isOpen)
+        }}
         checked={isOpen}
         value={dropDownValue}
-        {...register(id, {
-          onChange: selectOnChange,
-        })}
       />
       <label className="dropdownLabel" htmlFor={id}>
         {(dropDownValue == undefined || dropDownValue == "") && (
@@ -153,8 +124,7 @@ const DropDown = ({
         <div className="content">
           <ul>
             {valueList.map((value: any, index: any) => (
-              // <ScoreDropDown key={index} value={value} setScoreNumber={setDropDownValue} setIsOpen={setIsOpen} isOpen={isOpen}/>
-              <li key={index} onClick={(e) => valueOnClick(value)}>
+              <li key={index} onClick={() => valueOnClick(value)}>
                 {value}
               </li>
             ))}
