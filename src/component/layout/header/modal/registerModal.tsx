@@ -76,7 +76,8 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
               />
               <div className="kakaoText">카카오로 시작하기</div>
             </button>
-            <button onClick={onClickKakao}>click</button>
+            <button onClick={getSocialLoginToken}>토큰 확인</button>
+            <button onClick={onClickKakao}>post 요청</button>
             {/*</Link>*/}
             <div className="register" onClick={changeModal}>
               <Link href="">이미 회원이신가요?</Link>
