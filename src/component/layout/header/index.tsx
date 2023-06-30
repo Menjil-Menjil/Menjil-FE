@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
+import {signOut, useSession} from "next-auth/react";
 
 const HeaderSection = styled.header`
   width: 100%;
@@ -43,6 +44,10 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: #3f3f3f;
 `;
+const StyledDiv = styled.div`
+  cursor: pointer;
+  color: #3f3f3f;
+`;
 
 const Header = () => {
   // 모달 버튼 클릭 유무를 저장할 state
@@ -58,6 +63,8 @@ const Header = () => {
     setShowRegisterModal(!showRegisterModal);
     setShowLoginModal(!showLoginModal);
   };
+
+  const { data, status } = useSession();
 
   return (
     <>
@@ -81,13 +88,21 @@ const Header = () => {
         </div>
         <div className="member">
           {/* <StyledLink href="/register">회원가입</StyledLink> */}
-          <StyledLink href="" className="register" onClick={closeRegisterModal}>
-            회원가입
-          </StyledLink>
-          <StyledLink href="" className="login" onClick={closeLoginModal}>
-            로그인
-          </StyledLink>
-        </div>
+          {data?.user ? (
+            <StyledDiv onClick={() => signOut()}>
+              로그아웃
+            </StyledDiv>
+          ) : (
+            <>
+              <StyledLink href="" className="register" onClick={closeRegisterModal}>
+                회원가입
+              </StyledLink>
+              <StyledLink href="" className="login" onClick={closeLoginModal}>
+                로그인
+              </StyledLink>
+            </>
+        )}
+      </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}

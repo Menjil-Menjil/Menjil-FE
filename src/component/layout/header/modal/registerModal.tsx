@@ -63,9 +63,6 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
             {/*  />*/}
             {/*  <div className="googleText">구글로 시작하기</div>*/}
             {/*</Link>*/}
-            {/*<Link*/}
-            {/*  className="kakao"*/}
-            {/*  href={process.env.NEXT_PUBLIC_API_URL + "/auth/kakao"}*/}
             <button className="kakao" onClick={() => signIn("kakao")}>
               <Image
                 src={kakaoIc}
@@ -78,7 +75,6 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
             </button>
             <button onClick={getSocialLoginToken}>토큰 확인</button>
             <button onClick={onClickKakao}>post 요청</button>
-            {/*</Link>*/}
             <div className="register" onClick={changeModal}>
               <Link href="">이미 회원이신가요?</Link>
             </div>
