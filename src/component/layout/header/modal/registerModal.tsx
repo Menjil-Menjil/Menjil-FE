@@ -4,8 +4,8 @@ import googleIc from "@/img/ic_google.png";
 import kakaoIc from "@/img/ic_kakao.png";
 import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
-import {getCsrfToken, signIn, useSession} from "next-auth/react";
-import axios from "axios";
+import {signIn} from "next-auth/react";
+import {useRouter} from "next/router";
 
 interface clickModalType {
   closeRegisterModal: any;
@@ -13,18 +13,22 @@ interface clickModalType {
 }
 
 const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
-  const { data: session } = useSession();
-  const getSocialLoginToken = async () => {
-    const csrfToken = await getCsrfToken();
-    console.log(csrfToken);
-  }
+  const router = useRouter();
+  //const callBackURL = "https://www.menjil-menjil.com/register";
+  const callBackURL = "http://localhost:3000/register"
 
-  const onClickKakao = async () => {
-    try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin/:kakao`);
-    } catch (e: any) {
+  const socialLogin = async (e: any, provider: string) => {
+    e.preventDefault();
+    const res: any = await signIn(provider, {
+      redirect: false,
+      callbackUrl: callBackURL // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+    });
+    if (res?.error) {
+      console.log(res.error.status);
+    } else {
+      await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
     }
-  };
+  }
 
   return (
     <ModalBox>
@@ -40,7 +44,7 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
               <br />
               멘질멘질 가입을 환영합니다.
             </div>
-            <button className="google" onClick={() => signIn("google")}>
+            <button className="google" onClick={e => socialLogin(e, "google")}>
               <Image
                 src={googleIc}
                 className="googleImage"
@@ -50,20 +54,7 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
               />
               <div className="googleText">구글로 시작하기</div>
             </button>
-            {/*<Link*/}
-            {/*  className="google"*/}
-            {/*  href={process.env.NEXT_PUBLIC_API_URL + "/auth/google"}*/}
-            {/*>*/}
-            {/*  <Image*/}
-            {/*    src={googleIc}*/}
-            {/*    className="googleImage"*/}
-            {/*    alt="구글"*/}
-            {/*    width={18}*/}
-            {/*    height={18}*/}
-            {/*  />*/}
-            {/*  <div className="googleText">구글로 시작하기</div>*/}
-            {/*</Link>*/}
-            <button className="kakao" onClick={() => signIn("kakao")}>
+            <button className="kakao" onClick={e => socialLogin(e, "kakao")}>
               <Image
                 src={kakaoIc}
                 className="kakaoImage"
@@ -73,8 +64,6 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
               />
               <div className="kakaoText">카카오로 시작하기</div>
             </button>
-            <button onClick={getSocialLoginToken}>토큰 확인</button>
-            <button onClick={onClickKakao}>post 요청</button>
             <div className="register" onClick={changeModal}>
               <Link href="">이미 회원이신가요?</Link>
             </div>

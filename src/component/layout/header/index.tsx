@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
 import {signOut, useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 const HeaderSection = styled.header`
   width: 100%;
@@ -43,13 +44,22 @@ const HeaderSection = styled.header`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #3f3f3f;
+  white-space: nowrap;
 `;
 const StyledDiv = styled.div`
   cursor: pointer;
   color: #3f3f3f;
+  white-space: nowrap;
 `;
 
 const Header = () => {
+  const router = useRouter();
+  const { data: sessionData, status: sessionStatus } = useSession();
+  useEffect(() => {
+    if (sessionData && sessionStatus === "authenticated") {
+      //로컬토큰요청함수
+    }
+  }, []);
   // 모달 버튼 클릭 유무를 저장할 state
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -64,7 +74,13 @@ const Header = () => {
     setShowLoginModal(!showLoginModal);
   };
 
-  const { data, status } = useSession();
+  const logOutHandler = () => {
+    if (sessionData) {
+      signOut({redirect:false, callbackUrl: "/"});
+      router.push("/");
+    }
+    //로컬로그아웃함수;
+  };
 
   return (
     <>
@@ -87,9 +103,8 @@ const Header = () => {
           </StyledLink>
         </div>
         <div className="member">
-          {/* <StyledLink href="/register">회원가입</StyledLink> */}
-          {data?.user ? (
-            <StyledDiv onClick={() => signOut()}>
+          {sessionData?.user ? (
+            <StyledDiv onClick={logOutHandler}>
               로그아웃
             </StyledDiv>
           ) : (

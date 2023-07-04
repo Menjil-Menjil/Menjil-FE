@@ -12,7 +12,11 @@ const prompt = Prompt({
   variable: "--prompt",
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App(
+  {
+    Component,
+    pageProps,
+  }: AppProps) {
   return (
     <>
       <style jsx global>{`

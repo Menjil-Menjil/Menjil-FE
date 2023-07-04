@@ -1,6 +1,6 @@
 import LeftIc from "@/img/ic_arrow_left.svg";
 import RightIc from "@/img/ic_arrow_right.svg";
-import { useContext, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import {
   FormContainerDiv,
   GoPageBtn,
@@ -10,6 +10,8 @@ import {
 import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import axios from "axios";
+import {getProviders, getSession, useSession} from "next-auth/react";
+import provider from "react-redux/src/components/Provider";
 
 export const TestDiv = styled.div`
   width: 110px;
@@ -29,19 +31,25 @@ const RegisterBasic = () => {
     handleSubmit,
     nicknameCheck,
     setNameCheck,
+    setValue,
   } = useContext<any>(RegisterComponentContext);
 
   const [duplicateName, setDuplicateName] = useState<any>("");
+  const {data: sessionData, status: sessionStatus} = useSession();
+  useEffect(() => {
+    setValue("email", sessionData?.user?.email);
+    setValue("provider", sessionData?.provider);
+  });
 
   const duplicateColor = () => {
     //input 박스 색상 변경
     if (errors.nickname !== undefined || duplicateName === 409) return 1; //잘못된 닉네임
-    if (duplicateName !== "") return 2; //중복확인 성공 시
+    if (duplicateName === 200) return 2; //중복확인 성공 시
     else return 3; //둘다 아닌 경우
   };
   const checkMessage = () => {
     switch (duplicateName) {
-      case "OK":
+      case 200:
         return "사용할 수 있는 닉네임입니다";
       case 409:
         return "이미 사용중인 닉네임입니다";
@@ -60,7 +68,7 @@ const RegisterBasic = () => {
     try {
       const res = await axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/check-nickname?nickname=${nicknameCheck}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/check-nickname?nickname=${nicknameCheck}`
         )
         .then((res) => {
           setDuplicateName(res.data.status);
@@ -147,7 +155,7 @@ const RegisterBasic = () => {
           <div
             className="nicknameCheckTextDiv"
             style={
-              duplicateName !== "OK"
+              duplicateName !== 200
                 ? { color: "#ef2626" }
                 : { color: "#2c8f47" }
             }
@@ -196,7 +204,7 @@ const RegisterBasic = () => {
       </FormContainerDiv>
       <GoPageBtn
         // type="submit"
-        disabled={!isValid || duplicateName !== "OK"}
+        disabled={!isValid || duplicateName !== 200}
         onClick={() => {
           handleNextClick("RegisterEducation");
         }}

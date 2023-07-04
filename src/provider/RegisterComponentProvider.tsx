@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
+import {useSession} from "next-auth/react";
 
 interface UserFormInterface {
   // 유저 정보 객체
+  email: string;
+  provider: string;
   data: string; // 소셜 로그인 결과로 반환받은 JWT data
   nickname: string; // 닉네임
   role: string; // “MENTOR” 혹은 “MENTEE”
@@ -34,7 +37,6 @@ const RegisterComponentProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  // const [user, setUser] = useState<UserFormInterface>();
   const [component, setComponent] = useState("RegisterBasic");
   const [nicknameCheck, setNameCheck] = useState<string>("");
   const {
