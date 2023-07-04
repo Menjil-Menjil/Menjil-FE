@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 
 interface UserFormInterface {
   // 유저 정보 객체
-  email: string;
-  provider: string;
+  email: string; // 소셜로그인 계정 이메일
+  provider: string; // 소셜로그인 계정 sns 이름
   data: string; // 소셜 로그인 결과로 반환받은 JWT data
   nickname: string; // 닉네임
   role: string; // “MENTOR” 혹은 “MENTEE”

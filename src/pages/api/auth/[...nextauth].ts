@@ -17,6 +17,7 @@ export const authOptions: any = {
   ],
 
   callbacks: {
+    // 로그인 콜백 함수
     async signIn({ user, account }: any) {
       try {
         const data = await axios
@@ -25,25 +26,28 @@ export const authOptions: any = {
           )
         console.log("loginCallback: ", user.email, account.provider);
         return data;
-        //privateToken = data.token // 내부 API 요청을 통해 받은 token 값을 전역 변수에 저장한다.
+        // 서버 API 요청을 통해 받은 token(access, refresh) 저장
+        // privateToken = data.token
       } catch (error) {
 
       }
     },
 
-    async jwt({token, account, user}: any) { // ccount 내 access_token을 참조 할 수 있다
+    // jwt 콜백 함수, 토큰에 커스텀 정보(이메일, sns)를 담는다
+    async jwt({token, account, user}: any) {
       if (account) {
         token = {
           id: user.email,
           provider: account.provider,
           //accessToken: privateToken
-          } // token 객체에 다시 담아서
+          }
       }
       return token // 반환해주면, session 콜백으로 전달된다.
     },
 
+    // session 콜백 함수, 위의 토큰 정보를 세션 데이터에 업데이트한다.
     async session({ session, token }: any) {
-      //session.accessToken = privateToken; // 해당 전역 변수 값을 session 객체에 저장한다.
+      //session.accessToken = privateToken;
       session.user.email = token.id;
       session.provider = token.provider;
 

@@ -3,14 +3,13 @@
 // src 폴더 하위에 두는 건, src 폴더가 빌드 대상이 되기 때문에 웹팩에게 해당 타입에 대해 알려주는 것이다.
 import NextAuth, { DefaultSession , User } from 'next-auth';
 
-// user 객체에 id와 acceessToken 프로퍼티 타입을 추가함
+// 세션 객체
 declare module 'next-auth' {
   interface Session extends DefaultSession {
     user?: {
-      //id?: string;
-      email?: string;
+      email?: string; // 이메일 정보
     } & DefaultSession['user'];
     accessToken: string;
-    provider: string;
+    provider: string; // sns 정보
   }
 }
