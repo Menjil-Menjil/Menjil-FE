@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import {useSession} from "next-auth/react";
 
 interface UserFormInterface {
   // 유저 정보 객체

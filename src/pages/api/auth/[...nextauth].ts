@@ -17,7 +17,7 @@ export const authOptions: any = {
   ],
 
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }: any) {
+    async signIn({ user, account }: any) {
       try {
         const data = await axios
           .get(

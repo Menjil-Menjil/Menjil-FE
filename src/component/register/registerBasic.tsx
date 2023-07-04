@@ -10,8 +10,7 @@ import {
 import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import axios from "axios";
-import {getProviders, getSession, useSession} from "next-auth/react";
-import provider from "react-redux/src/components/Provider";
+import {useSession} from "next-auth/react";
 
 export const TestDiv = styled.div`
   width: 110px;
