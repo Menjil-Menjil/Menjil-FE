@@ -22,7 +22,7 @@ interface UserFormInterface {
   // 세번째 폼
   fieldList: [string]; // 관심 분야 리스트
   techStackList: [string]; // 기술 스택 리스트
-  // 네번째 폼
+  // 네번째
   career: any; // 값이 없으면 null
   certificate: any; // 값이 없으면 null
   awards: any; // 값이 없으면 null
@@ -30,27 +30,27 @@ interface UserFormInterface {
 }
 
 interface UserRegisterApiInterface {
-  userId: string; //
-  email: string; //
-  provider: string; //
-  nickname: string; //
-  role: string; //
-  birthYear: number; //
-  birthMonth: number; //
-  school: string; //
-  score: number; //
-  scoreRange: string; //
-  graduateDate: number; //
-  graduateMonth: number; //
-  major: string;
-  subMajor: string;
-  minor: string;
-  field: string;
-  techStack: string;
-  career: string;
-  certificate: string;
-  awards: string;
-  activity: string;
+  userId: string; //provider + ‘_’ + random int 값(예시: google_303213124)
+  email: string; //sns 계정 이메일 주소
+  provider: string; //sns 이름 정보("google", "kakao")
+  nickname: string; //고유 닉네임
+  role: string; //멘토 또는 멘티("MENTOR", "MENTEE")
+  birthYear: number; //생년
+  birthMonth: number; //생월
+  school: string; //교육기관
+  score: number; //학점
+  scoreRange: string; //학점 구간("초반", "중반", "후반")
+  graduateDate: number; //졸업년도
+  graduateMonth: number; //졸업월
+  major: string; //본전공
+  subMajor: string; //복수전공, null
+  minor: string; //부전공, null
+  field: string; //관심 분야. 여러 개면 ‘,’ 로 구분
+  techStack: string; //기술 스택. 여러 개면 ‘,’ 로 구분
+  career: string; //경력, null
+  certificate: string; //자격증, null
+  awards: string; //수상내역, null
+  activity: string; //대외활동, null
 }
 
 const RegisterComponentProvider = ({
