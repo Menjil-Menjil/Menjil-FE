@@ -56,9 +56,7 @@ const RegisterAdditionalInfo = () => {
           <button
             type="submit"
             className="saveBtn"
-            onSubmit={() => {
-              handleSubmit();
-            }}
+            onSubmit={() => { handleSubmit(); }}
           >
             저장
           </button>

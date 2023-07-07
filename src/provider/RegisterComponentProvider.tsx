@@ -3,32 +3,54 @@ import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
 
 interface UserFormInterface {
-  // 유저 정보 객체
+  // sns 계정 정보
   email: string; // 소셜로그인 계정 이메일
   provider: string; // 소셜로그인 계정 sns 이름
-  data: string; // 소셜 로그인 결과로 반환받은 JWT data
+  // 첫번째 폼
   nickname: string; // 닉네임
   role: string; // “MENTOR” 혹은 “MENTEE”
   birthYear: any; // YYYY, int
   birthMonth: any; // MM, int
-  // birth: number
+  // 두번째 폼
   school: string; // 교육기관
   score: any; // 학점
   scoreRange: string; // "초반", "중반", "후반"
   graduateDate: any; // 졸업년도. YYYY. Date가 아닌 int로 처리
   graduateMonth: any;
   major: string; // 본전공
-  // subMajor: string // 복수전공, 값이 없으면 null
-  // minor: string // 부전공, 값이 없으면 null
   majorType: any; // 드롭박스 체크: "복수전공" or "부전공"
+  // 세번째 폼
   fieldList: [string]; // 관심 분야 리스트
-  // field: string // 관심 분야. 여러 개면 ‘,’ 로 구분
   techStackList: [string]; // 기술 스택 리스트
-  // techStack: string // 기술 스택. 여러 개면 ‘,’ 로 구분
+  // 네번째 폼
   career: any; // 값이 없으면 null
   certificate: any; // 값이 없으면 null
   awards: any; // 값이 없으면 null
   activity: any; // 값이 없으면 null
+}
+
+interface UserRegisterApiInterface {
+  userId: string; //
+  email: string; //
+  provider: string; //
+  nickname: string; //
+  role: string; //
+  birthYear: number; //
+  birthMonth: number; //
+  school: string; //
+  score: number; //
+  scoreRange: string; //
+  graduateDate: number; //
+  graduateMonth: number; //
+  major: string;
+  subMajor: string;
+  minor: string;
+  field: string;
+  techStack: string;
+  career: string;
+  certificate: string;
+  awards: string;
+  activity: string;
 }
 
 const RegisterComponentProvider = ({
