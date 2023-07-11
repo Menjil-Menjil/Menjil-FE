@@ -20,16 +20,17 @@ export const authOptions: any = {
     // 로그인 콜백 함수
     async signIn({ user, account }: any) {
       try {
-        const data = await axios
+        const res = await axios
           .get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`
-          )
-        console.log("loginCallback: ", user.email, account.provider);
-        return data;
+          );
+        console.log(res?.data);
+        return res?.data;
         // 서버 API 요청을 통해 받은 token(access, refresh) 저장
         // privateToken = data.token
-      } catch (error) {
-
+      } catch (e: any) {
+        console.log(e.response);
+        throw new Error(e.response.data);
       }
     },
 
