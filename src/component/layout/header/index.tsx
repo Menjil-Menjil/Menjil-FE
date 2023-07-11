@@ -34,6 +34,7 @@ const HeaderSection = styled.header`
   }
   .member {
     display: flex;
+    margin-left: 90px;
     gap: 30px;
     .login {
       margin-right: 200px;
