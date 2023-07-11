@@ -13,24 +13,33 @@ export const authOptions: any = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          loginType: "login" || "register"
+        },
+      }
     }),
   ],
 
   callbacks: {
     // 로그인 콜백 함수
     async signIn({ user, account }: any) {
+      if (userType === "user") { }
       try {
         const res = await axios
-          .get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`
-          );
-        console.log(res?.data);
-        return res?.data;
+          // .get(
+          //   `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`
+          // );
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
+            email: user.email,
+            provider: account.provider
+          })
+
+        return res?.data; // 필수
         // 서버 API 요청을 통해 받은 token(access, refresh) 저장
         // privateToken = data.token
       } catch (e: any) {
-        console.log(e.response);
-        throw new Error(e.response.data);
+        throw new Error("에러");
       }
     },
 

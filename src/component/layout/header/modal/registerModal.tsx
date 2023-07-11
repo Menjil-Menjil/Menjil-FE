@@ -24,7 +24,7 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
       callbackUrl: callBackURL // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
     });
     if (res?.error) {
-      console.log(res.error.status);
+
     } else {
       await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
     }
