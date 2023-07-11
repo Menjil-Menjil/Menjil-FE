@@ -18,9 +18,12 @@ interface UserFormInterface {
   graduateDate: any; // 졸업년도. YYYY. Date가 아닌 int로 처리
   graduateMonth: any;
   major: string; // 본전공
-  // subMajor: string // 복수전공, 값이 없으면 null
-  // minor: string // 부전공, 값이 없으면 null
-  majorType: any; // 드롭박스 체크: "복수전공" or "부전공"
+
+  subMajor0: any; // 기타전공, 값이 없으면 null
+  subMajor1: any; // 기타전공, 값이 없으면 null
+  majorType0: any; // 드롭박스 체크: "복수전공" or "부전공"
+  majorType1: any; // 드롭박스 체크: "복수전공" or "부전공"
+
   fieldList: [string]; // 관심 분야 리스트
   // field: string // 관심 분야. 여러 개면 ‘,’ 로 구분
   techStackList: [string]; // 기술 스택 리스트
@@ -50,7 +53,10 @@ const RegisterComponentProvider = ({
     mode: "onBlur",
     defaultValues: {
       // 초기값
-      majorType: "",
+      subMajor0: undefined, // 기타전공, 값이 없으면 null
+      subMajor1: undefined, // 기타전공, 값이 없으면 null
+      majorType0: undefined, // 드롭박스 체크: "복수전공" or "부전공"
+      majorType1: undefined, // 드롭박스 체크: "복수전공" or "부전공"
       score: "",
     },
   });
@@ -80,6 +86,11 @@ const RegisterComponentProvider = ({
   const handleBackClick = (component: string) => {
     setComponent(component);
   };
+  const [majors, setMajors] = useState<any>([]);
+
+  const addMajor = (num: number) => {
+    setMajors([...majors, { num: majors.length }]);
+  };
 
   return (
     <RegisterComponentContext.Provider
@@ -99,6 +110,8 @@ const RegisterComponentProvider = ({
         onValid: onSubmit,
         nicknameCheck,
         setNameCheck,
+        addMajor,
+        majors,
       }}
     >
       {children}
