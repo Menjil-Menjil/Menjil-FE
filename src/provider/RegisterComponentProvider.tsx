@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
 import {useSession} from "next-auth/react";
-import axios from "axios";
 
 interface UserFormInterface {
   // sns 계정 정보
@@ -20,9 +19,12 @@ interface UserFormInterface {
   graduateDate: any; // 졸업년도. YYYY. Date가 아닌 int로 처리
   graduateMonth: any;
   major: string; // 본전공
-  minorList: [string]; // 추가 전공 리스트
-  majorType: any; // 드롭박스 체크: "복수전공" or "부전공"
-  // 세번째 폼
+
+  subMajor0: any; // 기타전공, 값이 없으면 null
+  subMajor1: any; // 기타전공, 값이 없으면 null
+  majorType0: any; // 드롭박스 체크: "복수전공" or "부전공"
+  majorType1: any; // 드롭박스 체크: "복수전공" or "부전공"
+
   fieldList: [string]; // 관심 분야 리스트
   techStackList: [string]; // 기술 스택 리스트
   // 네번째
@@ -77,10 +79,31 @@ const RegisterComponentProvider = ({
     mode: "onBlur",
     defaultValues: {
       // 초기값
-      majorType: "",
+      subMajor0: undefined, // 기타전공, 값이 없으면 null
+      subMajor1: undefined, // 기타전공, 값이 없으면 null
+      majorType0: undefined, // 드롭박스 체크: "복수전공" or "부전공"
+      majorType1: undefined, // 드롭박스 체크: "복수전공" or "부전공"
       score: "",
     },
   });
+
+  const setSubMinor = (majorType: any, subMinor: any) => {
+    const result = !!(subMinor) ? subMinor : null;
+    return !!(majorType) ? {type: majorType, name: result} : null;
+  };
+  const getSubMinorList = (data: UserFormInterface, typeName: string) => {
+    const list = [
+      setSubMinor(data.majorType0, data.subMajor0),
+      setSubMinor(data.majorType1, data.subMajor1)
+    ];
+
+    const str = list.map((obj) => {
+      if(obj?.type === typeName) return obj.name;
+      else return null;
+    }).filter(val => !!val).join(',');
+
+    return !!(str) ? str : null;
+  };
 
   const sendData = async (data: UserRegisterApiInterface) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup/`;
@@ -102,8 +125,9 @@ const RegisterComponentProvider = ({
 
   const onSubmit = (data: UserFormInterface) => {
     /* input 값 성형 */
-
     if (!!sessionData) {
+      const subString = getSubMinorList(data, "복수전공");
+      const minorString = getSubMinorList(data, "부전공");
       setSubmitData({
         userId: sessionData.provider + "_" + Math.floor(Math.random() * 10000000000),
         email: sessionData.user!.email!,
@@ -118,8 +142,8 @@ const RegisterComponentProvider = ({
         graduateDate: parseInt(data.graduateDate),
         graduateMonth: parseInt(data.graduateMonth),
         major: data.major,
-        subMajor: !!(data.minorList) ? data.minorList : null,
-        minor: !!(data.minorList) ? data.minorList : null,
+        subMajor: subString,
+        minor: minorString,
         field: data.fieldList.join(','),
         techStack: data.techStackList.join(','),
         career: !!(data.career) ? data.career : null,
@@ -141,6 +165,11 @@ const RegisterComponentProvider = ({
   const handleBackClick = (component: string) => {
     setComponent(component);
   };
+  const [majors, setMajors] = useState<any>([]);
+
+  const addMajor = () => {
+    setMajors([...majors, { num: majors.length }]);
+  };
 
   return (
     <RegisterComponentContext.Provider
@@ -160,6 +189,8 @@ const RegisterComponentProvider = ({
         onValid: onSubmit,
         nicknameCheck,
         setNameCheck,
+        addMajor,
+        majors,
       }}
     >
       {children}

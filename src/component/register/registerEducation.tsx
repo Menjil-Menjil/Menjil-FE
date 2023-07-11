@@ -16,8 +16,12 @@ const RegisterEducation = () => {
     handleBackClick,
     register,
     isValid,
-    watch
+    setValue,
+    watch,
+    majors,
+    addMajor,
   } = useContext<any>(RegisterComponentContext);
+
   return (
     <>
       <GoPageBtn
@@ -61,6 +65,7 @@ const RegisterEducation = () => {
               required: true,
             })}
           />
+
           <input
             type="number"
             placeholder="월"
@@ -89,29 +94,45 @@ const RegisterEducation = () => {
               },
             })}
           />
-          <input
-            type="text"
-            placeholder="예) 컴퓨터공학과"
-            className="inputBox"
-            style={{ width: "458px", display: "inline", marginRight: "18px" }}
-            {...register("minor", {
-              pattern: {
-                // input의 정규식 패턴
-                value: /^[가-힣]{1,20}$/,
-                message: "올바르지 않은 형식입니다", // 에러 메세지
-              },
+          <div className="majors">
+            {majors.map((num: any, index: any) => {
+              return (
+                <InputContainer key={index}>
+                  <div className="addMajor">
+                    <input
+                      type="text"
+                      placeholder="예) 컴퓨터공학과"
+                      className="inputBox"
+                      style={{
+                        width: "458px",
+                        display: "inline",
+                        marginRight: "18px",
+                      }}
+                      {...register(`subMajor${index}`, {
+                        pattern: {
+                          // input의 정규식 패턴
+                          value: /^[가-힣]{1,20}$/,
+                          message: "올바르지 않은 형식입니다", // 에러 메세지
+                        },
+                      })}
+                    />
+                    <DropDown
+                      id={`majorType${index}`}
+                      valueList={["복수전공", "부전공"]}
+                      placeHolder={"유형"}
+                      widthVal="189px"
+                    />
+                  </div>
+                </InputContainer>
+              );
             })}
-          />
-          <DropDown
-            id={"majorType"}
-            valueList={["복수전공", "부전공"]}
-            placeHolder={"유형"}
-            widthVal="189px"
-          />
+          </div>
           <button
             type="button"
             className="addBtn"
             style={{ width: "667px", marginTop: "20px" }}
+            disabled={majors.length === 2 ? true : false}
+            onClick={() => addMajor()}
           >
             전공 추가하기
           </button>
@@ -157,9 +178,7 @@ const RegisterEducation = () => {
         // type="submit"
         // 학점("score")에 대한 값이 드롭박스 컴포넌트(div)로 설정되기 때문에 required 속성 대신 직접 값을 검사한다
         disabled={!isValid || !watch("score")}
-        onClick={() => {
-          handleNextClick("RegisterTags");
-        }}
+        onClick={() => handleNextClick("RegisterTags")}
       >
         <RightIc />
       </GoPageBtn>
