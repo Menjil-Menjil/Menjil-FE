@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 interface UserFormInterface {
   // sns 계정 정보
@@ -88,21 +88,24 @@ const RegisterComponentProvider = ({
   });
 
   const setSubMinor = (majorType: any, subMinor: any) => {
-    const result = !!(subMinor) ? subMinor : null;
-    return !!(majorType) ? {type: majorType, name: result} : null;
+    const result = !!subMinor ? subMinor : null;
+    return !!majorType ? { type: majorType, name: result } : null;
   };
   const getSubMinorList = (data: UserFormInterface, typeName: string) => {
     const list = [
       setSubMinor(data.majorType0, data.subMajor0),
-      setSubMinor(data.majorType1, data.subMajor1)
+      setSubMinor(data.majorType1, data.subMajor1),
     ];
 
-    const str = list.map((obj) => {
-      if(obj?.type === typeName) return obj.name;
-      else return null;
-    }).filter(val => !!val).join(',');
+    const str = list
+      .map((obj) => {
+        if (obj?.type === typeName) return obj.name;
+        else return null;
+      })
+      .filter((val) => !!val)
+      .join(",");
 
-    return !!(str) ? str : null;
+    return !!str ? str : null;
   };
 
   const sendData = async (data: UserRegisterApiInterface) => {
@@ -121,7 +124,7 @@ const RegisterComponentProvider = ({
     } catch (error) {
       console.error("실패:", error);
     }
-  }
+  };
 
   const onSubmit = (data: UserFormInterface) => {
     /* input 값 성형 */
@@ -129,7 +132,8 @@ const RegisterComponentProvider = ({
       const subString = getSubMinorList(data, "복수전공");
       const minorString = getSubMinorList(data, "부전공");
       setSubmitData({
-        userId: sessionData.provider + "_" + Math.floor(Math.random() * 10000000000),
+        userId:
+          sessionData.provider + "_" + Math.floor(Math.random() * 10000000000),
         email: sessionData.user!.email!,
         provider: sessionData.provider,
         nickname: data.nickname,
@@ -144,17 +148,16 @@ const RegisterComponentProvider = ({
         major: data.major,
         subMajor: subString,
         minor: minorString,
-        field: data.fieldList.join(','),
-        techStack: data.techStackList.join(','),
-        career: !!(data.career) ? data.career : null,
-        certificate: !!(data.certificate) ? data.certificate : null,
-        awards: !!(data.awards) ? data.awards : null,
-        activity: !!(data.activity) ? data.activity : null,
+        field: data.fieldList.join(","),
+        techStack: data.techStackList.join(","),
+        career: !!data.career ? data.career : null,
+        certificate: !!data.certificate ? data.certificate : null,
+        awards: !!data.awards ? data.awards : null,
+        activity: !!data.activity ? data.activity : null,
       });
       console.log(JSON.stringify(submitData));
       sendData(submitData!);
-    }
-    else return;
+    } else return;
   };
 
   const handleNextClick = async (component: string) => {
