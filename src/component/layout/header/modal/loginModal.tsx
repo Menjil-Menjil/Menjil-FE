@@ -5,7 +5,7 @@ import kakaoIc from "@/img/ic_kakao.png";
 import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
 import {useRouter} from "next/router";
-import {signIn, useSession} from "next-auth/react";
+import {signIn} from "next-auth/react";
 
 interface clickModalType {
   closeLoginModal: any;
@@ -13,9 +13,7 @@ interface clickModalType {
 }
 
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
-  const {data: sessionData} = useSession()
   const router = useRouter();
-  const { error } = useRouter().query;
   //const callBackURL = "https://www.menjil-menjil.com/";
   const callBackURL = "http://localhost:3000/" // 로컬 디버그용
 

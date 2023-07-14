@@ -14,7 +14,7 @@ const HeaderSection = styled.header`
   display: flex;
   align-items: center;
   user-select: none;
-  font-family: "Pretendard";
+  font-family: "Pretendard",sans-serif;
   font-weight: 700;
   font-size: 20px;
   .category {
@@ -44,11 +44,6 @@ const HeaderSection = styled.header`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #3f3f3f;
-  white-space: nowrap;
-`;
-const StyledDiv = styled.div`
-  cursor: pointer;
   color: #3f3f3f;
   white-space: nowrap;
 `;

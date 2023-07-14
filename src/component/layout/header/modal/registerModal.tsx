@@ -6,8 +6,6 @@ import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
 import {signIn, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 interface clickModalType {
   closeRegisterModal: any;

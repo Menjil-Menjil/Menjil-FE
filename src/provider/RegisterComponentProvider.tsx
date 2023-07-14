@@ -66,7 +66,7 @@ const RegisterComponentProvider = ({
   const [component, setComponent] = useState("RegisterBasic");
   const [nicknameCheck, setNameCheck] = useState<string>("");
   const [submitData, setSubmitData] = useState<UserRegisterApiInterface>();
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const { data: sessionData } = useSession();
   const {
     register,
     formState: { errors, isValid, isDirty },
