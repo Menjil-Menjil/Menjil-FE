@@ -3,9 +3,9 @@ import Chatting from "@/component/chatting";
 const chatting = () => {
   return (
     <>
-      <Chatting/>
+      <Chatting />
     </>
   );
-}
+};
 
 export default chatting;

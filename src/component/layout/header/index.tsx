@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
-import {signOut, useSession} from "next-auth/react";
-import {useRouter} from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const HeaderSection = styled.header`
   width: 100%;
@@ -77,7 +77,7 @@ const Header = () => {
 
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({redirect:false, callbackUrl: "/"});
+      signOut({ redirect: false, callbackUrl: "/" });
       router.push("/");
     }
     //로컬로그아웃함수;
@@ -105,20 +105,22 @@ const Header = () => {
         </div>
         <div className="member">
           {sessionData?.user ? (
-            <StyledDiv onClick={logOutHandler}>
-              로그아웃
-            </StyledDiv>
+            <StyledDiv onClick={logOutHandler}>로그아웃</StyledDiv>
           ) : (
             <>
-              <StyledLink href="" className="register" onClick={closeRegisterModal}>
+              <StyledLink
+                href=""
+                className="register"
+                onClick={closeRegisterModal}
+              >
                 회원가입
               </StyledLink>
               <StyledLink href="" className="login" onClick={closeLoginModal}>
                 로그인
               </StyledLink>
             </>
-        )}
-      </div>
+          )}
+        </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}
