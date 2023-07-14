@@ -6,26 +6,28 @@ import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
 import {useRouter} from "next/router";
 import {signIn, useSession} from "next-auth/react";
-import axios from "axios/index";
 
 interface clickModalType {
   closeLoginModal: any;
   changeModal: any;
 }
+
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
   const {data: sessionData} = useSession()
   const router = useRouter();
+  const { error } = useRouter().query;
   //const callBackURL = "https://www.menjil-menjil.com/";
   const callBackURL = "http://localhost:3000/" // 로컬 디버그용
 
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
     const res: any = await signIn(provider, {
-      redirect: false,
-      callbackUrl: callBackURL // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      redirect: true,
+      callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      loginMode: "login"
     });
     if (res?.error) {
-
+      console.log(res.error);
     } else {
       await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
     }

@@ -4,8 +4,10 @@ import googleIc from "@/img/ic_google.png";
 import kakaoIc from "@/img/ic_kakao.png";
 import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
-import {signIn} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 interface clickModalType {
   closeRegisterModal: any;
@@ -13,6 +15,7 @@ interface clickModalType {
 }
 
 const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
+  const {status: sessionStatus} = useSession();
   const router = useRouter();
   //const callBackURL = "https://www.menjil-menjil.com/register";
   const callBackURL = "http://localhost:3000/register" // 로컬 디버그용
@@ -20,13 +23,16 @@ const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
     const res: any = await signIn(provider, {
-      redirect: false,
-      callbackUrl: callBackURL // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      redirect: true,
+      callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      loginMode: "register"
     });
     if (res?.error) {
 
     } else {
-      await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      if (sessionStatus === "authenticated") {
+        await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      }
     }
   }
 
