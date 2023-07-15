@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import {useSession} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 interface UserFormInterface {
   // sns 계정 정보
@@ -66,7 +67,8 @@ const RegisterComponentProvider = ({
   const [component, setComponent] = useState("RegisterBasic");
   const [nicknameCheck, setNameCheck] = useState<string>("");
   const [submitData, setSubmitData] = useState<UserRegisterApiInterface>();
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const { data: sessionData } = useSession();
+  const router = useRouter();
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -117,9 +119,22 @@ const RegisterComponentProvider = ({
       });
 
       const result = await response.json();
-      console.log("성공:", result);
+      console.log("가입성공:", result);
     } catch (error) {
       console.error("실패:", error);
+    }
+  }
+
+  const socialLogin = async (provider: string) => {
+    const res: any = await signIn(provider, {
+      redirect: true,
+      callbackUrl: "/", // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      loginMode: "login"
+    });
+    if (res?.error) {
+      console.log(res.error);
+    } else {
+      await router.push("/"); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
     }
   }
 
@@ -152,7 +167,11 @@ const RegisterComponentProvider = ({
         activity: !!(data.activity) ? data.activity : null,
       });
       console.log(JSON.stringify(submitData));
-      sendData(submitData!);
+      if (!!submitData) {
+        sendData(submitData!)
+        .then(() => socialLogin(sessionData.provider))
+        .catch((reason) => {console.log(reason)})
+      }
     }
     else return;
   };

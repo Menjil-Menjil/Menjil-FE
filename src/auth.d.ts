@@ -10,6 +10,7 @@ declare module 'next-auth' {
       email?: string; // 이메일 정보
     } & DefaultSession['user'];
     accessToken: string;
+    refreshToken: string;
     provider: string; // sns 정보
   }
 }

@@ -14,7 +14,7 @@ const HeaderSection = styled.header`
   display: flex;
   align-items: center;
   user-select: none;
-  font-family: "Pretendard";
+  font-family: "Pretendard",sans-serif;
   font-weight: 700;
   font-size: 20px;
   .category {
@@ -47,20 +47,18 @@ const StyledLink = styled(Link)`
   color: #3f3f3f;
   white-space: nowrap;
 `;
-const StyledDiv = styled.div`
-  cursor: pointer;
-  color: #3f3f3f;
-  white-space: nowrap;
-`;
 
 const Header = () => {
   const router = useRouter();
   const { data: sessionData, status: sessionStatus } = useSession();
   useEffect(() => {
+    console.log("status:", JSON.stringify(sessionStatus));
     if (sessionData && sessionStatus === "authenticated") {
+      console.log("data:", JSON.stringify(sessionData));
       //로컬토큰요청함수
     }
-  }, []);
+  });
+
   // 모달 버튼 클릭 유무를 저장할 state
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -105,9 +103,9 @@ const Header = () => {
         </div>
         <div className="member">
           {sessionData?.user ? (
-            <StyledDiv onClick={logOutHandler}>
+            <StyledLink href="" className="login"  onClick={logOutHandler}>
               로그아웃
-            </StyledDiv>
+            </StyledLink>
           ) : (
             <>
               <StyledLink href="" className="register" onClick={closeRegisterModal}>
