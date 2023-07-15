@@ -14,8 +14,8 @@ const Error = () => {
   const router = useRouter();
   const socialLogin = async (provider: string, mode: string, url: string) => {
     const res: any = await signIn(provider, {
-      redirect: true,
-      //callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      redirect: false,
+      callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
       loginMode: mode
     });
     if (res?.error) {

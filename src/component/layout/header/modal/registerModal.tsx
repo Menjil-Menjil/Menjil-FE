@@ -15,7 +15,7 @@ interface clickModalType {
 const RegisterModal = ({ closeRegisterModal, changeModal }: clickModalType) => {
   const {status: sessionStatus} = useSession();
   const router = useRouter();
-  const callBackURL = "/register";
+  const callBackURL = '/register';
   //const callBackURL = "http://localhost:3000/register" // 로컬 디버그용
 
   const socialLogin = async (e: any, provider: string) => {

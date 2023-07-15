@@ -32,6 +32,7 @@ export default function App(
       `}</style>
       <Head>
         <title>맨질맨질</title>
+
       </Head>
       <SessionProvider session={pageProps.session}>
         <Layout>
