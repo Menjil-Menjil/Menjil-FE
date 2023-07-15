@@ -4,12 +4,33 @@ import googleIc from "@/img/ic_google.png";
 import kakaoIc from "@/img/ic_kakao.png";
 import Link from "next/link";
 import { ModalBox, ModalContent } from "./modal.style";
+import {useRouter} from "next/router";
+import {signIn} from "next-auth/react";
 
 interface clickModalType {
   closeLoginModal: any;
   changeModal: any;
 }
+
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
+  const router = useRouter();
+  const callBackURL = "https://www.menjil-menjil.com/";
+  //const callBackURL = "http://localhost:3000/" // 로컬 디버그용
+
+  const socialLogin = async (e: any, provider: string) => {
+    e.preventDefault();
+    const res: any = await signIn(provider, {
+      redirect: true,
+      callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      loginMode: "login"
+    });
+    if (res?.error) {
+      console.log(res.error);
+    } else {
+      await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+    }
+  }
+
   return (
     <ModalBox>
       {/* // 모달을 닫는 state함수가 아래로 전파되는 것을 막아줌 */}
@@ -24,10 +45,7 @@ const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
               <br />
               멘토를 만나는 곳
             </div>
-            <Link
-              className="google"
-              href={process.env.NEXT_PUBLIC_API_URL + "/auth/google"}
-            >
+            <button className="google" onClick={e => socialLogin(e, "google")}>
               <Image
                 src={googleIc}
                 className="googleImage"
@@ -36,11 +54,8 @@ const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
                 height={18}
               />
               <div className="googleText">구글 로그인</div>
-            </Link>
-            <Link
-              className="kakao"
-              href={process.env.NEXT_PUBLIC_API_URL + "/auth/kakao"}
-            >
+            </button>
+            <button className="kakao" onClick={e => socialLogin(e, "kakao")}>
               <Image
                 src={kakaoIc}
                 className="kakaoImage"
@@ -49,7 +64,7 @@ const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
                 height={18}
               />
               <div className="kakaoText">카카오 로그인</div>
-            </Link>
+            </button>
             <div className="loginState">
               <input type="checkbox" id="keepLoggedIn" name="keepLoggedIn" />
               <label htmlFor="keepLoggedIn">로그인 상태 유지</label>

@@ -50,7 +50,7 @@ export const ModalContent = styled.div`
         line-height: 36px;
         text-align: center;
       }
-      > a {
+      > button {
         text-decoration: none;
         width: 100%;
         min-height: 45px;

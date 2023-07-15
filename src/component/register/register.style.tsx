@@ -147,13 +147,17 @@ export const InputContainer = styled.div`
   }
   .addBtn {
     height: 60px;
-    background: #e3e2e2;
+    background-color: var(--highlighted-element);
     border: none;
     border-radius: 12px;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    color: #6b6565;
+    color: #000000;
+    :disabled {
+      background: #e3e2e2;
+      color: #6b6565;
+    }
   }
   .scoreRadioContainer {
     width: 300px;
@@ -211,6 +215,9 @@ export const InputContainer = styled.div`
     > input[type="submit"] {
       display: none;
     }
+  }
+  .addMajor {
+    display: flex;
   }
 `;
 
