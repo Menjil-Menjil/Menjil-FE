@@ -5,6 +5,7 @@ import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
 
 let loginMode = "";
+let jwtTokenData = {};
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   // Do whatever you want here, before the request is passed down to `NextAuth`
@@ -44,6 +45,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 email: user.email,
                 provider: account.provider
               })
+            jwtTokenData = res.data;
             return res?.data; // 필수
             // 서버 API 요청을 통해 받은 token(access, refresh) 저장
             // privateToken = data.token
@@ -71,7 +73,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           token = {
             id: user.email,
             provider: account.provider,
-            //accessToken: privateToken
+            data: jwtTokenData,
           }
         }
         return token // 반환해주면, session 콜백으로 전달된다.
@@ -82,6 +84,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         //session.accessToken = privateToken;
         session.user.email = token.id;
         session.provider = token.provider;
+        session.accessToken = token.data.accessToken;
+        session.refreshToken = token.data.refreshToken;
 
         return session;
       },
