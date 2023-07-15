@@ -2,8 +2,8 @@ import {useRouter} from "next/router";
 import {signIn} from "next-auth/react";
 import {useEffect, useState} from "react";
 
-const callBackURL_login = "/"
-const callBackURL_register = "/register"
+const callBackURL_login = "https://www.menjil-menjil.com/"
+const callBackURL_register = "https://www.menjil-menjil.com/register"
 //const callBackURL_login = "http://localhost:3000/" // 로컬 디버그용
 //const callBackURL_register = "http://localhost:3000/register" // 로컬 디버그용
 
@@ -14,8 +14,8 @@ const Error = () => {
   const router = useRouter();
   const socialLogin = async (provider: string, mode: string, url: string) => {
     const res: any = await signIn(provider, {
-      redirect: true,
-      //callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      redirect: false,
+      callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
       loginMode: mode
     });
     if (res?.error) {
