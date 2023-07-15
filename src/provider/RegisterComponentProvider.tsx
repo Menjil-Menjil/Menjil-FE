@@ -128,7 +128,7 @@ const RegisterComponentProvider = ({
   const socialLogin = async (provider: string) => {
     const res: any = await signIn(provider, {
       redirect: true,
-      callbackUrl: "/", // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      //callbackUrl: "/", // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
       loginMode: "login"
     });
     if (res?.error) {
