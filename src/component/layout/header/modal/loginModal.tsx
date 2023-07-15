@@ -14,14 +14,14 @@ interface clickModalType {
 
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
   const router = useRouter();
-  const callBackURL = "https://www.menjil-menjil.com/";
+  const callBackURL = "/";
   //const callBackURL = "http://localhost:3000/" // 로컬 디버그용
 
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
     const res: any = await signIn(provider, {
-      redirect: true,
-      //callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      redirect: false,
+      callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
       loginMode: "login"
     });
     if (res?.error) {
