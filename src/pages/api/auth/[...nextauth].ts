@@ -95,6 +95,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       signIn: '/',
       signOut: '/',
       error: '/error',
-    }
+    },
+
+    secret: process.env.NEXTAUTH_SECRET,
+
   })
 }
