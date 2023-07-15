@@ -14,8 +14,8 @@ interface clickModalType {
 
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
   const router = useRouter();
-  const callBackURL = "https://www.menjil-menjil.com/";
-  //const callBackURL = "http://localhost:3000/" // 로컬 디버그용
+  //const callBackURL = "https://www.menjil-menjil.com/";
+  const callBackURL = "http://localhost:3000/" // 로컬 디버그용
 
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
