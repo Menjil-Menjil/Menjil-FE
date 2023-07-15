@@ -2,9 +2,10 @@ import {useRouter} from "next/router";
 import {signIn} from "next-auth/react";
 import {useEffect, useState} from "react";
 
-//const callBackURL = "https://www.menjil-menjil.com/";
-const callBackURL_login = "http://localhost:3000/" // 로컬 디버그용
-const callBackURL_register = "http://localhost:3000/register" // 로컬 디버그용
+const callBackURL_login = "https://www.menjil-menjil.com/"
+const callBackURL_register = "https://www.menjil-menjil.com/register"
+//const callBackURL_login = "http://localhost:3000/" // 로컬 디버그용
+//const callBackURL_register = "http://localhost:3000/register" // 로컬 디버그용
 
 const Error = () => {
   const { error } = useRouter().query;
