@@ -7,8 +7,8 @@ import {signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 
 const HeaderSection = styled.header`
-  width: 100%;
-  height: 110px;
+  width: 1728px;
+  height: 70px;
   margin: 0 auto;
   border-bottom: 1px solid #e2e2e2;
   display: flex;

@@ -44,7 +44,6 @@ export const ModalContent = styled.div`
       position: relative;
       .copy {
         margin: 128px 0 78px;
-        font-family: "Pretendard";
         font-weight: 700;
         font-size: 24px;
         line-height: 36px;
@@ -93,7 +92,6 @@ export const ModalContent = styled.div`
       .loginState {
         width: 300px;
         margin-top: 11px;
-        font-family: "Pretendard";
         font-weight: 400;
         font-size: 15px;
         line-height: 18px;
@@ -105,7 +103,6 @@ export const ModalContent = styled.div`
       .register {
         position: absolute;
         bottom: 57px;
-        font-family: "Pretendard";
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
