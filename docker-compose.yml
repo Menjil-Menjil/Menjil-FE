@@ -12,13 +12,3 @@ services:
     environment:
       - TZ=Asia/Seoul
 
-  nginx:
-    container_name: nginx
-    # images: nginx:latest
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    environment:
-      - TZ=Asia/Seoul
