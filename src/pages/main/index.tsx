@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-const Main = () => {
+import Main from "@/component/main";
+const main = () => {
   return (
     <>
-      <p style={{ fontSize: "100px", textAlign: "center" }}>홈 화면</p>
+      <Main/>
     </>
   );
 };
 
-export default Main;
+export default main;

@@ -7,11 +7,15 @@ import {signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 
 const HeaderSection = styled.header`
-  width: 100%;
-  height: 110px;
+  width: 1728px;
+  height: 60px;
   margin: 0 auto;
+  top: 0;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
+  position: sticky;
+  z-index: 1;
+  background-color: white;
   align-items: center;
   user-select: none;
   font-family: "Pretendard",sans-serif;

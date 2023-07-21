@@ -7,11 +7,11 @@ interface childrenType {
 
 const Layout = ({children}: childrenType) => {
   return (
-    <div>
+    <>
       <Header />
       {children}
       <Footer />
-    </div>
+    </>
   );
 };
 
