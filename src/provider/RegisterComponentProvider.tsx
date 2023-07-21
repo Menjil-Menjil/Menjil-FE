@@ -66,7 +66,8 @@ const RegisterComponentProvider = ({
 }) => {
   const [component, setComponent] = useState("RegisterBasic");
   const [nicknameCheck, setNameCheck] = useState<string>("");
-  const [submitData, setSubmitData] = useState<UserRegisterApiInterface>();
+  let submitData: UserRegisterApiInterface;
+  //const [submitData, setSubmitData] = useState<UserRegisterApiInterface>();
   const { data: sessionData } = useSession();
   const router = useRouter();
   const {
@@ -143,7 +144,7 @@ const RegisterComponentProvider = ({
     if (!!sessionData) {
       const subString = getSubMinorList(data, "복수전공");
       const minorString = getSubMinorList(data, "부전공");
-      setSubmitData({
+      submitData = {
         userId: sessionData.provider + "_" + Math.floor(Math.random() * 10000000000),
         email: sessionData.user!.email!,
         provider: sessionData.provider,
@@ -165,7 +166,7 @@ const RegisterComponentProvider = ({
         certificate: !!(data.certificate) ? data.certificate : null,
         awards: !!(data.awards) ? data.awards : null,
         activity: !!(data.activity) ? data.activity : null,
-      });
+      };
       console.log(JSON.stringify(submitData));
       if (!!submitData) {
         sendData(submitData!)

@@ -36,7 +36,7 @@ export const ProfileContentContainerDiv = styled.div`
   display: flex;
   font-size: 14px;
   font-weight: 500;
-  line {
+  .line {
     width: 1px;
     height: 13px;
     background: #BEBEBE;
