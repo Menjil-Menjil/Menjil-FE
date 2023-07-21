@@ -1,4 +1,4 @@
-import {ProfileBtnContainerDiv} from "@/component/main/mentorProfileList/profileCard.style";
+import {ProfileBtnContainerDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 import IcQuestion from "@/img/ic_send-question.svg";
 import IcFollow from "@/img/ic_follow.svg";
 const ProfileBtnGroup = () => {

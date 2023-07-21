@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const MentorProfileListTitleDiv = styled.div`
+export const MentorProfileSectionTitleDiv = styled.div`
   padding-left: 40px;
   height: 71px;
   display: flex;

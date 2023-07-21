@@ -1,6 +1,7 @@
 import Image from "next/image";
+import profileImg1 from "@/img/img_profile-image-1.png";
 import profileImg2 from "@/img/img_profile-image-2.png";
-import {ProfileContentContainerDiv} from "@/component/main/mentorProfileList/profileCard.style";
+import {ProfileContentContainerDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 
 const ProfileContent = () => {
   return (

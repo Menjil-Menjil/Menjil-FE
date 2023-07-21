@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import MainBanner from "./mainBanner";
-import MentorProfileList from "./mentorProfileList";
-import UserProfile from "./userProfile";
+import MentorProfileList from "./mentorProfileSection";
+import UserAside from "@/component/main/userAside";
 
 export const MainContainerDiv = styled.div`
   width: 1728px;
@@ -21,14 +21,11 @@ export const MainContentsContainerDiv = styled.div`
 const Main = () => {
   return (
     <MainContainerDiv>
-
       <MainBanner/>
-
       <MainContentsContainerDiv>
         <MentorProfileList/>
-        <UserProfile/>
+        <UserAside/>
       </MainContentsContainerDiv>
-
     </MainContainerDiv>
   );
 };

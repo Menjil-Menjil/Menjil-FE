@@ -1,4 +1,4 @@
-import {ProfileRecentQuestionContainerDiv} from "@/component/main/mentorProfileList/profileCard.style";
+import {ProfileRecentQuestionContainerDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 
 const ProfileRecentQuestion = () => {
   return (
