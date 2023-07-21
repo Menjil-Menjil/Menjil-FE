@@ -4,7 +4,7 @@ import RegisterBasic from "@/component/register/registerBasic";
 import RegisterEducation from "@/component/register/registerEducation";
 import RegisterTags from "@/component/register/registerTags";
 import RegisterAdditionalInfo from "@/component/register/registerAdditionalInfo";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 export const RegisterContainerDiv = styled.div`
@@ -34,7 +34,6 @@ export const RegisterInputContainerForm = styled.form`
 export const PageInformationDiv = styled.div`
   width: 667px;
   margin-top: 120px;
-  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
