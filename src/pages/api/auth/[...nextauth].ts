@@ -40,13 +40,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       async signIn({ user, account }: any) {
         if (loginMode === "login") {
           try {
-            const res = await axios
+            const response = await axios
               .post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
                 email: user.email,
                 provider: account.provider
               })
-            jwtTokenData = res.data;
-            return res?.data; // 필수
+            jwtTokenData = response.data;
+            const accessToken = response.headers['set-cookie'];
+            res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/;`);
+
+            return response?.data; // 필수
             // 서버 API 요청을 통해 받은 token(access, refresh) 저장
             // privateToken = data.token
           } catch (e: any) {
@@ -54,11 +57,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           }
         } else if (loginMode === "register") {
           try {
-            const res = await axios
+            const response = await axios
               .get(
                 `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`
               )
-            return res?.data; // 필수
+            return response?.data; // 필수
             // 서버 API 요청을 통해 받은 token(access, refresh) 저장
             // privateToken = data.token
           } catch (e: any) {
