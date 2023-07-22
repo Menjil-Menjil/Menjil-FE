@@ -59,7 +59,6 @@ const Header = () => {
     console.log("status:", JSON.stringify(sessionStatus));
     if (sessionData && sessionStatus === "authenticated") {
       console.log("data:", JSON.stringify(sessionData));
-      //로컬토큰요청함수
     }
   });
 

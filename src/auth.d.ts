@@ -6,10 +6,12 @@ import NextAuth, { DefaultSession , User } from 'next-auth';
 // 세션 객체
 declare module 'next-auth' {
   interface Session extends DefaultSession {
-    user?: {
+    user: {
+      id?: string;
       email?: string; // 이메일 정보
     } & DefaultSession['user'];
     accessToken: string;
+    accessTokenExpires: any;
     refreshToken: string;
     provider: string; // sns 정보
   }
