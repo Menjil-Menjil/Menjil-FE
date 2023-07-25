@@ -27,7 +27,7 @@ export const MainBannerDiv = styled.div`
 const MainBanner = () => {
   return (
     <MainBannerDiv>
-      <Image src={bannerImg} alt="mainBannerImg"/>
+      <Image src={bannerImg} alt="mainBannerImg" priority/>
       <p className="mainBannerCopy">
         간단하게 질문하고 정확한 답변받기<br/>멘질멘질
       </p>

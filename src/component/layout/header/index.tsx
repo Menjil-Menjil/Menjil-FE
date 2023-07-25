@@ -57,11 +57,19 @@ const Header = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
-    if (sessionData && sessionStatus === "authenticated") {
-      console.log("data:", JSON.stringify(sessionData));
-      //로컬토큰요청함수
+    if (!!sessionData?.error) {
+      signOut({redirect:false, callbackUrl: "/"});
+      router.push("/");
+      console.log(sessionData.error);
+      alert("다시 로그인 해주세요!");
+    } else {
+      if (sessionData && sessionStatus === "authenticated") {
+        console.log(`provider:${sessionData.provider}`,
+          `user:${JSON.stringify(sessionData.user)}`,
+          `tokenExp:${sessionData.accessTokenExpires}`);
+      }
     }
-  });
+  }, [sessionData]);
 
   // 모달 버튼 클릭 유무를 저장할 state
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -108,7 +116,7 @@ const Header = () => {
         <div className="member">
           {sessionData?.user ? (
             <StyledLink href="" className="login"  onClick={logOutHandler}>
-              로그아웃
+              {sessionData.accessToken ? "로그아웃" : "나가기"}
             </StyledLink>
           ) : (
             <>

@@ -12,7 +12,7 @@ const ProfileContent = () => {
       <div className="profileContentBox column gap3">
         <div className="marginLeft center gap10">
           <div className="textStyleNickname">{"홍길동"}</div>
-          <line/>
+          <div className="line"/>
           <div>{"컴퓨터공학 전공"}</div>
         </div>
         <div className="marginBottom profileJobBox center">{"네이버 클라우드"}</div>
