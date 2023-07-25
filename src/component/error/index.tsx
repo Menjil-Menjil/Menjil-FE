@@ -12,20 +12,22 @@ const Error = () => {
   const [message, setMessage] = useState<string>();
   const [provider, setProvider] = useState<string>();
   const router = useRouter();
-  const socialLogin = async (provider: string, mode: string, url: string) => {
-    const res: any = await signIn(provider, {
-      redirect: false,
-      callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
-      loginMode: mode
-    });
-    if (res?.error) {
-      console.log(res.error);
-    } else {
-      await router.push(url); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
-    }
-  }
+
 
   useEffect(() => {
+    const socialLogin = async (provider: string, mode: string, url: string) => {
+      const res: any = await signIn(provider, {
+        redirect: false,
+        callbackUrl: url, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+        loginMode: mode
+      });
+      if (res?.error) {
+        console.log(res.error);
+      } else {
+        await router.push(url); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+      }
+    }
+
     if (error && !error.includes("AccessDenied")) {
       const errObj = JSON.parse(error as string);
 
@@ -44,7 +46,7 @@ const Error = () => {
       console.log("error query:", message, provider)
     }
 
-  }, [error, message, provider, socialLogin]);
+  }, [error, message, provider, router]);
 
   return (
     <>
