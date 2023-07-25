@@ -5,7 +5,7 @@ import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
 import {JWT} from "next-auth/jwt";
 import {decodeJwt} from "jose";
-import {signJwtAccessToken} from "@/lib/jwt";
+import {authedTokenAxios} from "@/lib/jwt";
 
 let loginMode: string;
 
@@ -96,7 +96,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         if (!token.accessToken || shouldRefreshTime > 0) {
           return token
         }
-        console.log("refreshAccessToken!")
         return refreshAccessToken(token)
       },
 
@@ -145,52 +144,23 @@ const verifyTokenUserId = (token: string) => {
 // AccessToken이 만료되면 refreshToken을 사용해서 다시 받아오는 함수
 const refreshAccessToken = async (token: JWT) => {
   try {
-    const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/hello`
+    const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
 
-    const nowTime = Math.round(Date.now() / 1000)
-    const min = 3
-    const payload = {
-      user_id: token.id,
-      sub: 'Access_Token',
-      //iat: nowTime,
-      //exp: nowTime + min * 60
-    }
-
-    const refreshedAccessToken = signJwtAccessToken(payload);
-    console.log(refreshedAccessToken);
-    const authedAxios = axios.create({
-      // header를 여기서 설정해주면,
-      // 인스턴스를 실행할 때마다 매번 이 헤더가 자동으로 요청을 보낼 때 포함됨
-      headers: {
-        Authorization: `Bearer ${refreshedAccessToken} ${token.refreshToken}`
-      }
-    });
-
-    const res = await axios.post(test_url, "None", {
-      headers: {
-        Authorization: `Bearer ${refreshedAccessToken} ${token.refreshToken}`
-      }
-    })
-    // const res = await authedAxios.post(test_url, "None")
-
-    const refreshedRefreshTokens = res?.data
-
-    if (res.data.code !== 200) {
-      throw new Error(JSON.stringify({message: refreshedRefreshTokens.message}))
-    }
+    const res = await authedTokenAxios(token.accessToken, token.refreshToken).post(test_url, "None")
+    const refreshedAccessToken = res.data.data.accessToken
+    console.log(res.data.message)
 
     return {
       ...token,
       accessToken: refreshedAccessToken,
       accessTokenExpires: verifyTokenExp(refreshedAccessToken),
-      refreshToken: refreshedRefreshTokens.data.refreshToken ?? token.refreshToken,
       error: undefined
     }
 
   } catch (err: any) {
     return {
       ...token,
-      error: err.response.data?.message
+      error: `${err.response.data?.code}: ${err.response.data?.message}`
       //error: err
     }
   }

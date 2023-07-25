@@ -14,5 +14,6 @@ declare module 'next-auth' {
     accessTokenExpires: any;
     refreshToken: string;
     provider: string; // sns 정보
+    error: any;
   }
 }

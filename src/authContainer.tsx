@@ -12,7 +12,7 @@ const AuthContainer = ({ children, authInfo }: Props) => {
   const router = useRouter()
   const { data: session, status } = useSession()
   const isUser = !!session?.user
-  const isMember = (!!session?.accessToken && !!session?.refreshToken) ? 'member' : undefined
+  const isMember = !!session?.accessToken ? 'member' : undefined
 
   const redirect = authInfo?.redirect || '/'
   const role = authInfo.role
@@ -23,7 +23,7 @@ const AuthContainer = ({ children, authInfo }: Props) => {
     if (!isUser || isMember!==role) {
       router.push(redirect)
     }
-  }, [isUser, status])
+  }, [isMember, isUser, redirect, role, router, status])
 
   if (isUser && isMember===role) {
     return children
