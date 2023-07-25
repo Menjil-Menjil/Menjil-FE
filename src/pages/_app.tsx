@@ -4,7 +4,8 @@ import Layout from "@/component/layout";
 import { Prompt } from "next/font/google";
 import React from "react";
 import "../styles/globals.css";
-import { SessionProvider } from "next-auth/react";
+import {SessionProvider} from "next-auth/react";
+import AuthContainer from "@/authContainer";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -12,11 +13,56 @@ const prompt = Prompt({
   variable: "--prompt",
 });
 
+export interface AuthInfo {
+  role?: 'admin' | 'member'
+  loading?: React.ReactNode
+  redirect?: string
+}
+
+// 일반 유저 접근 금지 path
+const NOT_ALLOWED_TO_MEMBERS = ['/register']
+//일반 유저 권한이 필요한 start path
+const ALLOWED_ONLY_TO_MEMBERS = ['/chatting', '/community']
+
 export default function App(
   {
     Component,
-    pageProps,
+    pageProps: { session, ...pageProps },
+    router: { route },
   }: AppProps) {
+  //path를 검사하여 AuthContainer로 감쌀지 여부를 결정
+  const memberRequireAuth = ALLOWED_ONLY_TO_MEMBERS.some((path) =>
+    route.startsWith(path)
+  )
+  const notMemberRequireAuth = NOT_ALLOWED_TO_MEMBERS.some((path) =>
+    route.startsWith(path)
+  )
+
+  const renderAuthorizedComponent = () => {
+    if (memberRequireAuth) {
+      const authInfo: AuthInfo = {
+        role: 'member',
+        redirect: '/register',
+      }
+      return (
+        <AuthContainer authInfo={authInfo}>
+          <Component {...pageProps} />
+        </AuthContainer>
+      )
+    } else if (notMemberRequireAuth) {
+      const authInfo: AuthInfo = {
+        role: undefined,
+        redirect: '/',
+      }
+      return (
+        <AuthContainer authInfo={authInfo}>
+          <Component {...pageProps} />
+        </AuthContainer>
+      )
+    }
+    return <Component {...pageProps} />
+  }
+
   return (
     <>
       <style jsx global>{`
@@ -35,7 +81,7 @@ export default function App(
       </Head>
       <SessionProvider session={pageProps.session}>
         <Layout>
-          <Component {...pageProps} />
+          {renderAuthorizedComponent()}
         </Layout>
       </SessionProvider>
     </>

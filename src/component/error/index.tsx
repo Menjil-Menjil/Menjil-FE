@@ -32,7 +32,7 @@ const Error = () => {
       setMessage(errObj?.message);
       setProvider(errObj?.provider)
 
-      if(message === "User is already existed") {
+      if(message === "Request failed with status code 409") {
         alert("이미 가입된 유저입니다. 로그인.");
         socialLogin(provider!, "login", callBackURL_login);
       }

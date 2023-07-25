@@ -16,7 +16,5 @@ const Community = () => {
       {"커뮤니티"}
     </CommunityContainerDiv>
   );
-
 };
-
 export default Community;
