@@ -1,4 +1,3 @@
-import jwt, { JwtPayload } from "jsonwebtoken"
 import axios from "axios";
 
 export const authedTokenAxios = (accessToken: any, refreshToken: any) => {
@@ -9,15 +8,4 @@ export const authedTokenAxios = (accessToken: any, refreshToken: any) => {
       Authorization: `Bearer ${accessToken} ${refreshToken}`
     }
   })
-}
-
-export function verifyJwt(token: string) {
-  try {
-    const secret_key = process.env.TOKEN_SECRET_KEY;
-    const decoded = jwt.verify(token, secret_key!);
-    return decoded as JwtPayload;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
 }
