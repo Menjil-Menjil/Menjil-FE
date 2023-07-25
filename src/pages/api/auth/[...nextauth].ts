@@ -4,8 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
 import {JWT} from "next-auth/jwt";
-import {decodeJwt} from "jose";
-import {authedTokenAxios} from "@/lib/jwt";
+import {authedTokenAxios, refreshingTokenAxios, verifyTokenExp, verifyTokenUserId} from "@/lib/jwt";
 
 let loginMode: string;
 
@@ -51,7 +50,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
             account.access_token = resToken.accessToken;
             account.refresh_token = resToken.refreshToken;
-            account.expires_at = verifyTokenExp(resToken.accessToken);
             user.id = verifyTokenUserId(resToken.accessToken);
 
             return response?.data; // 필수
@@ -66,8 +64,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               .get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`)
 
             account.access_token = undefined;
-            account.refresh_token = undefined;
-            account.expires_at = undefined;
 
             return response?.data; // 필수
           } catch (e: any) {
@@ -77,39 +73,46 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       },
 
       // jwt 콜백 함수, 토큰에 커스텀 정보(이메일, sns)를 담는다
-      async jwt({token, account, user}: any) {
-        if (account && user) {
+      async jwt({token, account, user, trigger, session}: any) {
+        if (account) {
           token = {
             user,
-            id: user.id,
             provider: account.provider,
             accessToken: account.access_token,
-            accessTokenExpires: account.expires_at,
             refreshToken: account.refresh_token,
           }
         }
-        const nowTime = Math.round(Date.now() / 1000)
-        const min = 2;
-        const shouldRefreshTime =
-          (token.accessTokenExpires as number) - min * 60 - nowTime
-        // 토큰이 만료되지 않았을때는 원래사용하던 토큰을 반환
-        if (!token.accessToken || shouldRefreshTime > 0) {
-          return token
+        if (account?.access_token) {
+          try {
+            const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
+            const response = await authedTokenAxios(token.accessToken).post(test_url, "None")
+            console.log(response?.data.message)
+            return token
+          } catch (e: any) {
+            console.log(e.response.data.message);
+            return refreshAccessToken(token)
+          }
         }
-        return refreshAccessToken(token)
+
+        if(trigger === 'update') {
+          if(session?.newToken) token.accessToken = session.newToken
+          if(session?.error) token.error = session.error
+        }
+        return token;
       },
 
       // session 콜백 함수, 위의 토큰 정보를 세션 데이터에 업데이트한다.
       async session({ session, token }: any) {
-        session.user.id = token.user.id;
-        session.user.email = token.user.email;
-        session.provider = token.provider;
-        session.accessToken = token.accessToken;
-        session.accessTokenExpires = token.accessTokenExpires;
-        session.refreshToken = token.refreshToken;
-        session.error = token.error;
+        // session.user.id = token.user.id;
+        // session.user.email = token.user.email;
+        // session.provider = token.provider;
+        // session.accessToken = token.accessToken;
+        // session.accessTokenExpires = verifyTokenExp(token?.accessToken);
+        // session.refreshToken = token.refreshToken;
+        // session.error = token.error;
 
-        return session;
+        return {...token,
+          accessTokenExpires: verifyTokenExp(token?.accessToken)};
       },
     },
 
@@ -124,29 +127,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   })
 }
 
-const verifyTokenExp = (token: string) => {
-  try {
-    const decoded = decodeJwt(token)
-    return decoded.exp
-  } catch (e: any) {
-    throw new Error(JSON.stringify({message: e.message}))
-  }
-};
-const verifyTokenUserId = (token: string) => {
-  try {
-    const decoded = decodeJwt(token)
-    return decoded.user_id
-  } catch (e: any) {
-    throw new Error(JSON.stringify({message: e.message}))
-  }
-};
-
 // AccessToken이 만료되면 refreshToken을 사용해서 다시 받아오는 함수
 const refreshAccessToken = async (token: JWT) => {
   try {
     const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
 
-    const res = await authedTokenAxios(token.accessToken, token.refreshToken).post(test_url, "None")
+    const res = await refreshingTokenAxios(token.accessToken, token.refreshToken).post(test_url, "None")
     const refreshedAccessToken = res.data.data.accessToken
     console.log(res.data.message)
 
@@ -160,7 +146,6 @@ const refreshAccessToken = async (token: JWT) => {
     return {
       ...token,
       error: `${err.response.data?.code}: ${err.response.data?.message}`
-      //error: err
     }
   }
 }
