@@ -154,7 +154,6 @@ const refreshAccessToken = async (token: JWT) => {
       ...token,
       accessToken: refreshedAccessToken,
       accessTokenExpires: verifyTokenExp(refreshedAccessToken),
-      error: undefined
     }
 
   } catch (err: any) {
