@@ -2,8 +2,9 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "@/component/layout";
 import { Prompt } from "next/font/google";
+import localFont from 'next/font/local';
 import React from "react";
-import "../styles/globals.css";
+import  "../styles/globals.css";
 import {SessionProvider} from "next-auth/react";
 import AuthContainer from "@/authContainer";
 
@@ -11,6 +12,9 @@ const prompt = Prompt({
   subsets: ["latin"],
   weight: ["100", "400", "700"],
   variable: "--prompt",
+});
+const pretendard = localFont({
+  src: '../../public/fonts/pretendard/Pretendard-Regular.woff',
 });
 
 export interface AuthInfo {
@@ -65,17 +69,6 @@ export default function App(
 
   return (
     <>
-      <style jsx global>{`
-        :root {
-          /* font */
-          --logo-font: ${prompt.style.fontFamily};
-          /* color */
-          --theme-color: #e68c23;
-          --input-placeholder: #afafaf;
-          --highlighted-element: #ff8a00;
-          --selected-element: #fbbc053b;
-        }
-      `}</style>
       <Head>
         <title>맨질맨질</title>
       </Head>
@@ -83,6 +76,21 @@ export default function App(
         <Layout>
           {renderAuthorizedComponent()}
         </Layout>
+        <style jsx global>{`
+            :root {
+              /* font */
+              --logo-font: ${prompt.style.fontFamily};
+              /* color */
+              --theme-color: #e68c23;
+              --input-placeholder: #afafaf;
+              --highlighted-element: #ff8a00;
+              --selected-element: #fbbc053b;
+            }
+            html, 
+            body {
+              font-family: ${pretendard.style.fontFamily}, "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            }
+        `}</style>
       </SessionProvider>
     </>
   );
