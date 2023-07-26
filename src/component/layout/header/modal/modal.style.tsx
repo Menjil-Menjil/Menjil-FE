@@ -76,7 +76,10 @@ export const ModalContent = styled.div`
         color: rgba(0, 0, 0, 0.54);
       }
       .googleText {
-        /* align-items: center; */
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
       }
       .kakaoImage {
         position: absolute;
@@ -88,6 +91,10 @@ export const ModalContent = styled.div`
         color: rgba(0, 0, 0, 0.85);
       }
       .kakaoText {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
       }
       .loginState {
         width: 300px;
