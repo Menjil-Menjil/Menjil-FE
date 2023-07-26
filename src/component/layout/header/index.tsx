@@ -18,7 +18,6 @@ const HeaderSection = styled.header`
   background-color: white;
   align-items: center;
   user-select: none;
-  font-family: "Pretendard",sans-serif;
   font-weight: 700;
   font-size: 20px;
   .category {
