@@ -28,6 +28,10 @@ export default function App({ Component, pageProps }: AppProps) {
       `}</style>
       <Head>
         <title>맨질맨질</title>
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
       </Head>
       <SessionProvider session={pageProps.session}>
         <Layout>

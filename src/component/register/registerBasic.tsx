@@ -1,6 +1,6 @@
 import LeftIc from "@/img/ic_arrow_left.svg";
 import RightIc from "@/img/ic_arrow_right.svg";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FormContainerDiv,
   GoPageBtn,
@@ -10,7 +10,7 @@ import {
 import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import axios from "axios";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export const TestDiv = styled.div`
   width: 110px;
@@ -34,7 +34,7 @@ const RegisterBasic = () => {
   } = useContext<any>(RegisterComponentContext);
 
   const [duplicateName, setDuplicateName] = useState<any>("");
-  const {data: sessionData, status: sessionStatus} = useSession();
+  const { data: sessionData, status: sessionStatus } = useSession();
   useEffect(() => {
     setValue("email", sessionData?.user?.email);
     setValue("provider", sessionData?.provider);
