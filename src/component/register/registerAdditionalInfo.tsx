@@ -6,18 +6,14 @@ import {
   SaveBtnContainer,
   TitleBoxDiv,
 } from "@/component/register/register.style";
-import RightIc from "@/img/ic_arrow_right.svg";
 import LeftIc from "@/img/ic_arrow_left.svg";
 import { useContext } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 
 const RegisterAdditionalInfo = () => {
-  const { handleBackClick, register, handleSubmit } = useContext<any>(
+  const { handleBackClick, register } = useContext<any>(
     RegisterComponentContext
   );
-  const func = () => {
-    console.log();
-  };
 
   return (
     <>
@@ -56,15 +52,12 @@ const RegisterAdditionalInfo = () => {
           <button
             type="submit"
             className="saveBtn"
-            onSubmit={() => { handleSubmit(); }}
           >
             저장
           </button>
         </SaveBtnContainer>
       </FormContainerDiv>
-      <GoPageBtn>
-        <RightIc />
-      </GoPageBtn>
+      <GoPageBtn disabled={true} />
     </>
   );
 };

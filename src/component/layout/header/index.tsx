@@ -7,14 +7,17 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const HeaderSection = styled.header`
-  width: 100%;
-  height: 110px;
+  width: 1728px;
+  height: 60px;
   margin: 0 auto;
+  top: 0;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
+  position: sticky;
+  z-index: 1;
+  background-color: white;
   align-items: center;
   user-select: none;
-  font-family: "Pretendard", sans-serif;
   font-weight: 700;
   font-size: 20px;
   .category {
@@ -53,11 +56,19 @@ const Header = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
-    if (sessionData && sessionStatus === "authenticated") {
-      console.log("data:", JSON.stringify(sessionData));
-      //로컬토큰요청함수
+    if (sessionData?.error) {
+      signOut({redirect:false, callbackUrl: "/"});
+      router.push("/");
+      console.log(sessionData.error);
+      alert("다시 로그인 해주세요!");
+    } else {
+      if (sessionData && sessionStatus === "authenticated") {
+        console.log(`provider:${sessionData.provider}`,
+          `user:${JSON.stringify(sessionData.user)}`,
+          `tokenExp:${sessionData.accessTokenExpires}`);
+      }
     }
-  });
+  }, [sessionData]);
 
   // 모달 버튼 클릭 유무를 저장할 state
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -75,7 +86,7 @@ const Header = () => {
 
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({ redirect: false, callbackUrl: "/" });
+      signOut({redirect:false, callbackUrl: "/"});
       router.push("/");
     }
     //로컬로그아웃함수;
@@ -103,24 +114,20 @@ const Header = () => {
         </div>
         <div className="member">
           {sessionData?.user ? (
-            <StyledLink href="" className="login" onClick={logOutHandler}>
-              로그아웃
+            <StyledLink href="" className="login"  onClick={logOutHandler}>
+              {sessionData.accessToken ? "로그아웃" : "나가기"}
             </StyledLink>
           ) : (
             <>
-              <StyledLink
-                href=""
-                className="register"
-                onClick={closeRegisterModal}
-              >
+              <StyledLink href="" className="register" onClick={closeRegisterModal}>
                 회원가입
               </StyledLink>
               <StyledLink href="" className="login" onClick={closeLoginModal}>
                 로그인
               </StyledLink>
             </>
-          )}
-        </div>
+        )}
+      </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}

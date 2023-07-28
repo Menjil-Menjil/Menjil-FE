@@ -25,16 +25,14 @@ const RegisterBasic = () => {
     register,
     errors,
     isValid,
-    isDirty,
     trigger,
-    handleSubmit,
     nicknameCheck,
     setNameCheck,
     setValue,
   } = useContext<any>(RegisterComponentContext);
 
   const [duplicateName, setDuplicateName] = useState<any>("");
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const {data: sessionData} = useSession();
   useEffect(() => {
     setValue("email", sessionData?.user?.email);
     setValue("provider", sessionData?.provider);
@@ -73,6 +71,7 @@ const RegisterBasic = () => {
           setDuplicateName(res.data.status);
         });
     } catch (e: any) {
+      console.log(e);
       setDuplicateName(e.response.status);
     }
   };

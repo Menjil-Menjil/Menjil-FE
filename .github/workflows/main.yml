@@ -59,11 +59,15 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/Menjil-FE
-            git pull
+            sudo docker-compose down
+            sudo docker system prune -a -f  
+            
+            cd /home/ubuntu
+            rm -rf Menjil-FE
+            git clone https://github.com/Menjil-Menjil/Menjil-FE.git
+            cd Menjil-FE
             touch .env  
             echo "${{secrets.env}}" > .env
-            sudo docker-compose down
             sudo docker-compose up -d
 
 

@@ -16,7 +16,6 @@ const RegisterEducation = () => {
     handleBackClick,
     register,
     isValid,
-    setValue,
     watch,
     majors,
     addMajor,
@@ -131,7 +130,7 @@ const RegisterEducation = () => {
             type="button"
             className="addBtn"
             style={{ width: "667px", marginTop: "20px" }}
-            disabled={majors.length === 2 ? true : false}
+            disabled={majors.length === 2}
             onClick={() => addMajor()}
           >
             전공 추가하기

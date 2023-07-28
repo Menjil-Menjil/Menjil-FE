@@ -5,7 +5,7 @@ const nextConfig = {
 };
 
 module.exports = {
-  nextConfig,
+  ...nextConfig,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
