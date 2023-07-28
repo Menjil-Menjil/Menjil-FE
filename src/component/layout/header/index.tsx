@@ -57,7 +57,7 @@ const Header = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
-    if (!!sessionData?.error) {
+    if (sessionData?.error) {
       signOut({redirect:false, callbackUrl: "/"});
       router.push("/");
       console.log(sessionData.error);
