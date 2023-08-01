@@ -68,13 +68,25 @@ export const UserProfileContainerDiv = styled.div`
 export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  * {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  input[type="radio"] {
+    display: none;
+  }
+  label {
+    margin: 0 6px 0 20px;
+    cursor: pointer;
+    color: #707070;
+  }
+  input[type="radio"]:checked + label{
+    color: rgba(0, 0, 0, 0.80);
+  }
   button {
+    margin: 0 43px 0 auto;
     border: none;
     background: none;
-    color: #000;
-    font-size: 20px;
-    font-weight: 700;
     cursor: pointer;
   }
 `
@@ -88,14 +100,14 @@ export const ChattingListDiv = styled.div`
 `;
 
 export const ChattingCardDiv = styled.div`
-  width: 306px;
-  height: 94px;
-  border-radius: 12px;
-  background: #FFFBEE;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 92px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E0E0E0;
+  cursor: pointer;
   p {
     width: 204px;
     height: 45px;

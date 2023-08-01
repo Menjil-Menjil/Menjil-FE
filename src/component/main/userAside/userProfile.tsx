@@ -11,7 +11,7 @@ const UserProfile = () => {
           <Image src={profileImg} alt="profile" width={50} height={50}/>
         </div>
         <div className="profileContent userInfoTextStyle">
-          <div className="userInfoTitleStyle marginB8">김감최 님</div>
+          <div className="userInfoTitleStyle marginB8">{"김감최"} 님</div>
           <div className="marginB3">닉네임</div>
           <div className="wrap center">
             학교

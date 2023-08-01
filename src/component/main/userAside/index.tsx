@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import UserProfile from "@/component/main/userAside/userProfile";
-import {AsideBtnGroup, ChattingListDiv} from "@/component/main/userAside/userAside.style";
-import ChattingCard from "@/component/main/userAside/chattingCard";
-import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
-import {useSession} from "next-auth/react";
+import AsideMenu from "@/component/main/userAside/asideMenu";
 
 export const UserAsideContainer = styled.div`
   width: 327px;
@@ -18,31 +15,11 @@ export const UserAsideContainer = styled.div`
 `;
 
 const UserAside = () => {
-  const {data: sessionData, update: sessionUpdate} =useSession();
-  const tokenAxios = async () => {
-    const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
-    if (sessionData?.accessToken) {
-      try {
-        const response = await authedTokenAxios(sessionData.accessToken).post(test_url, "None")
-        console.log(response.data.message, "!")
-      } catch (error: any) {
-        console.log(`${error.response.data?.code}: ${error.response.data?.message}`)
-        refreshTokenAPI(sessionData, sessionUpdate).then(() => {})
-        }
-      }
-    }
 
   return (
     <UserAsideContainer>
       <UserProfile/>
-      <AsideBtnGroup>
-        <button onClick={tokenAxios}>팔로우</button>
-        <button>채팅목록</button>
-      </AsideBtnGroup>
-      <ChattingListDiv>
-        <ChattingCard/>
-        <ChattingCard/>
-      </ChattingListDiv>
+      <AsideMenu/>
     </UserAsideContainer>
   );
 }
