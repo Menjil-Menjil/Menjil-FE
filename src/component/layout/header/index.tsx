@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
-import {signOut, useSession} from "next-auth/react";
-import {useRouter} from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const HeaderSection = styled.header`
   width: 1728px;
