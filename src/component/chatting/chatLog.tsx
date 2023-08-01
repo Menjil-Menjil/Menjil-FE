@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import ChattingComponentContext from "@/context/chattingComponentContext";
+import SendIc from "@/img/ic_send.svg";
+import DotIc from "@/img/ic_dot-horizontal.svg";
 
 export const ChatLogForm = styled.div`
   position: relative;
@@ -16,13 +18,13 @@ export const ChatLogForm = styled.div`
   .chatLogHeader {
     width: 100%;
     height: 95px;
-    position: static;
+    position: relative;
     border-radius: 12px 12px 0px 0px;
     border-bottom: 1px solid #e0e0e0;
     background: #f4f3f1;
     box-sizing: border-box;
+    display: flex;
     .mentorInfoDiv {
-      width: 152px;
       height: 55px;
       position: relative;
       top: 20px;
@@ -37,7 +39,6 @@ export const ChatLogForm = styled.div`
         background: #ffaa00;
       }
       .mentorProfileTextBox {
-        width: 82px;
         height: 46px;
         flex-shrink: 0;
         margin-left: 15px;
@@ -61,6 +62,11 @@ export const ChatLogForm = styled.div`
           display: block;
         }
       }
+    }
+    .DotIc {
+      position: absolute;
+      top: 36px;
+      right: 25px;
     }
   }
   .messageContentDiv {
@@ -189,6 +195,7 @@ export const ChatLogForm = styled.div`
     }
     .sendBtn {
       position: absolute;
+      display: flex;
       margin: 0 auto;
       right: 20px;
       width: 119px;
@@ -203,6 +210,12 @@ export const ChatLogForm = styled.div`
       font-style: normal;
       font-weight: 600;
       line-height: normal;
+      align-items: center;
+      justify-content: center;
+      :disabled {
+        background-color: #353535;
+        border: 1px solid #000000;
+      }
     }
   }
 `;
@@ -216,24 +229,22 @@ const ChatLog = () => {
     chatMessages,
     message,
     setMessage,
-    prototypes,
   } = useContext<any>(ChattingComponentContext);
 
   const createRoom = async () => {
     const roomId: string = uuid();
-    const mentee: string = "menteeID";
-    const mentor: string = "mentorID";
+    const mentee: string = uuid();
+    const mentor: string = uuid();
 
     try {
       const res = await axios
-        .post(`http://localhost:8080/api/chat/room`, {
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/room`, {
           roomId: roomId,
           menteeNickname: mentee,
           mentorNickname: mentor,
         })
         .then((res) => {
           setChattingRoom([...chattingRoom, { roomId }]);
-          // alert(res.data.message);
         });
     } catch (e: any) {
       alert(e);
@@ -246,16 +257,19 @@ const ChatLog = () => {
         <div className="mentorInfoDiv">
           <div className="mentorProfileImage"></div>
           <div className="mentorProfileTextBox">
-            <span className="mentorProfileName">이민지</span>
-            <span className="recommendedAnswerNumber">추천답변수 38</span>
+            <span className="mentorProfileName">
+              {chattingMentor.roomId.substr(0, 5)}
+            </span>
+            <span className="recommendedAnswerNumber">답변수, 팔로워수</span>
           </div>
         </div>
+        <DotIc className="DotIc" />
       </div>
       <div className="messageContentDiv">
         {chatMessages && chatMessages.length > 0 && (
           <ul>
-            {prototypes.map((_chatMessage: any, index: any) =>
-              _chatMessage.messageType !== "ENTER" ? (
+            {chatMessages.map((_chatMessage: any, index: any) =>
+              _chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
                   <div className="messageMentorProfileImage"></div>
                   <span className="mentorMessageBubble">
@@ -285,17 +299,18 @@ const ChatLog = () => {
           />
           <button
             className="sendBtn"
+            disabled={message.length === 0 ? true : false}
             onClick={() => {
               console.log(message);
               publish(message);
             }}
           >
-            전송하기
+            <SendIc style={{ marginRight: "5px" }} /> 전송하기
           </button>
         </div>
       </div>
       <button onClick={createRoom}>채팅방 생성하기</button>
-      {chattingMentor == null ? "header" : chattingMentor.mentorName}
+      {chattingMentor == null ? "header" : chattingMentor.roomId}
     </ChatLogForm>
   );
 };
