@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Client } from "@stomp/stompjs";
 import useDidMountEffect from "@/component/useDidmountEffect";
+import { v4 as uuid, v5 } from "uuid";
 
 var client: Client | null = null;
 
@@ -11,10 +12,11 @@ const ChattingComponentProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  interface mentorInfo {
+  interface chattingRoomInfo {
     roomId: string;
     mentorProfileImage: any;
     mentorName: any;
+    menteeName: any;
     numN: number;
   }
   interface messageInfo {
@@ -28,28 +30,26 @@ const ChattingComponentProvider = ({
     _id: any;
   }
 
-  const [chattingRoom, setChattingRoom] = useState<any>([]);
-  const [chattingMentor, setChattingMentor] = useState<mentorInfo>({
+  const [chattingRooms, setChattingRooms] = useState<chattingRoomInfo[]>([]);
+  const [chattingMentor, setChattingMentor] = useState<chattingRoomInfo>({
     roomId: "0",
     mentorProfileImage: 0,
     mentorName: 0,
+    menteeName: 0,
     numN: 0,
   }); //멘토 데이터
 
-  const [message, setMessage] = useState(""); //보내는 메세지
-  const [chatMessages, setChatMessages] = useState<messageInfo[]>([]); //메세지들
+  const [messageInput, setMessageInput] = useState(""); //보내는 메세지
+  const [messagesLog, setMessagesLog] = useState<messageInfo[]>([]); //메세지들
+  const [selectIndex, setSelectIndex] = useState<any>(); //선택된 인덱스
 
-  const subscribe = () => {
-    client?.subscribe(
-      `/queue/chat/room/${chattingMentor.roomId}`,
-      ({ body }) => {
-        // console.log(JSON.parse(body).body);
-        JSON.parse(body).body.data.map((message: any) => {
-          setChatMessages((_chatMessages: any) => [..._chatMessages, message]);
-          console.log(message);
-        });
-      }
-    );
+  // 채팅방 구독하기
+  const subscribe = (roomId: any) => {
+    client?.subscribe(`/queue/chat/room/${roomId}`, ({ body }) => {
+      JSON.parse(body).body.data.map((message: any) => {
+        setMessagesLog((messagesLog) => [...messagesLog, message]);
+      });
+    });
   };
 
   const connect = () => {
@@ -61,9 +61,6 @@ const ChattingComponentProvider = ({
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      // onConnect: () => {
-      //   subscribe();
-      // },
     })),
       client.activate();
   };
@@ -74,7 +71,7 @@ const ChattingComponentProvider = ({
       destination: "/pub/chat/message",
       body: JSON.stringify({ roomId: chattingMentor.roomId, message }),
     });
-    setMessage("");
+    setMessageInput("");
   };
 
   const disConnect = () => {
@@ -83,26 +80,24 @@ const ChattingComponentProvider = ({
     }
   };
 
-  const moveChattingRoom = (roomID: any) => {
-    removeAllChatMessages();
-    const changeMentor: mentorInfo = {
-      roomId: roomID,
-      mentorProfileImage: 0,
-      mentorName: 123,
-      numN: 1,
-    };
-    setChattingMentor(changeMentor);
+  const removeAllChatMessages = () => {
+    setMessagesLog([]);
   };
 
   const enterChattingRoom = async () => {
     client?.unsubscribe(`/queue/chat/room/${chattingMentor.roomId}`);
-    subscribe();
+    subscribe(chattingMentor.roomId);
     try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter/${chattingMentor.roomId}`
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter/`,
+        {
+          menteeNickname: chattingMentor.menteeName,
+          mentorNickname: chattingMentor.mentorName,
+          roomId: chattingMentor.roomId,
+        }
       );
       // .then((res) => {
-      //   console.log(res);
+      //   setChattingRooms([...chattingRooms, chattingMentor]);
       // });
     } catch (e: any) {
       console.log(e);
@@ -111,9 +106,56 @@ const ChattingComponentProvider = ({
     connect();
   };
 
-  const removeAllChatMessages = () => {
-    setChatMessages([]);
+  // 채팅방 목록에서 이동
+  const moveChattingRoom = (room: chattingRoomInfo) => {
+    removeAllChatMessages();
+    setChattingMentor(() => room);
+    enterChattingRoom();
   };
+
+  // 채팅방 신규입장
+  const createRoom = async () => {
+    const mentee: string = uuid();
+    const mentor: string = uuid();
+    const randomSeed: string = mentee + "*" + mentor;
+    const roomId: string = v5(randomSeed, uuid());
+
+    const newRoom: chattingRoomInfo = {
+      roomId: roomId,
+      mentorProfileImage: 0,
+      mentorName: mentor,
+      menteeName: mentee,
+      numN: 0,
+    };
+
+    removeAllChatMessages();
+    setChattingMentor((prev: any) => newRoom);
+
+    client?.unsubscribe(`/queue/chat/room/${roomId}`);
+    subscribe(roomId);
+    try {
+      const res = await axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter`, {
+          menteeNickname: mentee,
+          mentorNickname: mentor,
+          roomId: roomId,
+        })
+        .then((res) => {
+          // console.log(res);
+          setChattingRooms((chattingRooms) => [...chattingRooms, newRoom]);
+        });
+    } catch (e: any) {
+      alert(e);
+    }
+    disConnect();
+    connect();
+  };
+
+  useDidMountEffect(() => {
+    if (chattingRooms.length !== 0) {
+      setSelectIndex(() => chattingRooms[chattingRooms.length - 1].roomId);
+    }
+  }, [chattingRooms]);
 
   useDidMountEffect(() => {
     connect();
@@ -123,16 +165,20 @@ const ChattingComponentProvider = ({
   return (
     <ChattingComponentContext.Provider
       value={{
-        chattingRoom,
-        setChattingRoom,
+        chattingRooms,
+        setChattingRooms,
         chattingMentor,
         moveChattingRoom,
         setChattingMentor,
+        subscribe,
+        messagesLog,
+        messageInput,
+        setMessageInput,
+        createRoom,
         publish,
-        chatMessages,
-        message,
-        setMessage,
         enterChattingRoom,
+        selectIndex,
+        setSelectIndex,
       }}
     >
       {children}

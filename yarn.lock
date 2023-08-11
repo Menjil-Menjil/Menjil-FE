@@ -1246,10 +1246,10 @@
   dependencies:
     glob "7.1.7"
 
-"@next/swc-darwin-arm64@13.3.2":
+"@next/swc-win32-x64-msvc@13.3.2":
   version "13.3.2"
-  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.3.2.tgz"
-  integrity sha512-Wa5o2EbkBP0NcUM13sEjzGoB86YTZWUfoqbbVB7gs9RJAy8KkIoGNoLV7K55fru7GNgHsRMga3j1FadjJJWQYg==
+  resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.3.2.tgz"
+  integrity sha512-eE6hPs0vtM08UB3B8YM1KIBOYZHJPF7NtWBdU0EIvRJ+R197+3W3VraaVBMMg0zy0e2e1jKgQPypakxN+vfZcw==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3583,6 +3583,11 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
+repeat-string@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.npmjs.org/repeat-string/-/repeat-string-1.5.2.tgz"
+  integrity sha512-ofojGybVrrWGGrVwHTqZiqO8OTRqWMKQHa+pivz44PHuLNT9AyueQntZcfF+NhiKsqFXtkKdDjp6H2ShXgA4Xw==
+
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
@@ -3635,7 +3640,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-safe-buffer@>=5.1.0:
+safe-buffer@^5.0.1, safe-buffer@>=5.1.0:
   version "5.2.1"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
@@ -4017,6 +4022,18 @@ uuid@^9.0.0:
   version "9.0.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
   integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
+
+uuid1@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.npmjs.org/uuid1/-/uuid1-0.1.3.tgz"
+  integrity sha512-t4SZlrkvd77ZNNBik8WZXxuKer16S5zPmF+FmnPi4gdeMW5xfftj9r+NP2QaXeWNt95/UaPk9Qn9kZSaS1F7EQ==
+  dependencies:
+    repeat-string "1.5.2"
+
+uuid5@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/uuid5/-/uuid5-1.0.2.tgz"
+  integrity sha512-FTU79RSu60rsZP+UJgM1Z33HGpqFJI3Pb+mxNve/W+DyT8skS2V+vnRbKqg7ToOisnzL8cmi8j0/NllOCaHD8Q==
 
 websocket-driver@>=0.5.1:
   version "0.7.4"
