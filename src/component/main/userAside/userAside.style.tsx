@@ -143,3 +143,17 @@ export const ChattingCardDiv = styled.div`
     -webkit-box-orient: vertical;
   }
 `;
+
+export const UnauthMenuContainerDiv = styled.div`
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+  }
+`;
