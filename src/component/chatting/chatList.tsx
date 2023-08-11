@@ -131,16 +131,14 @@ export const ChatListForm = styled.div`
 `;
 
 const ChatList = () => {
-  const { chattingRoom, moveChattingRoom, chattingMentor, enterChattingRoom } =
-    useContext<any>(ChattingComponentContext);
-
-  useDidMountEffect(() => {
-    if (chattingMentor.mentorName !== 0) {
-      enterChattingRoom();
-    }
-  }, [chattingMentor]);
-
-  const [selectIndex, setSelectIndex] = useState<any>();
+  const {
+    chattingRooms,
+    moveChattingRoom,
+    chattingMentor,
+    createRoom,
+    selectIndex,
+    setSelectIndex,
+  } = useContext<any>(ChattingComponentContext);
 
   return (
     <ChatListForm>
@@ -148,9 +146,9 @@ const ChatList = () => {
         <p className="chatMenuHeaderText">채팅목록</p>
         <SettingsIc className="SettingsIc" />
       </div>
-      {chattingRoom && chattingRoom.length > 0 && (
+      {chattingRooms && chattingRooms.length > 0 && (
         <div className="chatListDiv">
-          {chattingRoom.map((_chattingRoom: any, index: any) => (
+          {chattingRooms.map((_chattingRoom: any, index: any) => (
             <div
               className={
                 selectIndex !== _chattingRoom.roomId
@@ -160,12 +158,12 @@ const ChatList = () => {
               key={index}
               onClick={() => {
                 setSelectIndex(_chattingRoom.roomId);
-                moveChattingRoom(_chattingRoom.roomId);
+                moveChattingRoom(_chattingRoom);
               }}
             >
-              {selectIndex === _chattingRoom.roomId ? (
+              {selectIndex === _chattingRoom.roomId && (
                 <div className="selectedBoxLine"></div>
-              ) : null}
+              )}
               <div className="profileImg"></div>
               <div className="messageContentDiv">
                 <div className="nameHeaderDiv">
@@ -180,6 +178,8 @@ const ChatList = () => {
           ))}
         </div>
       )}
+      <button onClick={createRoom}>채팅방 생성하기</button>
+      {chattingMentor == null ? "header" : chattingMentor.roomId}
     </ChatListForm>
   );
 };

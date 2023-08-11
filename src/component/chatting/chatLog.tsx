@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { v4 as uuid } from "uuid";
 import axios from "axios";
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import SendIc from "@/img/ic_send.svg";
 import DotIc from "@/img/ic_dot-horizontal.svg";
+import useDidMountEffect from "../useDidmountEffect";
 
 export const ChatLogForm = styled.div`
   position: relative;
@@ -222,34 +222,12 @@ export const ChatLogForm = styled.div`
 
 const ChatLog = () => {
   const {
-    chattingRoom,
-    setChattingRoom,
     chattingMentor,
     publish,
-    chatMessages,
-    message,
-    setMessage,
+    messagesLog,
+    messageInput,
+    setMessageInput,
   } = useContext<any>(ChattingComponentContext);
-
-  const createRoom = async () => {
-    const roomId: string = uuid();
-    const mentee: string = uuid();
-    const mentor: string = uuid();
-
-    try {
-      const res = await axios
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/room`, {
-          roomId: roomId,
-          menteeNickname: mentee,
-          mentorNickname: mentor,
-        })
-        .then((res) => {
-          setChattingRoom([...chattingRoom, { roomId }]);
-        });
-    } catch (e: any) {
-      alert(e);
-    }
-  };
 
   return (
     <ChatLogForm>
@@ -266,9 +244,9 @@ const ChatLog = () => {
         <DotIc className="DotIc" />
       </div>
       <div className="messageContentDiv">
-        {chatMessages && chatMessages.length > 0 && (
+        {messagesLog && messagesLog.length > 0 && (
           <ul>
-            {chatMessages.map((_chatMessage: any, index: any) =>
+            {messagesLog.map((_chatMessage: any, index: any) =>
               _chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
                   <div className="messageMentorProfileImage"></div>
@@ -293,24 +271,22 @@ const ChatLog = () => {
         <div className="sendMessageBoxDiv">
           <textarea
             placeholder={"멘토에게 질문하고 싶은 점을 입력해주세요!"}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
             className="messageInputDiv"
           />
           <button
             className="sendBtn"
-            disabled={message.length === 0 ? true : false}
+            disabled={messageInput.length === 0 ? true : false}
             onClick={() => {
-              console.log(message);
-              publish(message);
+              console.log(messageInput);
+              publish(messageInput);
             }}
           >
             <SendIc style={{ marginRight: "5px" }} /> 전송하기
           </button>
         </div>
       </div>
-      <button onClick={createRoom}>채팅방 생성하기</button>
-      {chattingMentor == null ? "header" : chattingMentor.roomId}
     </ChatLogForm>
   );
 };
