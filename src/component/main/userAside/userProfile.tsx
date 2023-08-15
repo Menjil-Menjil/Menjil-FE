@@ -4,10 +4,13 @@ import Image from "next/image";
 import {UserProfileContainerDiv} from "@/component/main/userAside/userAside.style";
 import {signOut, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
+import {userState} from "@/states/state";
 
 const UserProfile = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
   const router = useRouter();
+  const user = useRecoilValue(userState);
   const logOutHandler = () => {
     if (sessionData) {
       signOut({redirect:false, callbackUrl: "/"});
@@ -20,15 +23,15 @@ const UserProfile = () => {
     <UserProfileContainerDiv>
       <div className="profileInfo wrap">
         <div className="profileImgBox">
-          <Image src={profileImg} alt="profile" width={50} height={50}/>
+          <Image src={user.image} alt="profile" fill style={{objectFit: "cover"}}/>
         </div>
         <div className="profileContent userInfoTextStyle">
-          <div className="userInfoTitleStyle marginB8">{"김감최"} 님</div>
-          <div className="marginB3">닉네임</div>
+          <div className="userInfoTitleStyle marginB8">{user.name} 님</div>
+          <div className="marginB3">{user.name}</div>
           <div className="wrap center">
-            학교
+            {user.school}
             <div className="line"/>
-            전공
+            {user.major}
           </div>
         </div>
       </div>
