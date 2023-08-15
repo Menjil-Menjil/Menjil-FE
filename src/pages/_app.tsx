@@ -7,6 +7,7 @@ import React from "react";
 import  "../styles/globals.css";
 import {SessionProvider} from "next-auth/react";
 import AuthContainer from "@/authContainer";
+import {RecoilRoot} from "recoil";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -73,31 +74,33 @@ export default function App(
         <title>맨질맨질</title>
       </Head>
       <SessionProvider session={pageProps.session}>
-        <Layout>
-          {renderAuthorizedComponent()}
-        </Layout>
-        <style jsx global>{`
-          :root {
-            /* font */
-            --logo-font: ${prompt.style.fontFamily};
-            /* color */
-            --theme-color: #e68c23;
-            --input-placeholder: #afafaf;
-            --highlighted-element: #ff8a00;
-            --selected-element: #fbbc053b;
-          }
-          html, 
-          body {
-            font-family: 
-            "Pretendard", Pretendard,
-            -apple-system, BlinkMacSystemFont,
-            system-ui, Roboto, "Helvetica Neue",
-            "Segoe UI", "Apple SD Gothic Neo",
-            "Noto Sans KR", "Malgun Gothic",
-            "Apple Color Emoji", "Segoe UI Emoji",
-            "Segoe UI Symbol", sans-serif;
-          }
-        `}</style>
+        <RecoilRoot>
+          <Layout>
+            {renderAuthorizedComponent()}
+          </Layout>
+          <style jsx global>{`
+            :root {
+              /* font */
+              --logo-font: ${prompt.style.fontFamily};
+              /* color */
+              --theme-color: #e68c23;
+              --input-placeholder: #afafaf;
+              --highlighted-element: #ff8a00;
+              --selected-element: #fbbc053b;
+            }
+            html, 
+            body {
+              font-family: 
+              "Pretendard", Pretendard,
+              -apple-system, BlinkMacSystemFont,
+              system-ui, Roboto, "Helvetica Neue",
+              "Segoe UI", "Apple SD Gothic Neo",
+              "Noto Sans KR", "Malgun Gothic",
+              "Apple Color Emoji", "Segoe UI Emoji",
+              "Segoe UI Symbol", sans-serif;
+            }
+          `}</style>
+        </RecoilRoot>
       </SessionProvider>
     </>
   );

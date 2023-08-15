@@ -5,7 +5,8 @@ import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { useRecoilState } from "recoil";
+import {userState} from "@/states/state";
 
 const HeaderSection = styled.header`
   width: 1728px;
@@ -55,6 +56,8 @@ const StyledLink = styled(Link)`
 const Header = () => {
   const router = useRouter();
   const { data: sessionData, status: sessionStatus } = useSession();
+  const [user, setUser] = useRecoilState(userState);
+
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
     if (sessionData?.error) {
@@ -64,9 +67,16 @@ const Header = () => {
       alert("다시 로그인 해주세요!");
     } else {
       if (sessionData && sessionStatus === "authenticated") {
+        setUser({
+          name: sessionData.user.name,
+          email: sessionData.user.email,
+          image: sessionData.user.image,
+          school:sessionData.user.school,
+          major: sessionData.user.major
+        })
         console.log(
           `provider:${sessionData.provider}`,
-          `user:${JSON.stringify(sessionData.user)}`,
+          `user:${JSON.stringify(user)}`,
           `tokenExp:${sessionData.accessTokenExpires}`
         );
       }
