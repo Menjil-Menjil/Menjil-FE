@@ -1,18 +1,3 @@
-html,
-body {
-  font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-}
-
-:root {
-  /* font */
-  --logo-font: ${prompt.style.fontFamily};
-  /* color */
-  --theme-color: #e68c23;
-  --input-placeholder: #afafaf;
-  --highlighted-element: #ff8a00;
-  --selected-element: #fbbc053b;
-}
-
 @font-face {
   font-family: "Pretendard";
   src: local("/public/fonts/pretendard/Pretendard-Black.woff");
@@ -23,13 +8,11 @@ body {
   src: local("/public/fonts/pretendard/Pretendard-ExtraBold.woff");
   font-weight: 800;
 }
-
 @font-face {
   font-family: "Pretendard";
   src: local("/public/fonts/pretendard/Pretendard-Bold.woff");
   font-weight: 700;
 }
-
 @font-face {
   font-family: "Pretendard";
   src: local("/public/fonts/pretendard/Pretendard-SemiBold.woff");
@@ -40,7 +23,6 @@ body {
   src: local("/public/fonts/pretendard/Pretendard-Medium.woff");
   font-weight: 500;
 }
-
 @font-face {
   font-family: "Pretendard";
   src: local("/public/fonts/pretendard/Pretendard-Regular.woff");
@@ -62,9 +44,17 @@ body {
   font-weight: 100;
 }
 
-* {
-  font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont,
-    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-    "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", sans-serif;
+html,
+body {
+  font-family: "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+:root {
+  /* font */
+  --logo-font: ${prompt.style.fontFamily};
+  /* color */
+  --theme-color: #e68c23;
+  --input-placeholder: #afafaf;
+  --highlighted-element: #ff8a00;
+  --selected-element: #fbbc053b;
 }
