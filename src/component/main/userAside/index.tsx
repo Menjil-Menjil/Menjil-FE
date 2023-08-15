@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
+import Link from "next/link";
 import UserProfile from "@/component/main/userAside/userProfile";
 import AsideMenu from "@/component/main/userAside/asideMenu";
 import {useSession} from "next-auth/react";
 import UnauthMenu from "@/component/main/userAside/unauthMenu";
+import {UnauthMenuContainerDiv} from "@/component/main/userAside/userAside.style";
+import { useRecoilValue } from "recoil";
+import {userState} from "@/states/state";
 
 export const UserAsideContainer = styled.div`
   width: 327px;
@@ -18,6 +22,7 @@ export const UserAsideContainer = styled.div`
 
 const UserAside = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
+  const user = useRecoilValue(userState);
 
   return (
     <UserAsideContainer>
@@ -25,10 +30,16 @@ const UserAside = () => {
         <UnauthMenu/>
       )}
       {sessionStatus === "authenticated" && (
-        <>
-          <UserProfile/>
-          <AsideMenu/>
-        </>
+        user.name !== "" ? (
+          <>
+            <UserProfile/>
+            <AsideMenu/>
+          </>
+        ) : (
+          <UnauthMenuContainerDiv>
+            <Link href="/register">회원가입</Link>
+          </UnauthMenuContainerDiv>
+        )
       )}
     </UserAsideContainer>
   );

@@ -6,10 +6,12 @@ export const UserProfileContainerDiv = styled.div`
   justify-content: space-between;
   .profileInfo {
     .profileImgBox {
+      position: relative;
       width: 50px;
       height: 50px;
       margin-top: 5px;
       border-radius: 12px;
+      overflow: hidden;
     }
     .profileContent {
       margin: 3px 0 0 15px;
@@ -153,6 +155,12 @@ export const UnauthMenuContainerDiv = styled.div`
     background: none;
     border: none;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  a {
+    cursor: pointer;
+    text-decoration: none;
     font-size: 20px;
     font-weight: 600;
   }

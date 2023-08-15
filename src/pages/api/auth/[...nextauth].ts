@@ -68,6 +68,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               .get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`)
 
             account.access_token = undefined;
+            user.name = ""
 
             return response?.data; // 필수
           } catch (e: any) {
