@@ -55,6 +55,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             user.name = resToken.nickname;
             user.school = resToken.school;
             user.major = resToken.major;
+            //user.image = resToken.imgUrl;
 
             return response.data; // 필수
             // 서버 API 요청을 통해 받은 token(access, refresh) 저장

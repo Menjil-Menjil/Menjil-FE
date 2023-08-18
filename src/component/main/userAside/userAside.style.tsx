@@ -70,6 +70,7 @@ export const UserProfileContainerDiv = styled.div`
 export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 18px;
   * {
     font-size: 15px;
     font-weight: 600;
@@ -97,14 +98,13 @@ export const ChattingListDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6px;
-  gap: 11px;
 `;
 
 export const ChattingCardDiv = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-evenly;
   box-sizing: border-box;
@@ -115,6 +115,13 @@ export const ChattingCardDiv = styled.div`
     height: 45px;
     margin: 0;
     padding: 0;
+  }
+  .mentorImgBox {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    overflow: hidden;
   }
   .spaceBetween {
     display: flex;

@@ -23,16 +23,17 @@ const UserProfile = () => {
     <UserProfileContainerDiv>
       <div className="profileInfo wrap">
         <div className="profileImgBox">
-          <Image src={user.image} alt="profile" fill style={{objectFit: "cover"}}/>
+          <Image src={user.image} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
         </div>
         <div className="profileContent userInfoTextStyle">
           <div className="userInfoTitleStyle marginB8">{user.name} 님</div>
           <div className="marginB3">{user.name}</div>
-          <div className="wrap center">
+          <div className="wrap center marginB8">
             {user.school}
             <div className="line"/>
             {user.major}
           </div>
+          <div>마이페이지</div>
         </div>
       </div>
       <div className="btnLogout" onClick={logOutHandler}>
