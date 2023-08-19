@@ -24,7 +24,7 @@ const ChattingCard = ({data, index}: propsType) => {
           <div className="titleStyle">
             {cardData.nickname}
           </div>
-          {cardData.lastMessagedTimeOfHour > 2 ?
+          {cardData.lastMessagedTimeOfHour < 2 ?
             <div className="wrapper">
               <div className="timeText timeTextColor">
                 {cardData.lastMessagedTimeOfHour}시간 전

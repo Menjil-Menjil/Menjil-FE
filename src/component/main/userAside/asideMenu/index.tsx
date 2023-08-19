@@ -3,6 +3,8 @@ import ChattingCard from "@/component/main/userAside/asideMenu/chattingCard";
 import {getSession, useSession} from "next-auth/react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useEffect, useState} from "react";
+import {userState} from "@/states/state";
+import {useRecoilValue} from "recoil"
 
 interface RadioElementType {
   children: any,
@@ -31,6 +33,7 @@ const Radio = ({ children, value, defaultChecked, onChange }: RadioElementType) 
 const AsideMenu = () => {
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [chatLogDataList, setChatLogDataList] = useState<any[]>();
+  const userName = useRecoilValue(userState).name;
   const tokenAxios = async () => {
     const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
     if (sessionData?.accessToken) {
@@ -53,6 +56,7 @@ const AsideMenu = () => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello`)
+          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${userName}`)
         setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
