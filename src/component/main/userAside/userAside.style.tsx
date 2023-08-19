@@ -106,12 +106,13 @@ export const ChattingCardDiv = styled.div`
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 15px;
   box-sizing: border-box;
   border-bottom: 1px solid #E0E0E0;
   cursor: pointer;
   p {
-    width: 204px;
+    width: 223px;
     height: 45px;
     margin: 0;
     padding: 0;
@@ -133,6 +134,16 @@ export const ChattingCardDiv = styled.div`
     font-size: 12px;
     font-weight: 500;
   }
+  .timeTextColor {
+     color: #FF8A00;
+  }
+  .circle {
+    margin-left: 5px;
+    width: 7px;
+    height: 7px;
+    background-color: #FF8A00;
+    border-radius: 50%;
+  }
   .textStyle {
     color: #000;
     font-size: 14px;
@@ -150,6 +161,10 @@ export const ChattingCardDiv = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+  .wrapper {
+    display: flex;
+    align-items: center;
   }
 `;
 

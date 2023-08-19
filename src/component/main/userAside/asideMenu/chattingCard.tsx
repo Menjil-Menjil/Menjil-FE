@@ -24,12 +24,20 @@ const ChattingCard = ({data, index}: propsType) => {
           <div className="titleStyle">
             {cardData.nickname}
           </div>
-          <div className="timeText">
-            {cardData.lastMessagedTimeOfHour < 24 ?
-              `${cardData.lastMessagedTimeOfHour}시간 전` :
-              `${Math.floor(cardData.lastMessagedTimeOfHour / 24)}일 전`
-            }
-          </div>
+          {cardData.lastMessagedTimeOfHour > 2 ?
+            <div className="wrapper">
+              <div className="timeText timeTextColor">
+                {cardData.lastMessagedTimeOfHour}시간 전
+              </div>
+              <div className="circle"></div>
+            </div> :
+            <div className="timeText">
+              {cardData.lastMessagedTimeOfHour < 24 ?
+                `${cardData.lastMessagedTimeOfHour}시간 전` :
+                `${Math.floor(cardData.lastMessagedTimeOfHour / 24)}일 전`
+              }
+            </div>
+          }
         </div>
         <p className="textStyle ellipsis">
           {cardData.lastMessage}
