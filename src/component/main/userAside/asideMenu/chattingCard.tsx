@@ -25,7 +25,10 @@ const ChattingCard = ({data, index}: propsType) => {
             {cardData.nickname}
           </div>
           <div className="timeText">
-            {"1시간 전"}
+            {cardData.lastMessagedTimeOfHour < 24 ?
+              `${cardData.lastMessagedTimeOfHour}시간 전` :
+              `${Math.floor(cardData.lastMessagedTimeOfHour / 24)}일 전`
+            }
           </div>
         </div>
         <p className="textStyle ellipsis">

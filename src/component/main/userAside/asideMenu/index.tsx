@@ -1,6 +1,6 @@
 import {AsideBtnGroup, ChattingListDiv} from "@/component/main/userAside/userAside.style";
 import ChattingCard from "@/component/main/userAside/asideMenu/chattingCard";
-import {useSession} from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useEffect, useState} from "react";
 
@@ -53,15 +53,16 @@ const AsideMenu = () => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello`)
-        setChatLogDataList(result.data.data.roomInfoList)
+        setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
         refreshTokenAPI(sessionData, sessionUpdate).then(() => {})
       }
     };
+    const session = getSession().then();
 
-    chatLogAxios(sessionData).then(()=>{});
-  }, [sessionData]);
+    chatLogAxios(session).then(()=>{});
+  }, [sessionUpdate]);
 
   return (
     <>
