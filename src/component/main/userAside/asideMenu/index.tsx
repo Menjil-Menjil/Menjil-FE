@@ -3,7 +3,6 @@ import ChattingCard from "@/component/main/userAside/asideMenu/chattingCard";
 import {useSession} from "next-auth/react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useEffect, useState} from "react";
-import axios from "axios";
 
 interface RadioElementType {
   children: any,
@@ -62,7 +61,7 @@ const AsideMenu = () => {
     };
 
     chatLogAxios(sessionData).then(()=>{});
-  }, [chatLogDataList, sessionData, sessionUpdate]);
+  }, [sessionData]);
 
   return (
     <>
