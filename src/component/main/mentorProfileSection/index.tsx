@@ -1,13 +1,11 @@
-import {MentorProfileSectionTitleDiv, ProfileCardDiv} from "@/component/main/mentorProfileSection/profileCard.style";
+import {MentorProfileSectionTitleDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 import styled from "@emotion/styled";
-import ProfileContent from "@/component/main/mentorProfileSection/profileContent";
-import ProfileRecentQuestion from "@/component/main/mentorProfileSection/profileRecentQuestion";
-import ProfileBtnGroup from "@/component/main/mentorProfileSection/profileBtnGroup";
 import {useEffect, useState} from "react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {userState} from "@/states/state";
 import {useRecoilValue} from "recoil"
+import MentorProfileCard from "@/component/main/mentorProfileSection/mentorProfileCard";
 
 export const MentorProfileSectionDiv = styled.div`
   width: 995px;
@@ -21,46 +19,36 @@ export const MentorProfileSectionDiv = styled.div`
 `;
 
 const MentorProfileList = () => {
-  const [mentorProfileDataList, setMentorProfileDataList] = useState();
+  let [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const userName = useRecoilValue(userState).name;
+  const [pageIndex, setPageIndex] = useState<number>(0)
 
   useEffect(() => {
-    const mentorDataAxios = async (sessionData: any) => {
+    const mentorDataAxios = async (sessionData: any, index: number) => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${userName}&page=0`)
-        console.log("멘토리스트 응답:",result.data.message)
-        setMentorProfileDataList(result.data.data.content)
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
+        setMentorProfileDataList(mentorProfileDataList.concat(result.data.data.content))
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
 
-        refreshTokenAPI(sessionData, sessionUpdate).then(() => {})
+        refreshTokenAPI(sessionData, sessionUpdate).then()
       }
     };
-    if (userName && sessionData?.error === undefined) {
-      mentorDataAxios(sessionData).then();
+    if (userName && sessionData?.error === undefined && pageIndex < 2) {
+      mentorDataAxios(sessionData, pageIndex).then(() => {
+        setPageIndex(pageIndex + 1)
+      });
     }
-  },[userName]);
+  },[mentorProfileDataList, userName]);
 
   return (
     <MentorProfileSectionDiv>
       <MentorProfileSectionTitleDiv>추천 멘토</MentorProfileSectionTitleDiv>
-      <ProfileCardDiv>
-        <ProfileContent/>
-        <ProfileRecentQuestion/>
-        <ProfileBtnGroup/>
-      </ProfileCardDiv>
-      <ProfileCardDiv>
-        <ProfileContent/>
-        <ProfileRecentQuestion/>
-        <ProfileBtnGroup/>
-      </ProfileCardDiv>
-      <ProfileCardDiv>
-        <ProfileContent/>
-        <ProfileRecentQuestion/>
-        <ProfileBtnGroup/>
-      </ProfileCardDiv>
+      {mentorProfileDataList && mentorProfileDataList.map((data: any, index: number) => {
+        return <MentorProfileCard key={index} data={data}></MentorProfileCard>
+      })}
     </MentorProfileSectionDiv>
   );
 }
