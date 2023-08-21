@@ -3,8 +3,7 @@ import KakaoProvider from 'next-auth/providers/kakao'
 import GoogleProvider from 'next-auth/providers/google'
 import axios from "axios";
 import {NextApiRequest, NextApiResponse} from "next";
-import {JWT} from "next-auth/jwt";
-import {authedTokenAxios, refreshingTokenAxios, verifyTokenExp, verifyTokenUserId} from "@/lib/jwt";
+import {verifyTokenExp, verifyTokenUserId} from "@/lib/jwt";
 
 let loginMode: string;
 
@@ -88,17 +87,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             refreshToken: account.refresh_token,
           }
         }
-        if (account?.access_token) {
-          try {
-            const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
-            const response = await authedTokenAxios(token.accessToken).post(test_url, "None")
-            console.log(response?.data.message)
-            return token
-          } catch (e: any) {
-            console.log(e.response.data.message);
-            return refreshAccessToken(token)
-          }
-        }
 
         if(trigger === 'update') {
           if(session?.newToken) token.accessToken = session.newToken
@@ -108,14 +96,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       },
 
       // session 콜백 함수, 위의 토큰 정보를 세션 데이터에 업데이트한다.
-      async session({ session, token }: any) {
-        // session.user.id = token.user.id;
-        // session.user.email = token.user.email;
-        // session.provider = token.provider;
-        // session.accessToken = token.accessToken;
-        // session.accessTokenExpires = verifyTokenExp(token?.accessToken);
-        // session.refreshToken = token.refreshToken;
-        // session.error = token.error;
+      async session({ token }: any) {
 
         return {...token,
           accessTokenExpires: verifyTokenExp(token?.accessToken)};
@@ -131,27 +112,4 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     secret: process.env.NEXTAUTH_SECRET,
 
   })
-}
-
-// AccessToken이 만료되면 refreshToken을 사용해서 다시 받아오는 함수
-const refreshAccessToken = async (token: JWT) => {
-  try {
-    const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
-
-    const res = await refreshingTokenAxios(token.accessToken, token.refreshToken).post(test_url, "None")
-    const refreshedAccessToken = res.data.data.accessToken
-    console.log(res.data.message)
-
-    return {
-      ...token,
-      accessToken: refreshedAccessToken,
-      accessTokenExpires: verifyTokenExp(refreshedAccessToken),
-    }
-
-  } catch (err: any) {
-    return {
-      ...token,
-      error: `${err.response.data?.code}: ${err.response.data?.message}`
-    }
-  }
 }
