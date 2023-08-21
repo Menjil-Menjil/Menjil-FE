@@ -29,6 +29,7 @@ const MentorProfileList = () => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
+          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${userName}&page=${index}`)
         setMentorProfileDataList(mentorProfileDataList.concat(result.data.data.content))
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
