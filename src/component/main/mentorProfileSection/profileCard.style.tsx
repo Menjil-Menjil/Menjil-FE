@@ -42,11 +42,13 @@ export const ProfileContentContainerDiv = styled.div`
     background: #BEBEBE;
   }
   .profileImageBox {
+    position: relative;
     width: 100px;
     height: 100px;
     margin-left: 40px;
     border-radius: 12px;
     justify-content: center;
+    overflow: hidden;
   }
   .profileContentBox {
     margin-left: 20px;

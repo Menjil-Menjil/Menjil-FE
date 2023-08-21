@@ -19,12 +19,13 @@ const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
     try {
-      const res = await signIn(provider, {
+      signIn(provider, {
         redirect: false,
-        callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+        //callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
         loginMode: "login"
+      }).then(() => {
+        router.push(callBackURL).then()
       });
-      await router.push(callBackURL);
     } catch (error) {
       console.log(error);
     }
