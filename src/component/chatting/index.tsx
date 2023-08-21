@@ -1,23 +1,26 @@
 import styled from "@emotion/styled";
-import ChatLog from "@/component/chatting/chatLog";
-export const ChattingContainerDiv = styled.div`
-  width: 1000px;
-  min-height: 600px;
-  margin: 5px auto;
+import ChatLog from "./chatLog";
+import ChatList from "./chatList";
+import ChatMenu from "./chatMenu";
+
+export const ChattingForm = styled.div`
+  width: 1404px;
+  height: 800px;
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  margin: 50px auto 197px;
   user-select: none;
 `;
 
 const Chatting = () => {
   return (
-    <ChattingContainerDiv>
-      <ChatLog/>
-    </ChattingContainerDiv>
+    <ChattingForm>
+      {/* <ChatMenu /> */}
+      <ChatList />
+      <ChatLog />
+    </ChattingForm>
   );
-
 };
 
 export default Chatting;

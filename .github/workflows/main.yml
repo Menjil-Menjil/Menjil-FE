@@ -49,15 +49,9 @@ jobs:
             yarn install
             yarn build
             pm2 start yarn -- start 
-            
+
 
           # sudo docker-compose down
           # sudo docker system prune -a -f  
-          # sudo docker-compose up -d
-
-          # sudo docker kill $(sudo docker ps -qa)
-          # sudo docker rm $(docker ps -qa)
-          # sudo docker rmi $(docker images -q)
-          # sudo docker pull ${{ secrets.DOCKERHUB_REPO_FE }}:latest
           # sudo docker-compose up -d
 

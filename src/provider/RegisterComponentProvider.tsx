@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import { useForm } from "react-hook-form";
-import {signIn, useSession} from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import {useRouter} from "next/router";
 
 interface UserFormInterface {
@@ -91,21 +91,24 @@ const RegisterComponentProvider = ({
   });
 
   const setSubMinor = (majorType: any, subMinor: any) => {
-    const result = !!(subMinor) ? subMinor : null;
-    return !!(majorType) ? {type: majorType, name: result} : null;
+    const result = !!subMinor ? subMinor : null;
+    return !!majorType ? { type: majorType, name: result } : null;
   };
   const getSubMinorList = (data: UserFormInterface, typeName: string) => {
     const list = [
       setSubMinor(data.majorType0, data.subMajor0),
-      setSubMinor(data.majorType1, data.subMajor1)
+      setSubMinor(data.majorType1, data.subMajor1),
     ];
 
-    const str = list.map((obj) => {
-      if(obj?.type === typeName) return obj.name;
-      else return null;
-    }).filter(val => !!val).join(',');
+    const str = list
+      .map((obj) => {
+        if (obj?.type === typeName) return obj.name;
+        else return null;
+      })
+      .filter((val) => !!val)
+      .join(",");
 
-    return !!(str) ? str : null;
+    return !!str ? str : null;
   };
 
   const sendData = async (data: UserRegisterApiInterface) => {
@@ -124,7 +127,7 @@ const RegisterComponentProvider = ({
     } catch (error) {
       console.error("실패:", error);
     }
-  }
+  };
 
   const socialLogin = async (provider: string) => {
     const res: any = await signIn(provider, {

@@ -50,9 +50,14 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
             account.access_token = resToken.accessToken;
             account.refresh_token = resToken.refreshToken;
-            user.id = verifyTokenUserId(resToken.accessToken);
 
-            return response?.data; // 필수
+            user.id = verifyTokenUserId(resToken.accessToken);
+            user.name = resToken.nickname;
+            user.school = resToken.school;
+            user.major = resToken.major;
+            user.image = resToken.imgUrl;
+
+            return response.data; // 필수
             // 서버 API 요청을 통해 받은 token(access, refresh) 저장
             // privateToken = data.token
           } catch (e: any) {
@@ -64,6 +69,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               .get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup?email=${user.email}&provider=${account.provider}`)
 
             account.access_token = undefined;
+            user.name = ""
 
             return response?.data; // 필수
           } catch (e: any) {

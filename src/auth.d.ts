@@ -9,6 +9,9 @@ declare module 'next-auth' {
     user: {
       id?: string;
       email: string; // 이메일 정보
+      name?: string;
+      school?: string;
+      major?: string;
     } & DefaultSession['user'];
     accessToken: string;
     accessTokenExpires: any;

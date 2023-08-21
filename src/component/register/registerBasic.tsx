@@ -1,6 +1,6 @@
 import LeftIc from "@/img/ic_arrow_left.svg";
 import RightIc from "@/img/ic_arrow_right.svg";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FormContainerDiv,
   GoPageBtn,
@@ -10,7 +10,7 @@ import {
 import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import axios from "axios";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export const TestDiv = styled.div`
   width: 110px;
@@ -68,11 +68,11 @@ const RegisterBasic = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/api/auth/check-nickname?nickname=${nicknameCheck}`
         )
         .then((res) => {
-          setDuplicateName(res.data.status);
+          setDuplicateName(res.data.code);
         });
     } catch (e: any) {
       console.log(e);
-      setDuplicateName(e.response.status);
+      setDuplicateName(e.response.data.code);
     }
   };
 

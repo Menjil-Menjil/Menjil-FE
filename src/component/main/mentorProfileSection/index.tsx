@@ -3,6 +3,9 @@ import styled from "@emotion/styled";
 import ProfileContent from "@/component/main/mentorProfileSection/profileContent";
 import ProfileRecentQuestion from "@/component/main/mentorProfileSection/profileRecentQuestion";
 import ProfileBtnGroup from "@/component/main/mentorProfileSection/profileBtnGroup";
+import {useEffect, useState} from "react";
+import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
+import {getSession, useSession} from "next-auth/react";
 
 export const MentorProfileSectionDiv = styled.div`
   width: 995px;
@@ -16,6 +19,27 @@ export const MentorProfileSectionDiv = styled.div`
 `;
 
 const MentorProfileList = () => {
+  const [mentorProfileDataList, setMentorProfileDataList] = useState();
+  const {data: sessionData, update: sessionUpdate} =useSession();
+
+  useEffect(() => {
+    const mentorDataAxios = async (sessionData: any) => {
+      try {
+        const result = await authedTokenAxios(sessionData.accessToken)
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello&page=0`)
+        setMentorProfileDataList(result.data.data.content)
+      } catch (error: any) {
+        console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+        refreshTokenAPI(sessionData, sessionUpdate).then(() => {})
+      }
+    };
+    const session = getSession().then();
+
+    mentorDataAxios(session).then(()=>{
+      console.log(mentorProfileDataList)
+    });
+  },[mentorProfileDataList, sessionUpdate]);
+
   return (
     <MentorProfileSectionDiv>
       <MentorProfileSectionTitleDiv>추천 멘토</MentorProfileSectionTitleDiv>

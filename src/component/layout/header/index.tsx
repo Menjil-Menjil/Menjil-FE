@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
-import {signOut, useSession} from "next-auth/react";
-import {useRouter} from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import {userState} from "@/states/state";
 
 const HeaderSection = styled.header`
   width: 1728px;
@@ -54,18 +56,29 @@ const StyledLink = styled(Link)`
 const Header = () => {
   const router = useRouter();
   const { data: sessionData, status: sessionStatus } = useSession();
+  const [user, setUser] = useRecoilState(userState);
+
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
     if (sessionData?.error) {
-      signOut({redirect:false, callbackUrl: "/"});
+      signOut({ redirect: false, callbackUrl: "/" });
       router.push("/");
       console.log(sessionData.error);
       alert("다시 로그인 해주세요!");
     } else {
       if (sessionData && sessionStatus === "authenticated") {
-        console.log(`provider:${sessionData.provider}`,
-          `user:${JSON.stringify(sessionData.user)}`,
-          `tokenExp:${sessionData.accessTokenExpires}`);
+        setUser({
+          name: sessionData.user.name,
+          email: sessionData.user.email,
+          image: sessionData.user.image,
+          school:sessionData.user.school,
+          major: sessionData.user.major
+        })
+        console.log(
+          `provider:${sessionData.provider}`,
+          `user:${JSON.stringify(user)}`,
+          `tokenExp:${sessionData.accessTokenExpires}`
+        );
       }
     }
   }, [sessionData]);
@@ -86,11 +99,26 @@ const Header = () => {
 
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({redirect:false, callbackUrl: "/"});
+      signOut({ redirect: false, callbackUrl: "/" });
       router.push("/");
     }
     //로컬로그아웃함수;
   };
+
+  // const getChatList = async () => {
+  //   try {
+  //     const res = await axios
+  //       .post(
+  //         `${
+  //           process.env.NEXT_PUBLIC_API_URL
+  //         }/api/chat/rooms?nickname=${"멘티닉네임"}?type=MENTEE`,
+  //         {}
+  //       )
+  //       .then((res) => {});
+  //   } catch (e: any) {
+  //     alert(e);
+  //   }
+  // };
 
   return (
     <>
@@ -102,7 +130,11 @@ const Header = () => {
           <StyledLink className="channel" href="/channel">
             채널
           </StyledLink>
-          <StyledLink className="chatting" href="/chatting">
+          <StyledLink
+            className="chatting"
+            href="/chatting"
+            // onClick={getChatList}
+          >
             채팅
           </StyledLink>
           <StyledLink className="recruit" href="/recruit">
@@ -114,20 +146,24 @@ const Header = () => {
         </div>
         <div className="member">
           {sessionData?.user ? (
-            <StyledLink href="" className="login"  onClick={logOutHandler}>
+            <StyledLink href="" className="login" onClick={logOutHandler}>
               {sessionData.accessToken ? "로그아웃" : "나가기"}
             </StyledLink>
           ) : (
             <>
-              <StyledLink href="" className="register" onClick={closeRegisterModal}>
+              <StyledLink
+                href=""
+                className="register"
+                onClick={closeRegisterModal}
+              >
                 회원가입
               </StyledLink>
               <StyledLink href="" className="login" onClick={closeLoginModal}>
                 로그인
               </StyledLink>
             </>
-        )}
-      </div>
+          )}
+        </div>
       </HeaderSection>
       {/* state가 true면 만들어놓은 모달 컴포넌트를 화면에 띄운다. */}
       {/* FeedSearchModal로 state함수를 props로 전달한다. - 모달 내에서 모달을 나갈 수 있어야 하기 때문 */}

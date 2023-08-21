@@ -7,6 +7,7 @@ import React from "react";
 import  "../styles/globals.css";
 import {SessionProvider} from "next-auth/react";
 import AuthContainer from "@/authContainer";
+import {RecoilRoot} from "recoil";
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -14,7 +15,7 @@ const prompt = Prompt({
   variable: "--prompt",
 });
 const pretendard = localFont({
-  src: '../../public/fonts/pretendard/Pretendard-Regular.woff',
+  src: '../../public/fonts/pretendard/Pretendard-Medium.woff',
 });
 
 export interface AuthInfo {
@@ -73,10 +74,11 @@ export default function App(
         <title>맨질맨질</title>
       </Head>
       <SessionProvider session={pageProps.session}>
-        <Layout>
-          {renderAuthorizedComponent()}
-        </Layout>
-        <style jsx global>{`
+        <RecoilRoot>
+          <Layout>
+            {renderAuthorizedComponent()}
+          </Layout>
+          <style jsx global>{`
             :root {
               /* font */
               --logo-font: ${prompt.style.fontFamily};
@@ -88,9 +90,17 @@ export default function App(
             }
             html, 
             body {
-              font-family: ${pretendard.style.fontFamily}, "Pretendard", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+              font-family: 
+              "Pretendard", Pretendard,
+              -apple-system, BlinkMacSystemFont,
+              system-ui, Roboto, "Helvetica Neue",
+              "Segoe UI", "Apple SD Gothic Neo",
+              "Noto Sans KR", "Malgun Gothic",
+              "Apple Color Emoji", "Segoe UI Emoji",
+              "Segoe UI Symbol", sans-serif;
             }
-        `}</style>
+          `}</style>
+        </RecoilRoot>
       </SessionProvider>
     </>
   );
