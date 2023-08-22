@@ -21,16 +21,14 @@ export const UserAsideContainer = styled.div`
 `;
 
 const UserAside = () => {
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const { status: sessionStatus } = useSession();
   const user = useRecoilValue(userState);
 
   return (
     <UserAsideContainer>
-      {sessionStatus === "unauthenticated" && (
-        <UnauthMenu/>
-      )}
-      {sessionStatus === "authenticated" && (
-        user.name !== "" ? (
+      {sessionStatus === "unauthenticated" ?
+        <UnauthMenu/> :
+        !!user.name ? (
           <>
             <UserProfile/>
             <AsideMenu/>
@@ -40,7 +38,7 @@ const UserAside = () => {
             <Link href="/register">회원가입</Link>
           </UnauthMenuContainerDiv>
         )
-      )}
+      }
     </UserAsideContainer>
   );
 }

@@ -19,7 +19,7 @@ export const ProfileCardDiv = styled.div`
   border-bottom: solid 1px rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   .column {
     display: flex;
     flex-direction: column;
@@ -33,6 +33,7 @@ export const ProfileCardDiv = styled.div`
 `;
 
 export const ProfileContentContainerDiv = styled.div`
+  margin-left: 40px;
   display: flex;
   font-size: 14px;
   font-weight: 500;
@@ -42,13 +43,15 @@ export const ProfileContentContainerDiv = styled.div`
     background: #BEBEBE;
   }
   .profileImageBox {
+    position: relative;
     width: 100px;
     height: 100px;
-    margin-left: 40px;
     border-radius: 12px;
     justify-content: center;
+    overflow: hidden;
   }
   .profileContentBox {
+    width: 270px;
     margin-left: 20px;
     .profileJobBox {
       width: 105px;
@@ -65,27 +68,33 @@ export const ProfileContentContainerDiv = styled.div`
     .textStyleTech {
       color: #707070;
     }
+    .gap8 { gap: 8px }
     .gap10 { gap: 10px; }
-    .gap12 { gap: 12px; }
     .marginBottom { margin-bottom: 1px; }
     .marginLeft { margin-left: 5px; }
   }
 `;
 export const ProfileRecentQuestionContainerDiv = styled.div`
-  //margin-left: 58px;
   font-size: 15px;
   font-weight: 500;
   p {
+    width: 320px;
+    height: 18px;
     margin: 8px 0 0 0;
     padding: 0;
   }
   .textStyleQuestionTitle {
-      color: #707070;
-      font-weight: 700;
-    }
+    color: #707070;
+    font-weight: 700;
+  }
   .marginBottom {
-      margin-bottom: 8px;
-    }
+    margin-bottom: 8px;
+  }
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 export const ProfileBtnContainerDiv = styled.div`
   margin-right: 40px;

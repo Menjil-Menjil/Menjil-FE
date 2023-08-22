@@ -61,12 +61,15 @@ const Header = () => {
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
     if (sessionData?.error) {
-      signOut({ redirect: false, callbackUrl: "/" });
-      router.push("/");
-      console.log(sessionData.error);
-      alert("다시 로그인 해주세요!");
+      signOut({ redirect: false}).then(() => {
+        console.log(sessionData.error)
+        alert("다시 로그인 해주세요!")
+        return () => {
+          //router.push("/").then();
+        }
+      });
     } else {
-      if (sessionData && sessionStatus === "authenticated") {
+      if (sessionData?.user?.name && sessionStatus === "authenticated") {
         setUser({
           name: sessionData.user.name,
           email: sessionData.user.email,
@@ -74,14 +77,14 @@ const Header = () => {
           school:sessionData.user.school,
           major: sessionData.user.major
         })
-        console.log(
-          `provider:${sessionData.provider}`,
-          `user:${JSON.stringify(user)}`,
-          `tokenExp:${sessionData.accessTokenExpires}`
-        );
+        // console.log(
+        //   `provider:${sessionData.provider}`,
+        //   `user:${JSON.stringify(user)}`,
+        //   `tokenExp:${sessionData.accessTokenExpires}`
+        // );
       }
     }
-  }, [sessionData]);
+  }, [sessionData?.error, sessionData?.user?.name, setUser]);
 
   // 모달 버튼 클릭 유무를 저장할 state
   const [showLoginModal, setShowLoginModal] = useState(false);
