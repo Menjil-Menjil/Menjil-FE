@@ -1,6 +1,6 @@
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Client } from "@stomp/stompjs";
 import useDidMountEffect from "@/component/useDidmountEffect";
 import { v4 as uuid, v5 } from "uuid";
@@ -16,8 +16,7 @@ const ChattingComponentProvider = ({
     roomId: string;
     mentorProfileImage: any;
     mentorName: any;
-    menteeName: any;
-    numN: number;
+    lastMessage: string;
   }
   interface messageInfo {
     message: string;
@@ -35,8 +34,7 @@ const ChattingComponentProvider = ({
     roomId: "0",
     mentorProfileImage: 0,
     mentorName: 0,
-    menteeName: 0,
-    numN: 0,
+    lastMessage: "",
   }); //멘토 데이터
 
   const [messageInput, setMessageInput] = useState(""); //보내는 메세지
@@ -84,16 +82,16 @@ const ChattingComponentProvider = ({
     setMessagesLog([]);
   };
 
-  const enterChattingRoom = async () => {
-    client?.unsubscribe(`/queue/chat/room/${chattingMentor.roomId}`);
-    subscribe(chattingMentor.roomId);
+  const enterChattingRoom = async (room: chattingRoomInfo) => {
+    client?.unsubscribe(`/queue/chat/room/${room.roomId}`);
+    subscribe(room.roomId);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter/`,
         {
-          menteeNickname: chattingMentor.menteeName,
-          mentorNickname: chattingMentor.mentorName,
-          roomId: chattingMentor.roomId,
+          menteeNickname: "hello",
+          mentorNickname: room.mentorName,
+          roomId: room.roomId,
         }
       );
       // .then((res) => {
@@ -110,12 +108,12 @@ const ChattingComponentProvider = ({
   const moveChattingRoom = (room: chattingRoomInfo) => {
     removeAllChatMessages();
     setChattingMentor(() => room);
-    enterChattingRoom();
+    enterChattingRoom(room);
   };
 
   // 채팅방 신규입장
   const createRoom = async () => {
-    const mentee: string = uuid();
+    const mentee: string = "hello";
     const mentor: string = uuid();
     const randomSeed: string = mentee + "*" + mentor;
     const roomId: string = v5(randomSeed, uuid());
@@ -124,12 +122,11 @@ const ChattingComponentProvider = ({
       roomId: roomId,
       mentorProfileImage: 0,
       mentorName: mentor,
-      menteeName: mentee,
-      numN: 0,
+      lastMessage: "",
     };
 
     removeAllChatMessages();
-    setChattingMentor((prev: any) => newRoom);
+    setChattingMentor(() => newRoom);
 
     client?.unsubscribe(`/queue/chat/room/${roomId}`);
     subscribe(roomId);
@@ -151,16 +148,35 @@ const ChattingComponentProvider = ({
     connect();
   };
 
-  useDidMountEffect(() => {
+  const bringAllChatRoom = useCallback(async () => {
+    try {
+      const res = await axios
+        .get(
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/api/chat/rooms?nickname=${"hello"}&type=${"MENTEE"}`
+        )
+        .then((res) => {
+          // console.log();
+          setChattingRooms(() => res.data.data);
+        });
+    } catch (e: any) {
+      alert(e);
+    }
+  }, []);
+
+  useEffect(() => {
     if (chattingRooms.length !== 0) {
       setSelectIndex(() => chattingRooms[chattingRooms.length - 1].roomId);
     }
   }, [chattingRooms]);
 
-  useDidMountEffect(() => {
+  //채팅 메뉴 이동 시 초기 연결
+  useEffect(() => {
     connect();
+    bringAllChatRoom();
     return () => disConnect();
-  }, []);
+  }, [bringAllChatRoom]);
 
   return (
     <ChattingComponentContext.Provider
