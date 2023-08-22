@@ -57,7 +57,6 @@ const AsideMenu = () => {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello`)
           //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${userName}`)
-        console.log(result.data.message)
         setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
