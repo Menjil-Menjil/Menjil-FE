@@ -1,4 +1,4 @@
-name: Next.js ci/cd using yarn and docker-compose
+name: Next.js CI/CD
 
 on:
   push:
@@ -25,33 +25,12 @@ jobs:
         run: |
           yarn install
           yarn build
-
-      ## Docker
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
-
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     # file: ./Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_REPO_FE }}:latest
-      #     cache-from: type=gha # 여기서 gha 는 Guthub Actions 용 캐시를 의미합니다.
-      #     cache-to: type=gha, mode=max
  
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: connect EC2 instance, Pull recent version of Git and Run docker-compose
+      - name: connect EC2 instance, Pull recent version of GitHub and start yarn
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.AWS_EC2_HOST_IP }}
@@ -59,16 +38,20 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/Menjil-FE
-            sudo docker-compose down
-            sudo docker system prune -a -f  
-            
+            pm2 stop yarn
+            pm2 delete yarn
             cd /home/ubuntu
             rm -rf Menjil-FE
             git clone https://github.com/Menjil-Menjil/Menjil-FE.git
             cd Menjil-FE
             touch .env  
             echo "${{secrets.env}}" > .env
-            sudo docker-compose up --build -d
+            yarn install
+            yarn build
+            pm2 start yarn -- start 
 
+
+          # sudo docker-compose down
+          # sudo docker system prune -a -f  
+          # sudo docker-compose up -d
 
