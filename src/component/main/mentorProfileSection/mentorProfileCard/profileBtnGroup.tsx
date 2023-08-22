@@ -3,7 +3,7 @@ import IcQuestion from "@/img/ic_send-question.svg";
 import IcFollow from "@/img/ic_follow.svg";
 const ProfileBtnGroup = () => {
   return (
-    <ProfileBtnContainerDiv className="column">
+    <ProfileBtnContainerDiv className="column marginL83">
       <div className="btnQuestion">
         <div className="icBoxQuestion"><IcQuestion/></div>질문하기
       </div>

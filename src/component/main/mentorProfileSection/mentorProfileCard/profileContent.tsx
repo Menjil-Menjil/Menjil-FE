@@ -11,10 +11,12 @@ interface propsType {
   imgUrl: any,
 }
 const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: propsType) => {
-  const [techStackList, setTechStackList] = useState<any[]>();
+  const [fieldList, setFieldList] = useState<string[]>();
+  const [techStackList, setTechStackList] = useState<string[]>();
   useEffect(() => {
+    setFieldList(field.split(", "))
     setTechStackList(techStack.split(", "))
-  }, [techStack]);
+  }, [field, techStack]);
   return (
     <ProfileContentContainerDiv>
       <div className="profileImageBox center">
@@ -27,8 +29,14 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
           <div>{major}</div>
         </div>
         <div className="marginBottom profileJobBox center">{company}</div>
-        <div className="marginLeft">{field}</div>
-        <div className="center gap12 textStyleTech marginLeft">
+         <div className="center gap8 marginLeft">
+           {fieldList && fieldList.map((data: any, index: number) => {
+             if (index < 4) {
+               return <div key={index}>{data}</div>
+             }
+           })}
+         </div>
+        <div className="center gap10 textStyleTech marginLeft">
           {techStackList && techStackList.map((data: any, index: number) => {
             if (index < 4) {
               return <div key={index}>{data}</div>
