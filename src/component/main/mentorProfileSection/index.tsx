@@ -21,7 +21,7 @@ export const MentorProfileSectionDiv = styled.div`
 const MentorProfileList = () => {
   let [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
-  const userName = useRecoilValue(userState).name;
+  const user = useRecoilValue(userState);
   const [pageIndex, setPageIndex] = useState<number>(0)
 
   useEffect(() => {
@@ -33,23 +33,32 @@ const MentorProfileList = () => {
         setMentorProfileDataList(mentorProfileDataList.concat(result.data.data.content))
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
-
         refreshTokenAPI(sessionData, sessionUpdate).then()
       }
     };
-    if (userName && sessionData?.error === undefined && pageIndex < 2) {
-      mentorDataAxios(sessionData, pageIndex).then(() => {
-        setPageIndex(pageIndex + 1)
-      });
+
+    if (user.name && sessionData?.error === undefined) {
+      if (pageIndex < 2) {
+        mentorDataAxios(sessionData, pageIndex).then(() => {
+          setPageIndex(pageIndex + 1)
+        })
+      }
+    } else {
+      setPageIndex(0)
     }
-  },[mentorProfileDataList, userName]);
+  },[mentorProfileDataList, user]);
 
   return (
     <MentorProfileSectionDiv>
       <MentorProfileSectionTitleDiv>추천 멘토</MentorProfileSectionTitleDiv>
-      {mentorProfileDataList && mentorProfileDataList.map((data: any, index: number) => {
-        return <MentorProfileCard key={index} data={data}></MentorProfileCard>
-      })}
+      {(user.name && mentorProfileDataList) ?
+        mentorProfileDataList.map((data: any, index: number) => {
+          return <MentorProfileCard key={index} data={data}></MentorProfileCard>
+        }) :
+        <>
+          <div>로그인 필요</div>
+        </>
+      }
     </MentorProfileSectionDiv>
   );
 }

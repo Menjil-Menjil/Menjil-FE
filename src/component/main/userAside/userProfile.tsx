@@ -1,22 +1,22 @@
-import profileImg from "@/img/img_default-profile.png";
 import LogoutIc from "@/img/ic_logout.svg"
 import Image from "next/image";
 import {UserProfileContainerDiv} from "@/component/main/userAside/userAside.style";
 import {signOut, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import {userState} from "@/states/state";
 
 const UserProfile = () => {
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const { data: sessionData } = useSession();
   const router = useRouter();
   const user = useRecoilValue(userState);
+  const resetUser = useResetRecoilState(userState);
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({redirect:false, callbackUrl: "/"});
-      router.push("/");
+      signOut({redirect:false, callbackUrl: "/"}).then(() => {
+        router.push("/").then(resetUser)
+      })
     }
-    //로컬로그아웃함수;
   };
 
   return (

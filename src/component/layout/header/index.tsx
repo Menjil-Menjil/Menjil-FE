@@ -5,7 +5,7 @@ import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {userState} from "@/states/state";
 
 const HeaderSection = styled.header`
@@ -57,6 +57,7 @@ const Header = () => {
   const router = useRouter();
   const { data: sessionData, status: sessionStatus } = useSession();
   const [user, setUser] = useRecoilState(userState);
+  const resetUser = useResetRecoilState(userState);
 
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
@@ -64,10 +65,8 @@ const Header = () => {
       signOut({ redirect: false}).then(() => {
         console.log(sessionData.error)
         alert("다시 로그인 해주세요!")
-        return () => {
-          //router.push("/").then();
-        }
-      });
+        return resetUser
+      })
     } else {
       if (sessionData?.user?.name && sessionStatus === "authenticated") {
         setUser({
@@ -102,8 +101,9 @@ const Header = () => {
 
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({ redirect: false, callbackUrl: "/" });
-      router.push("/");
+      signOut({ redirect: false, callbackUrl: "/" }).then(() => {
+        router.push("/").then(resetUser)
+      });
     }
     //로컬로그아웃함수;
   };
