@@ -15,6 +15,7 @@ export const ChatLogForm = styled.div`
   border: 0px solid #bebebe;
   background: rgba(255, 255, 255, 0.37);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+
   .chatLogHeader {
     width: 100%;
     height: 95px;
@@ -73,9 +74,12 @@ export const ChatLogForm = styled.div`
     width: 100%;
     height: 543px;
     overflow-y: auto;
+
     > ul {
       list-style-type: none;
       padding: 0;
+      display: flex;
+      flex-direction: column-reverse;
     }
     .mentorMessage {
       display: flex;
@@ -131,7 +135,7 @@ export const ChatLogForm = styled.div`
       }
       .menteeMessageBubble {
         max-width: 600px;
-        max-height: 145px;
+        /* max-height: 145px; */
         border-radius: 12px 0px 12px 12px;
         background: #ff8a00;
         display: inline-block;
@@ -254,6 +258,7 @@ const ChatLog = () => {
                     {_chatMessage.message}
                   </span>
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
+                  <span>{index}</span>
                 </li>
               ) : (
                 <li className="menteeMessage" key={index}>
@@ -261,6 +266,7 @@ const ChatLog = () => {
                   <span className="menteeMessageBubble">
                     {_chatMessage.message}
                   </span>
+                  <span>{index}</span>
                 </li>
               )
             )}
