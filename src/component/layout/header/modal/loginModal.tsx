@@ -15,20 +15,31 @@ interface clickModalType {
 const LoginModal = ({ closeLoginModal, changeModal }: clickModalType) => {
   const router = useRouter();
   const callBackURL = '/';
-  //const callBackURL = "http://localhost:3000/" // 로컬 디버그용
 
   const socialLogin = async (e: any, provider: string) => {
     e.preventDefault();
-    const res: any = await signIn(provider, {
-      redirect: false,
-      callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
-      loginMode: "login"
-    });
-    if (res?.error) {
-      console.log(res.error);
-    } else {
-      await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+    try {
+      signIn(provider, {
+        redirect: false,
+        //callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+        loginMode: "login"
+      }).then(() => {
+        router.push(callBackURL).then()
+      });
+    } catch (error) {
+      console.log(error);
     }
+    // const res: any = await signIn(provider, {
+    //   redirect: false,
+    //   callbackUrl: callBackURL, // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+    //   loginMode: "login"
+    // });
+    // setUser({...res.data.nickname})
+    // if (res?.error) {
+    //   console.log(res.error);
+    // } else {
+    //   await router.push(callBackURL); // 이유는 모르겠지만 둘다 있어야함(local 디버깅시)
+    // }
   }
 
   return (

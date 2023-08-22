@@ -18,7 +18,6 @@ export const ExplanationP = styled.div`
   display: inline-flex;
   margin-left: 20px;
   top: 457px;
-  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
@@ -26,29 +25,29 @@ export const ExplanationP = styled.div`
 `;
 
 const fieldValList = [
-  { value: "fe", text: "프론트엔드" },
-  { value: "be", text: "백엔드" },
-  { value: "devops", text: "DevOps" },
-  { value: "ai", text: "AI" },
-  { value: "game", text: "게임" },
-  { value: "etc", text: "기타" },
+  { value: "프론트엔드", text: "프론트엔드" },
+  { value: "백엔드", text: "백엔드" },
+  { value: "DevOps", text: "DevOps" },
+  { value: "AI", text: "AI" },
+  { value: "게임", text: "게임" },
+  { value: "기타", text: "기타" },
 ];
 
 const techStackValList = [
-  { value: "react", text: "React" },
-  { value: "flutter", text: "Flutter" },
-  { value: "kotlin", text: "Kotlin" },
-  { value: "swift", text: "Swift" },
-  { value: "nodejs", text: "Node.js" },
-  { value: "spring", text: "Spring" },
-  { value: "unreal", text: "Unreal" },
-  { value: "tensorflow", text: "Tensorflow" },
-  { value: "docker", text: "Docker" },
-  { value: "aws", text: "AWS" },
+  { value: "React", text: "React" },
+  { value: "Flutter", text: "Flutter" },
+  { value: "Kotlin", text: "Kotlin" },
+  { value: "Swift", text: "Swift" },
+  { value: "Node.js", text: "Node.js" },
+  { value: "Spring", text: "Spring" },
+  { value: "Unreal", text: "Unreal" },
+  { value: "Tensorflow", text: "Tensorflow" },
+  { value: "Docker", text: "Docker" },
+  { value: "AWS", text: "AWS" },
 ];
 
 const RegisterTags = () => {
-  const { handleNextClick, handleBackClick, register, isValid, handleSubmit } =
+  const { handleNextClick, handleBackClick, register, isValid } =
     useContext<any>(RegisterComponentContext);
 
   return (

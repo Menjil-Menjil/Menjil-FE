@@ -6,10 +6,12 @@ export const UserProfileContainerDiv = styled.div`
   justify-content: space-between;
   .profileInfo {
     .profileImgBox {
+      position: relative;
       width: 50px;
       height: 50px;
       margin-top: 5px;
       border-radius: 12px;
+      overflow: hidden;
     }
     .profileContent {
       margin: 3px 0 0 15px;
@@ -68,13 +70,26 @@ export const UserProfileContainerDiv = styled.div`
 export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  margin-top: 18px;
+  * {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  input[type="radio"] {
+    display: none;
+  }
+  label {
+    margin: 0 6px 0 20px;
+    cursor: pointer;
+    color: #707070;
+  }
+  input[type="radio"]:checked + label{
+    color: rgba(0, 0, 0, 0.80);
+  }
   button {
+    margin: 0 43px 0 auto;
     border: none;
     background: none;
-    color: #000;
-    font-size: 20px;
-    font-weight: 700;
     cursor: pointer;
   }
 `
@@ -83,24 +98,31 @@ export const ChattingListDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6px;
-  gap: 11px;
 `;
 
 export const ChattingCardDiv = styled.div`
-  width: 306px;
-  height: 94px;
-  border-radius: 12px;
-  background: #FFFBEE;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 92px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 15px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E0E0E0;
+  cursor: pointer;
   p {
-    width: 204px;
+    width: 223px;
     height: 45px;
     margin: 0;
     padding: 0;
+  }
+  .mentorImgBox {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    overflow: hidden;
   }
   .spaceBetween {
     display: flex;
@@ -111,6 +133,16 @@ export const ChattingCardDiv = styled.div`
     text-align: right;
     font-size: 12px;
     font-weight: 500;
+  }
+  .timeTextColor {
+     color: #FF8A00;
+  }
+  .circle {
+    margin-left: 5px;
+    width: 7px;
+    height: 7px;
+    background-color: #FF8A00;
+    border-radius: 50%;
   }
   .textStyle {
     color: #000;
@@ -129,5 +161,29 @@ export const ChattingCardDiv = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+  .wrapper {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const UnauthMenuContainerDiv = styled.div`
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
   }
 `;
