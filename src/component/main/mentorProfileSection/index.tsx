@@ -1,15 +1,16 @@
 import {MentorProfileSectionTitleDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 import styled from "@emotion/styled";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {userState} from "@/states/state";
 import {useRecoilValue} from "recoil"
 import MentorProfileCard from "@/component/main/mentorProfileSection/mentorProfileCard";
+import useIntersect from "@/hooks/useIntersect";
 
 export const MentorProfileSectionDiv = styled.div`
   width: 995px;
-  height: 1148px;
+  height: auto;
   border-radius: 12px;
   border: 0 solid #BEBEBE;
   background: #FFF;
@@ -22,36 +23,56 @@ const MentorProfileList = () => {
   let [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const user = useRecoilValue(userState);
-  const [pageIndex, setPageIndex] = useState<number>(0)
+  const [page, setPage] = useState<number>(0);
+  const [isFetching, setFetching] = useState(false);
+  const [hasNextPage, setNextPage] = useState(true);
+
+  const mentorDataAxios = async (sessionData: any, index: number) => {
+    try {
+      return await authedTokenAxios(sessionData.accessToken)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
+      //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${userName}&page=${index}`)
+    } catch (error: any) {
+      console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+      refreshTokenAPI(sessionData, sessionUpdate).then()
+    }
+  };
+  const fetchUsers = useCallback(async (userName: any, session: any) => {
+    if (userName && session?.error === undefined) {
+
+      mentorDataAxios(session, page).then((result) => {
+        const contentData = result?.data.data.content
+        const pageableData = result?.data.data
+        setMentorProfileDataList(mentorProfileDataList.concat(contentData))
+        setPage(pageableData.pageable.pageNumber + 1)
+        setNextPage(!pageableData.last)
+        setFetching(false)
+      })
+    } else {
+      setPage(0)
+    }
+  }, [page]);
+
+  const ref = useIntersect( async (entry, observer) => {
+    observer.unobserve(entry.target)
+    if (hasNextPage && !isFetching) {
+      // 로딩되는 것을 눈으로 확인하기위해 일부러 타임아웃을 걸어둠
+      setTimeout(() => setFetching(true),2000);
+    }
+  })
 
   useEffect(() => {
-    const mentorDataAxios = async (sessionData: any, index: number) => {
-      try {
-        const result = await authedTokenAxios(sessionData.accessToken)
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
-          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${userName}&page=${index}`)
-        setMentorProfileDataList(mentorProfileDataList.concat(result.data.data.content))
-      } catch (error: any) {
-        console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
-        refreshTokenAPI(sessionData, sessionUpdate).then()
-      }
-    };
+    if (isFetching && hasNextPage) fetchUsers(user.name, sessionData).then()
+    else if (!hasNextPage) setFetching(false)
+  }, [fetchUsers, hasNextPage, isFetching, sessionData, user.name]);
 
-    if (user.name && sessionData?.error === undefined) {
-      if (pageIndex < 2) {
-        mentorDataAxios(sessionData, pageIndex).then(() => {
-          setPageIndex(pageIndex + 1)
-        })
-      }
-    } else {
-      setPageIndex(0)
-    }
-  },[mentorProfileDataList, user]);
-
+  const Target = styled.div`
+    height: 1px;
+  `
   return (
     <MentorProfileSectionDiv>
       <MentorProfileSectionTitleDiv>추천 멘토</MentorProfileSectionTitleDiv>
-      {(user.name && mentorProfileDataList) ?
+      {user.name ?
         mentorProfileDataList.map((data: any, index: number) => {
           return <MentorProfileCard key={index} data={data}></MentorProfileCard>
         }) :
@@ -59,6 +80,8 @@ const MentorProfileList = () => {
           <div>로그인 필요</div>
         </>
       }
+      {isFetching && <div>loading</div>}
+      <Target ref={ref}></Target>
     </MentorProfileSectionDiv>
   );
 }

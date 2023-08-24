@@ -14,7 +14,7 @@ export const MentorProfileSectionTitleDiv = styled.div`
 `;
 
 export const ProfileCardDiv = styled.div`
-  width: 100%;
+  width: auto;
   height: 144px;
   border-bottom: solid 1px rgba(0, 0, 0, 0.12);
   display: flex;
