@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import SendIc from "@/img/ic_send.svg";
 import DotIc from "@/img/ic_dot-horizontal.svg";
-import useDidMountEffect from "../useDidmountEffect";
+import MessageContent from "./messageContent";
 
 export const ChatLogForm = styled.div`
   position: relative;
@@ -68,85 +67,6 @@ export const ChatLogForm = styled.div`
       position: absolute;
       top: 36px;
       right: 25px;
-    }
-  }
-  .messageContentDiv {
-    width: 100%;
-    height: 543px;
-    overflow-y: auto;
-
-    > ul {
-      list-style-type: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column-reverse;
-    }
-    .mentorMessage {
-      display: flex;
-      margin-top: 25px;
-      margin-left: 25px;
-      .messageMentorProfileImage {
-        width: 38px;
-        height: 38px;
-        flex-shrink: 0;
-        border-radius: 7px;
-        background: #ffaa00;
-        margin-right: 10px;
-      }
-      .mentorMessageBubble {
-        max-width: 600px;
-        max-height: 145px;
-        flex-shrink: 0;
-        border-radius: 0px 12px 12px 12px;
-        background: #f0f0ef;
-        display: inline-block;
-        padding: 15px 20px;
-        color: black;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 150%; /* 22.5px */
-      }
-      .mentorMessageTime {
-        color: #575757;
-        font-size: 11px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 150%; /* 16.5px */
-        margin-left: 10px;
-        display: flex;
-        align-items: flex-end;
-      }
-    }
-    .menteeMessage {
-      display: flex;
-      margin-top: 25px;
-      margin-right: 28px;
-      justify-content: flex-end;
-      .menteeMessageTime {
-        color: #575757;
-        font-size: 11px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 150%; /* 16.5px */
-        margin-right: 10px;
-        display: flex;
-        align-items: flex-end;
-      }
-      .menteeMessageBubble {
-        max-width: 600px;
-        /* max-height: 145px; */
-        border-radius: 12px 0px 12px 12px;
-        background: #ff8a00;
-        display: inline-block;
-        padding: 15px 20px;
-        color: #fff;
-        text-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.25);
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 150%; /* 22.5px */
-      }
     }
   }
 
@@ -225,13 +145,8 @@ export const ChatLogForm = styled.div`
 `;
 
 const ChatLog = () => {
-  const {
-    chattingMentor,
-    publish,
-    messagesLog,
-    messageInput,
-    setMessageInput,
-  } = useContext<any>(ChattingComponentContext);
+  const { chattingMentor, publish, messageInput, setMessageInput } =
+    useContext<any>(ChattingComponentContext);
 
   return (
     <ChatLogForm>
@@ -247,32 +162,7 @@ const ChatLog = () => {
         </div>
         <DotIc className="DotIc" />
       </div>
-      <div className="messageContentDiv">
-        {messagesLog && messagesLog.length > 0 && (
-          <ul>
-            {messagesLog.map((_chatMessage: any, index: any) =>
-              _chatMessage.senderType === "MENTOR" ? (
-                <li className="mentorMessage" key={index}>
-                  <div className="messageMentorProfileImage"></div>
-                  <span className="mentorMessageBubble">
-                    {_chatMessage.message}
-                  </span>
-                  <span className="mentorMessageTime">{_chatMessage.time}</span>
-                  <span>{index}</span>
-                </li>
-              ) : (
-                <li className="menteeMessage" key={index}>
-                  <span className="menteeMessageTime">{_chatMessage.time}</span>
-                  <span className="menteeMessageBubble">
-                    {_chatMessage.message}
-                  </span>
-                  <span>{index}</span>
-                </li>
-              )
-            )}
-          </ul>
-        )}
-      </div>
+      <MessageContent />
       <div className="messageContainer">
         <div className="sendMessageBoxDiv">
           <textarea
