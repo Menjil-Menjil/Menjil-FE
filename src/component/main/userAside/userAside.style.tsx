@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 
 export const UserProfileContainerDiv = styled.div`
-  margin: 15px 20px 0 20px;
-  display: flex;
-  justify-content: space-between;
+  height: 101px;
+  position: relative;
+  margin-top: 15px;
   .profileInfo {
+    margin-left: 20px;
+    overflow: hidden;
     .profileImgBox {
       position: relative;
       width: 50px;
@@ -14,7 +16,9 @@ export const UserProfileContainerDiv = styled.div`
       overflow: hidden;
     }
     .profileContent {
-      margin: 3px 0 0 15px;
+      position: absolute;
+      top: 3px;
+      left: 85px;
     }
     .line {
       width: 1px;
@@ -30,8 +34,12 @@ export const UserProfileContainerDiv = styled.div`
     }
   }
   .btnLogout {
+    position: absolute;
+    top: 0;
+    right: 20px;
     width: 94px;
     height: 34px;
+    flex-shrink: 0;
     border-radius: 12px;
     border: 1px solid #D8D8D8;
     display: flex;
@@ -46,12 +54,14 @@ export const UserProfileContainerDiv = styled.div`
       font-weight: 400;
     }
   }
-  .wrap {
+  .wrapper {
+    width: 222px;
+    height: 13px;
     display: flex;
-    flex-wrap: wrap;
-  }
-  .center {
+    flex-wrap: nowrap;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .userInfoTextStyle {
     color: #707070;

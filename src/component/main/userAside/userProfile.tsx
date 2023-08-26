@@ -21,16 +21,16 @@ const UserProfile = () => {
 
   return (
     <UserProfileContainerDiv>
-      <div className="profileInfo wrap">
+      <div className="profileInfo">
         <div className="profileImgBox">
           <Image src={user.image} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
         </div>
         <div className="profileContent userInfoTextStyle">
           <div className="userInfoTitleStyle marginB8">{user.name} 님</div>
           <div className="marginB3">{user.name}</div>
-          <div className="wrap center marginB8">
+          <div className="wrapper marginB8">
             {user.school}
-            <div className="line"/>
+            <div className="line">&nbsp;</div>
             {user.major}
           </div>
           <div>마이페이지</div>
