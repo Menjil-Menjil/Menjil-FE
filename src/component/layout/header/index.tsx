@@ -76,11 +76,6 @@ const Header = () => {
           school:sessionData.user.school,
           major: sessionData.user.major
         })
-        // console.log(
-        //   `provider:${sessionData.provider}`,
-        //   `user:${JSON.stringify(user)}`,
-        //   `tokenExp:${sessionData.accessTokenExpires}`
-        // );
       }
     }
   }, [sessionData?.error, sessionData?.user?.name, setUser]);
@@ -130,18 +125,15 @@ const Header = () => {
           <StyledLink className="logo" href="/">
             menjil
           </StyledLink>
-          <StyledLink className="channel" href="/channel">
-            채널
-          </StyledLink>
           <StyledLink
             className="chatting"
             href="/chatting"
             // onClick={getChatList}
           >
-            채팅
+            멘토링
           </StyledLink>
-          <StyledLink className="recruit" href="/recruit">
-            채용소식
+          <StyledLink className="follows" href="/follows">
+            관심 멘토
           </StyledLink>
           <StyledLink className="community" href="/community">
             커뮤니티
