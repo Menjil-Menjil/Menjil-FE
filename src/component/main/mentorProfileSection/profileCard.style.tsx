@@ -10,16 +10,17 @@ export const MentorProfileSectionTitleDiv = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
 `;
 
 export const ProfileCardDiv = styled.div`
   width: auto;
   height: 144px;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: space-around;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border-top: solid 1px rgba(0, 0, 0, 0.12);
   .column {
     display: flex;
     flex-direction: column;
