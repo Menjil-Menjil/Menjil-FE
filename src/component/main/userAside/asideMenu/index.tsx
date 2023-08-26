@@ -60,6 +60,7 @@ const AsideMenu = () => {
         setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+        console.log(error.response)
         refreshTokenAPI(sessionData, sessionUpdate).then()
       }
     };

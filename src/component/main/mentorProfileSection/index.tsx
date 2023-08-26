@@ -20,7 +20,7 @@ export const MentorProfileSectionDiv = styled.div`
 `;
 
 const MentorProfileList = () => {
-  let [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
+  const [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const user = useRecoilValue(userState);
   const [page, setPage] = useState<number>(0);
@@ -80,7 +80,7 @@ const MentorProfileList = () => {
           <div>로그인 필요</div>
         </>
       }
-      {isFetching && <div>loading</div>}
+      {(!!user.name && isFetching) && <div>loading</div>}
       <Target ref={ref}></Target>
     </MentorProfileSectionDiv>
   );
