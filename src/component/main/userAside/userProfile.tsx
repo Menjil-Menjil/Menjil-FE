@@ -1,5 +1,6 @@
 import LogoutIc from "@/img/ic_logout.svg"
 import Image from "next/image";
+import Link from "next/link";
 import {UserProfileContainerDiv} from "@/component/main/userAside/userAside.style";
 import {signOut, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
@@ -29,9 +30,11 @@ const UserProfile = () => {
         <div className="profileContent userInfoTextStyle">
           <div className="titleWrapper userInfoTitleStyle marginB8">
             {user.name} 님
-            <div className="editIconBox">
-              <Image src={editIc} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
-            </div>
+            <Link href="/mypage">
+              <div className="editIconBox">
+                <Image src={editIc} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
+              </div>
+            </Link>
           </div>
           <div className="marginB5">{user.name}</div>
           <div className="wrapper">

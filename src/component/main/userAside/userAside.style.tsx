@@ -27,6 +27,7 @@ export const UserProfileContainerDiv = styled.div`
           height: 20px;
           margin-left: 5px;
           overflow: hidden;
+          cursor: pointer;
         }
       }
       .line {
