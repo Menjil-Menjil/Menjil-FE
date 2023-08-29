@@ -30,8 +30,7 @@ const MentorProfileList = () => {
   const mentorDataAxios = async (sessionData: any, index: number) => {
     try {
       return await authedTokenAxios(sessionData.accessToken)
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
-      //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${userName}&page=${index}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${user.name}&page=${index}`)
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
       refreshTokenAPI(sessionData, sessionUpdate).then()
