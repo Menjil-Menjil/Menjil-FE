@@ -19,7 +19,7 @@ export const ModalContent = styled.div`
   width: 530px;
   height: 650px;
   user-select: none;
-  background-color: #ffffff;
+  background-color: white;
   display: inline-flex;
   justify-content: center;
   position: relative;
@@ -71,7 +71,7 @@ export const ModalContent = styled.div`
         left: 14px;
       }
       .google {
-        background: #ffffff;
+        background: white;
         border: 1px solid rgba(0, 0, 0, 0.15);
         color: rgba(0, 0, 0, 0.54);
       }

@@ -13,7 +13,7 @@ const HeaderSection = styled.header`
   height: 60px;
   margin: 0 auto;
   top: 0;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid var(--section-border);
   display: flex;
   position: sticky;
   z-index: 1;

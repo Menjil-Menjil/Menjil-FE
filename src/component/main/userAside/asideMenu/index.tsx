@@ -5,6 +5,15 @@ import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useEffect, useState} from "react";
 import {userState} from "@/states/state";
 import {useRecoilValue} from "recoil"
+import styled from "@emotion/styled";
+
+export const AsideMenuContainer = styled.div`
+  height: 323px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: var(--aside-menu-bg-color);
+`;
 
 interface RadioElementType {
   children: any,
@@ -33,7 +42,7 @@ const Radio = ({ children, value, defaultChecked, onChange }: RadioElementType) 
 const AsideMenu = () => {
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [chatLogDataList, setChatLogDataList] = useState<any[]>();
-  const userName = useRecoilValue(userState).name;
+  const user = useRecoilValue(userState);
   const tokenAxios = async () => {
     const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
     if (sessionData?.accessToken) {
@@ -56,7 +65,7 @@ const AsideMenu = () => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello`)
-          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${userName}`)
+          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${user.name}`)
         setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
@@ -64,16 +73,18 @@ const AsideMenu = () => {
         refreshTokenAPI(sessionData, sessionUpdate).then()
       }
     };
-    if (!!userName) {
+    if (!!user.name) {
       chatLogAxios(sessionData).then();
     }
-  }, [userName]);
+  }, [user.name]);
 
   return (
-    <>
+    <AsideMenuContainer>
       <AsideBtnGroup>
-        <Radio value="mentors" defaultChecked onChange={handleChange}>관심멘토</Radio>
-        <Radio value="chat" defaultChecked={false} onChange={handleChange}>채팅목록</Radio>
+        <div className="radioBtnGroup">
+          <Radio value="mentors" defaultChecked onChange={handleChange}>관심멘토</Radio>
+          <Radio value="chat" defaultChecked={false} onChange={handleChange}>채팅목록</Radio>
+        </div>
         <button className="btnStyle" onClick={tokenAxios}>더보기</button>
       </AsideBtnGroup>
       {menuComponent === "mentors" && (
@@ -83,12 +94,12 @@ const AsideMenu = () => {
         <ChattingListDiv>
           {chatLogDataList && chatLogDataList.map((data: any, index: number) => {
             if(index < 3) {
-              return <ChattingCard key={index} data={data} index={index}/>
+              return <ChattingCard key={index} data={data}/>
             }
           })}
         </ChattingListDiv>
       )}
-    </>
+    </AsideMenuContainer>
   );
 };
 export default AsideMenu;

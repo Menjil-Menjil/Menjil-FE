@@ -4,7 +4,7 @@ const FooterSection = styled.footer`
   width: 100%;
   height: 70px;
   margin: 0 auto;
-  border-top: 1px solid #e2e2e2;
+  border-top: 1px solid var(--section-border);
   .footerText {
     margin-left: 200px;
   }
