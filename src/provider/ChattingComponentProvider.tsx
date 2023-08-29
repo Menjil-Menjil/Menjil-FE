@@ -42,12 +42,12 @@ const ChattingComponentProvider = ({
 
   // 채팅방 구독하기
   const subscribe = (roomId: any) => {
-    client?.subscribe(`/queue/chat/room/${roomId}`, ({ body }) => {
-      console.log("body = " + [JSON.parse(body).body.data]);
-      setMessagesLog([JSON.parse(body).body.data]);
-      // JSON.parse(body).body.data.map((message: any) => {
-      //   setMessagesLog((messagesLog) => [...messagesLog, message]);
-      // });
+    client?.subscribe(`/queue/chat/room/${roomId}`, ({ body }: any) => {
+      console.log("body = " + body);
+      // setMessagesLog([JSON.parse(body).body.data]);
+      JSON.parse(body).body?.data.map((message: any) => {
+        setMessagesLog((messagesLog) => [...messagesLog, message]);
+      });
     });
   };
 
@@ -57,7 +57,9 @@ const ChattingComponentProvider = ({
       debug: function (str) {
         console.log(str);
       },
-
+      // onConnect: () => {
+      //   subscribe(chattingMentor.roomId);
+      // },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
