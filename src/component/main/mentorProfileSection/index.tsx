@@ -56,8 +56,7 @@ const MentorProfileList = () => {
   const ref = useIntersect( async (entry, observer) => {
     observer.unobserve(entry.target)
     if (hasNextPage && !isFetching) {
-      // 로딩되는 것을 눈으로 확인하기위해 일부러 타임아웃을 걸어둠
-      setTimeout(() => setFetching(true),2000);
+      setFetching(true)
     }
   })
 

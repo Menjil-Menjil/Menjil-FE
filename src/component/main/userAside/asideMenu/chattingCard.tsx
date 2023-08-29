@@ -10,7 +10,7 @@ const ChattingCard = ({data}: propsType) => {
   return (
     <ChattingCardDiv>
       <div className="mentorImgBox">
-        <Image src={cardData.imgUrl} alt="img" fill sizes="50vw" style={{objectFit: "cover"}}/>
+        <Image src={cardData.imgUrl} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
       </div>
       <div>
         <div className="spaceBetween">
