@@ -4,6 +4,7 @@ import ChattingComponentContext from "@/context/chattingComponentContext";
 import SendIc from "@/img/ic_send.svg";
 import DotIc from "@/img/ic_dot-horizontal.svg";
 import MessageContent from "./messageContent";
+import Image from "next/image";
 
 export const ChatLogForm = styled.div`
   position: relative;
@@ -34,6 +35,8 @@ export const ChatLogForm = styled.div`
       .mentorProfileImage {
         width: 55px;
         height: 55px;
+        position: relative;
+        overflow: hidden;
         flex-shrink: 0;
         border-radius: 12px;
         background: #ffaa00;
@@ -145,18 +148,24 @@ export const ChatLogForm = styled.div`
 `;
 
 const ChatLog = () => {
-  const { chattingMentor, publish, messageInput, setMessageInput } =
+  const { chattingMentor, publish, messageInput, setMessageInput, subscribe } =
     useContext<any>(ChattingComponentContext);
 
   return (
     <ChatLogForm>
       <div className="chatLogHeader">
         <div className="mentorInfoDiv">
-          <div className="mentorProfileImage"></div>
+          <div className="mentorProfileImage">
+            <Image
+              src={chattingMentor.imgUrl}
+              alt="profile"
+              fill
+              sizes="50vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
           <div className="mentorProfileTextBox">
-            <span className="mentorProfileName">
-              {chattingMentor.roomId.substr(0, 5)}
-            </span>
+            <span className="mentorProfileName">{chattingMentor.nickname}</span>
             <span className="recommendedAnswerNumber">답변수, 팔로워수</span>
           </div>
         </div>

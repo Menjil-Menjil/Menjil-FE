@@ -13,9 +13,9 @@ export const MainContainerDiv = styled.div`
 `;
 
 export const MainContentsContainerDiv = styled.div`
-  margin-top: 40px;
+  margin: 50px 0;
   display: flex;
-  gap: 30px;
+  gap: 40px;
 `;
 
 const Main = () => {

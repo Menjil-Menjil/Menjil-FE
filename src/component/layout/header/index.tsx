@@ -5,7 +5,7 @@ import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {userState} from "@/states/state";
 
 const HeaderSection = styled.header`
@@ -57,6 +57,7 @@ const Header = () => {
   const router = useRouter();
   const { data: sessionData, status: sessionStatus } = useSession();
   const [user, setUser] = useRecoilState(userState);
+  const resetUser = useResetRecoilState(userState);
 
   useEffect(() => {
     console.log("status:", JSON.stringify(sessionStatus));
@@ -64,10 +65,8 @@ const Header = () => {
       signOut({ redirect: false}).then(() => {
         console.log(sessionData.error)
         alert("다시 로그인 해주세요!")
-        return () => {
-          //router.push("/").then();
-        }
-      });
+        return resetUser
+      })
     } else {
       if (sessionData?.user?.name && sessionStatus === "authenticated") {
         setUser({
@@ -77,11 +76,6 @@ const Header = () => {
           school:sessionData.user.school,
           major: sessionData.user.major
         })
-        // console.log(
-        //   `provider:${sessionData.provider}`,
-        //   `user:${JSON.stringify(user)}`,
-        //   `tokenExp:${sessionData.accessTokenExpires}`
-        // );
       }
     }
   }, [sessionData?.error, sessionData?.user?.name, setUser]);
@@ -102,8 +96,9 @@ const Header = () => {
 
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({ redirect: false, callbackUrl: "/" });
-      router.push("/");
+      signOut({ redirect: false, callbackUrl: "/" }).then(() => {
+        router.push("/").then(resetUser)
+      });
     }
     //로컬로그아웃함수;
   };
@@ -130,18 +125,15 @@ const Header = () => {
           <StyledLink className="logo" href="/">
             menjil
           </StyledLink>
-          <StyledLink className="channel" href="/channel">
-            채널
-          </StyledLink>
           <StyledLink
             className="chatting"
             href="/chatting"
             // onClick={getChatList}
           >
-            채팅
+            멘토링
           </StyledLink>
-          <StyledLink className="recruit" href="/recruit">
-            채용소식
+          <StyledLink className="follows" href="/follows">
+            관심 멘토
           </StyledLink>
           <StyledLink className="community" href="/community">
             커뮤니티

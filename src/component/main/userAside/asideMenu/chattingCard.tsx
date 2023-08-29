@@ -9,10 +9,10 @@ interface propsType {
 const ChattingCard = ({data, index}: propsType) => {
   const cardData: any = data;
   const cardIndex: number = index;
-  const [lineStyle, setLineStyle] = useState<any>()
+  const [lineStyle, setLineStyle] = useState<any>();
   useEffect(() => {
     if (cardIndex > 1) setLineStyle({border: "none"})
-  }, [cardIndex])
+  }, [cardIndex]);
 
   return (
     <ChattingCardDiv style={lineStyle}>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
 import ChattingComponentContext from "@/context/chattingComponentContext";
+import Image from "next/image";
 
 export const MessageContentDiv = styled.div`
   width: 100%;
@@ -19,6 +20,8 @@ export const MessageContentDiv = styled.div`
     .messageMentorProfileImage {
       width: 38px;
       height: 38px;
+      position: relative;
+      overflow: hidden;
       flex-shrink: 0;
       border-radius: 7px;
       background: #ffaa00;
@@ -86,8 +89,9 @@ export const MessageContentDiv = styled.div`
 `;
 
 const MessageContent = () => {
-  const { messagesLog } = useContext<any>(ChattingComponentContext);
-  let timeCheck: any;
+  const { messagesLog, chattingMentor } = useContext<any>(
+    ChattingComponentContext
+  );
 
   return (
     <MessageContentDiv>
@@ -100,12 +104,19 @@ const MessageContent = () => {
               ),
               _chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
-                  <div className="messageMentorProfileImage"></div>
+                  <div className="messageMentorProfileImage">
+                    <Image
+                      src={chattingMentor.imgUrl}
+                      alt="profile"
+                      fill
+                      sizes="50vw"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                   <span className="mentorMessageBubble">
                     {_chatMessage.message}
                   </span>
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
-                  <span>{index}</span>
                 </li>
               ) : (
                 <li className="menteeMessage" key={index}>
@@ -113,7 +124,6 @@ const MessageContent = () => {
                   <span className="menteeMessageBubble">
                     {_chatMessage.message}
                   </span>
-                  <span>{index}</span>
                 </li>
               )
             )

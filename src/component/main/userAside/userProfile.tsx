@@ -1,36 +1,36 @@
-import profileImg from "@/img/img_default-profile.png";
 import LogoutIc from "@/img/ic_logout.svg"
 import Image from "next/image";
 import {UserProfileContainerDiv} from "@/component/main/userAside/userAside.style";
 import {signOut, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import {userState} from "@/states/state";
 
 const UserProfile = () => {
-  const { data: sessionData, status: sessionStatus } = useSession();
+  const { data: sessionData } = useSession();
   const router = useRouter();
   const user = useRecoilValue(userState);
+  const resetUser = useResetRecoilState(userState);
   const logOutHandler = () => {
     if (sessionData) {
-      signOut({redirect:false, callbackUrl: "/"});
-      router.push("/");
+      signOut({redirect:false, callbackUrl: "/"}).then(() => {
+        router.push("/").then(resetUser)
+      })
     }
-    //로컬로그아웃함수;
   };
 
   return (
     <UserProfileContainerDiv>
-      <div className="profileInfo wrap">
+      <div className="profileInfo">
         <div className="profileImgBox">
           <Image src={user.image} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
         </div>
         <div className="profileContent userInfoTextStyle">
           <div className="userInfoTitleStyle marginB8">{user.name} 님</div>
           <div className="marginB3">{user.name}</div>
-          <div className="wrap center marginB8">
+          <div className="wrapper marginB8">
             {user.school}
-            <div className="line"/>
+            <div className="line">&nbsp;</div>
             {user.major}
           </div>
           <div>마이페이지</div>

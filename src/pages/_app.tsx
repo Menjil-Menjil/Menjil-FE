@@ -1,22 +1,11 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "@/component/layout";
-import { Prompt } from "next/font/google";
-import localFont from 'next/font/local';
 import React from "react";
-import  "../styles/globals.css";
 import {SessionProvider} from "next-auth/react";
 import AuthContainer from "@/authContainer";
 import {RecoilRoot} from "recoil";
-
-const prompt = Prompt({
-  subsets: ["latin"],
-  weight: ["100", "400", "700"],
-  variable: "--prompt",
-});
-const pretendard = localFont({
-  src: '../../public/fonts/pretendard/Pretendard-Medium.woff',
-});
+import GlobalStyle from "@/styles/globalStyles";
 
 export interface AuthInfo {
   role?: 'admin' | 'member'
@@ -27,7 +16,7 @@ export interface AuthInfo {
 // 일반 유저 접근 금지 path
 const NOT_ALLOWED_TO_MEMBERS = ['/register']
 //일반 유저 권한이 필요한 start path
-const ALLOWED_ONLY_TO_MEMBERS = ['/chatting', '/community']
+const ALLOWED_ONLY_TO_MEMBERS = ['/chatting', '/follows']
 
 export default function App(
   {
@@ -75,31 +64,10 @@ export default function App(
       </Head>
       <SessionProvider session={pageProps.session}>
         <RecoilRoot>
+          <GlobalStyle/>
           <Layout>
             {renderAuthorizedComponent()}
           </Layout>
-          <style jsx global>{`
-            :root {
-              /* font */
-              --logo-font: ${prompt.style.fontFamily};
-              /* color */
-              --theme-color: #e68c23;
-              --input-placeholder: #afafaf;
-              --highlighted-element: #ff8a00;
-              --selected-element: #fbbc053b;
-            }
-            html, 
-            body {
-              font-family: 
-              "Pretendard", Pretendard,
-              -apple-system, BlinkMacSystemFont,
-              system-ui, Roboto, "Helvetica Neue",
-              "Segoe UI", "Apple SD Gothic Neo",
-              "Noto Sans KR", "Malgun Gothic",
-              "Apple Color Emoji", "Segoe UI Emoji",
-              "Segoe UI Symbol", sans-serif;
-            }
-          `}</style>
         </RecoilRoot>
       </SessionProvider>
     </>
