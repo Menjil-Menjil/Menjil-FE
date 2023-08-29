@@ -16,7 +16,7 @@ export interface AuthInfo {
 // 일반 유저 접근 금지 path
 const NOT_ALLOWED_TO_MEMBERS = ['/register']
 //일반 유저 권한이 필요한 start path
-const ALLOWED_ONLY_TO_MEMBERS = ['/chatting', '/community']
+const ALLOWED_ONLY_TO_MEMBERS = ['/chatting', '/follows']
 
 export default function App(
   {
