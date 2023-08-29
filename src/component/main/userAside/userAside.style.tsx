@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 
 export const UserProfileContainerDiv = styled.div`
-  height: 101px;
+  height: 107px;
   position: relative;
-  margin-top: 15px;
   .profileInfo {
-    margin-left: 20px;
+    margin: 15px 0 0 20px;
     overflow: hidden;
     .profileImgBox {
       position: relative;
@@ -17,25 +16,57 @@ export const UserProfileContainerDiv = styled.div`
     }
     .profileContent {
       position: absolute;
-      top: 3px;
+      top: 18px;
       left: 85px;
-    }
-    .line {
-      width: 1px;
-      height: 13px;
-      background: #BEBEBE;
-      margin: 0 7px;
+      .titleWrapper {
+        display: flex;
+        align-items: center;
+        .editIconBox {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          margin-left: 5px;
+          overflow: hidden;
+        }
+      }
+      .line {
+        width: 1px;
+        height: 13px;
+        background: #BEBEBE;
+        margin: 0 7px;
+      }
     }
     .marginB8 {
       margin-bottom: 8px;
     }
-    .marginB3 {
-      margin-bottom: 3px;
+    .marginB5 {
+      margin-bottom: 5px;
+    }
+    .wrapper {
+      width: 222px;
+      height: 13px;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .userInfoTextStyle {
+      color: #707070;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .userInfoTitleStyle {
+      color: #000;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 150%; /* 24px */
     }
   }
   .btnLogout {
     position: absolute;
-    top: 0;
+    top: 15px;
     right: 20px;
     width: 94px;
     height: 34px;
@@ -54,53 +85,38 @@ export const UserProfileContainerDiv = styled.div`
       font-weight: 400;
     }
   }
-  .wrapper {
-    width: 222px;
-    height: 13px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .userInfoTextStyle {
-    color: #707070;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: normal;
-  }
-  .userInfoTitleStyle {
-    color: #000;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 150%; /* 24px */
-  }
 `;
 
 export const AsideBtnGroup = styled.div`
+  width: 100%;
+  height: 47px;
   display: flex;
   align-items: center;
-  margin-top: 18px;
+  border-top: 1px solid #E0E0E0;
   * {
     font-size: 15px;
     font-weight: 600;
   }
-  input[type="radio"] {
-    display: none;
-  }
-  label {
-    margin: 0 6px 0 20px;
-    cursor: pointer;
-    color: #707070;
-  }
-  input[type="radio"]:checked + label{
-    color: rgba(0, 0, 0, 0.80);
-  }
   button {
-    margin: 0 43px 0 auto;
+    margin: 0 18px 0 auto;
     border: none;
     background: none;
     cursor: pointer;
+  }
+  .radioBtnGroup {
+    display: flex;
+    margin-left: 20px;
+    gap: 15px;
+    input[type="radio"] {
+      display: none;
+    }
+    label {
+      cursor: pointer;
+      color: #707070;
+    }
+    input[type="radio"]:checked + label{
+      color: rgba(0, 0, 0, 0.80);
+    }
   }
 `
 
@@ -119,7 +135,7 @@ export const ChattingCardDiv = styled.div`
   justify-content: center;
   gap: 15px;
   box-sizing: border-box;
-  border-bottom: 1px solid #E0E0E0;
+  border-top: 1px solid #E0E0E0;
   cursor: pointer;
   p {
     width: 223px;

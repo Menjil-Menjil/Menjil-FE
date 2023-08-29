@@ -1,21 +1,14 @@
 import {ChattingCardDiv} from "@/component/main/userAside/userAside.style";
 import Image from "next/image";
-import {useEffect, useState} from "react";
 
 interface propsType {
   data: any
-  index: number
 }
-const ChattingCard = ({data, index}: propsType) => {
+const ChattingCard = ({data}: propsType) => {
   const cardData: any = data;
-  const cardIndex: number = index;
-  const [lineStyle, setLineStyle] = useState<any>();
-  useEffect(() => {
-    if (cardIndex > 1) setLineStyle({border: "none"})
-  }, [cardIndex]);
 
   return (
-    <ChattingCardDiv style={lineStyle}>
+    <ChattingCardDiv>
       <div className="mentorImgBox">
         <Image src={cardData.imgUrl} alt="img" fill sizes="50vw" style={{objectFit: "cover"}}/>
       </div>
