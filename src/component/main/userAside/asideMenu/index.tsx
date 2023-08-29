@@ -42,7 +42,7 @@ const Radio = ({ children, value, defaultChecked, onChange }: RadioElementType) 
 const AsideMenu = () => {
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [chatLogDataList, setChatLogDataList] = useState<any[]>();
-  const userName = useRecoilValue(userState).name;
+  const user = useRecoilValue(userState);
   const tokenAxios = async () => {
     const test_url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/token-test`
     if (sessionData?.accessToken) {
@@ -65,7 +65,7 @@ const AsideMenu = () => {
       try {
         const result = await authedTokenAxios(sessionData.accessToken)
           .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=hello`)
-          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${userName}`)
+          //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${user.name}`)
         setChatLogDataList(result.data.data)
       } catch (error: any) {
         console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
@@ -73,10 +73,10 @@ const AsideMenu = () => {
         refreshTokenAPI(sessionData, sessionUpdate).then()
       }
     };
-    if (!!userName) {
+    if (!!user.name) {
       chatLogAxios(sessionData).then();
     }
-  }, [userName]);
+  }, [user.name]);
 
   return (
     <AsideMenuContainer>
