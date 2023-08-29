@@ -25,7 +25,6 @@ export const ProgressBar = styled.progress`
 export const Commentary = styled.div`
   margin-top: 5px;
   line-height: 30px;
-  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
 `;

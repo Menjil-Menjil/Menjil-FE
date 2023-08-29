@@ -5,7 +5,7 @@ export const MentorProfileSectionTitleDiv = styled.div`
   height: 71px;
   display: flex;
   align-items: center;
-  color: #000;
+  color: black;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -41,7 +41,7 @@ export const ProfileContentContainerDiv = styled.div`
   .line {
     width: 1px;
     height: 13px;
-    background: #BEBEBE;
+    background: var(--textline-color);
   }
   .profileImageBox {
     position: relative;
@@ -58,7 +58,7 @@ export const ProfileContentContainerDiv = styled.div`
       width: 105px;
       height: 25px;
       border-radius: 6px;
-      background: rgba(255, 138, 0, 0.20);
+      background: var(--job-info-bg-color);
       justify-content: center;
     }
     .textStyleNickname {
@@ -67,7 +67,7 @@ export const ProfileContentContainerDiv = styled.div`
       line-height: 150%; /* 25.5px */
     }
     .textStyleTech {
-      color: #707070;
+      color: var(--text-color);
     }
     .gap8 { gap: 8px }
     .gap10 { gap: 10px; }
@@ -85,7 +85,7 @@ export const ProfileRecentQuestionContainerDiv = styled.div`
     padding: 0;
   }
   .textStyleQuestionTitle {
-    color: #707070;
+    color: var(--text-color);
     font-weight: 700;
   }
   .marginBottom {
@@ -113,12 +113,12 @@ export const ProfileBtnContainerDiv = styled.div`
   }
   .btnQuestion {
     border-radius: 12px;
-    border: 1px solid #FF8A00;
-    color: #FF8A00;
+    border: 1px solid var(--highlighted-element);
+    color: var(--highlighted-element);
   }
   .btnFollow {
     border: none;
-    color: #6A6969;
+    color: var(--follow-btn-text-color);
     justify-content: center;
   }
   .icBoxQuestion {

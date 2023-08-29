@@ -7,7 +7,7 @@ export const MainBannerDiv = styled.div`
   height: 292px;
   margin-top: 40px;
   border-radius: 12px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px 0 var(--box-shadow);
   position: relative;
   display: flex;
   align-items: center;
@@ -15,9 +15,9 @@ export const MainBannerDiv = styled.div`
   overflow: hidden;
   .mainBannerCopy {
     position: absolute;
-    color: #FFF;
+    color: white;
     text-align: center;
-    text-shadow: rgba(0, 0, 0, 0.40) 0 0 4px;
+    text-shadow: var(--banner-copy-text-shadow) 0 0 4px;
     font-size: 36px;
     font-style: normal;
     font-weight: 600;

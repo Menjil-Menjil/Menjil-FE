@@ -12,7 +12,7 @@ export const AsideMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  background: #FAFAFA;
+  background: var(--aside-menu-bg-color);
 `;
 
 interface RadioElementType {

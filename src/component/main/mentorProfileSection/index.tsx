@@ -12,9 +12,9 @@ export const MentorProfileSectionDiv = styled.div`
   width: 995px;
   height: auto;
   border-radius: 12px;
-  border: 0 solid #BEBEBE;
-  background: #FFF;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  border: 0 solid var(--textline-color);
+  background: white;
+  box-shadow: 0 0 4px 0 var(--box-shadow);
   display: flex;
   flex-direction: column;
 `;

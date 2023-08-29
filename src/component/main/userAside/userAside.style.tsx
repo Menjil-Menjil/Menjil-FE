@@ -32,7 +32,7 @@ export const UserProfileContainerDiv = styled.div`
       .line {
         width: 1px;
         height: 13px;
-        background: #BEBEBE;
+        background: var(--textline-color);
         margin: 0 7px;
       }
     }
@@ -52,13 +52,13 @@ export const UserProfileContainerDiv = styled.div`
       overflow: hidden;
     }
     .userInfoTextStyle {
-      color: #707070;
+      color: var(--text-color);
       font-size: 14px;
       font-weight: 500;
       line-height: normal;
     }
     .userInfoTitleStyle {
-      color: #000;
+      color: black;
       font-size: 16px;
       font-weight: 600;
       line-height: 150%; /* 24px */
@@ -72,7 +72,7 @@ export const UserProfileContainerDiv = styled.div`
     height: 34px;
     flex-shrink: 0;
     border-radius: 12px;
-    border: 1px solid #D8D8D8;
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -80,7 +80,7 @@ export const UserProfileContainerDiv = styled.div`
       margin: 0 4px 0 14px;
     }
     .btnLogoutTextStyle {
-      color: #898989;
+      color: var(--logout-btn-text-color);
       font-size: 14px;
       font-weight: 400;
     }
@@ -92,7 +92,7 @@ export const AsideBtnGroup = styled.div`
   height: 47px;
   display: flex;
   align-items: center;
-  border-top: 1px solid #E0E0E0;
+  border-top: 1px solid var(--border-color);
   * {
     font-size: 15px;
     font-weight: 600;
@@ -112,10 +112,10 @@ export const AsideBtnGroup = styled.div`
     }
     label {
       cursor: pointer;
-      color: #707070;
+      color: var(--text-color);
     }
     input[type="radio"]:checked + label{
-      color: rgba(0, 0, 0, 0.80);
+      color: black;
     }
   }
 `
@@ -135,7 +135,7 @@ export const ChattingCardDiv = styled.div`
   justify-content: center;
   gap: 15px;
   box-sizing: border-box;
-  border-top: 1px solid #E0E0E0;
+  border-top: 1px solid var(--border-color);
   cursor: pointer;
   p {
     width: 223px;
@@ -155,29 +155,29 @@ export const ChattingCardDiv = styled.div`
     justify-content: space-between;
   }
   .timeText {
-    color: #707070;
+    color: var(--border-color);
     text-align: right;
     font-size: 12px;
     font-weight: 500;
   }
   .timeTextColor {
-     color: #FF8A00;
+     color: var(--highlighted-element);
   }
   .circle {
     margin-left: 5px;
     width: 7px;
     height: 7px;
-    background-color: #FF8A00;
+    background-color: var(--highlighted-element);
     border-radius: 50%;
   }
   .textStyle {
-    color: #000;
+    color: black;
     font-size: 14px;
     font-weight: 400;
     line-height: 160%; /* 22.4px */
   }
   .titleStyle {
-    color: #000;
+    color: black;
     font-size: 16px;
     font-weight: 600;
   }
