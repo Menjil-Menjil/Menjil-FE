@@ -4,6 +4,11 @@ import Image from "next/image";
 interface propsType {
   data: any
 }
+
+const DAY_HOUR = 24;
+const ONE_HOUR = 1;
+const HIGHLIGHTED_MIN_HOUR = 2;
+
 const ChattingCard = ({data}: propsType) => {
   const cardData: any = data;
   const cardDate = new Date(data.lastMessageTime);
@@ -23,10 +28,10 @@ const ChattingCard = ({data}: propsType) => {
           <div className="titleStyle">
             {cardData.nickname}
           </div>
-          {diffHour < 2 ?
+          {diffHour < HIGHLIGHTED_MIN_HOUR ?
             <div className="wrapper">
               <div className="timeText timeTextColor">
-                {diffHour < 1 ?
+                {diffHour < ONE_HOUR ?
                   `${diffMin}분 전` :
                   `${diffHour}시간 전`
                 }
@@ -34,7 +39,7 @@ const ChattingCard = ({data}: propsType) => {
               <div className="circle"></div>
             </div> :
             <div className="timeText">
-              {diffHour < 24 ?
+              {diffHour < DAY_HOUR ?
                 `${diffHour}시간 전` :
                 `${diffDate}일 전`
               }
