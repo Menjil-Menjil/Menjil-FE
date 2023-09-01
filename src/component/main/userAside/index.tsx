@@ -11,6 +11,8 @@ import {userState} from "@/states/state";
 export const UserAsideContainer = styled.div`
   width: 327px;
   height: 430px;
+  position: sticky;
+  top: 90px;
   border-radius: 12px;
   border: 0 solid rgba(0, 0, 0, 0.12);
   background: white;

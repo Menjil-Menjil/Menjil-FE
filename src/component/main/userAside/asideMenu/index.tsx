@@ -1,4 +1,4 @@
-import {AsideBtnGroup, ChattingListDiv} from "@/component/main/userAside/userAside.style";
+import {AsideBtnGroup, AsideListDiv} from "@/component/main/userAside/userAside.style";
 import ChattingCard from "@/component/main/userAside/asideMenu/chattingCard";
 import {useSession} from "next-auth/react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {userState} from "@/states/state";
 import {useRecoilValue} from "recoil"
 import styled from "@emotion/styled";
+import FollowingCard from "@/component/main/userAside/asideMenu/followingCard";
 
 export const AsideMenuContainer = styled.div`
   height: 323px;
@@ -88,16 +89,19 @@ const AsideMenu = () => {
         <button className="btnStyle" onClick={tokenAxios}>더보기</button>
       </AsideBtnGroup>
       {menuComponent === "mentors" && (
-        <></>
+        <AsideListDiv>
+          <FollowingCard/>
+          <FollowingCard/>
+        </AsideListDiv>
       )}
       {menuComponent === "chat" && (
-        <ChattingListDiv>
+        <AsideListDiv>
           {chatLogDataList && chatLogDataList.map((data: any, index: number) => {
             if(index < 3) {
               return <ChattingCard key={index} data={data}/>
             }
           })}
-        </ChattingListDiv>
+        </AsideListDiv>
       )}
     </AsideMenuContainer>
   );
