@@ -176,6 +176,12 @@ export const AsideListCardDiv = styled.div`
     font-weight: 400;
     line-height: 160%; /* 22.4px */
   }
+  .techStyle {
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%; /* 22.4px */
+  }
   .titleStyle {
     color: black;
     font-size: 16px;
