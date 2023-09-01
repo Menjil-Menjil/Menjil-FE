@@ -1,9 +1,9 @@
-import Mypage from "@/component/mypage";
+import MyPage from "@/component/mypage";
 
 const mypage = () => {
   return (
     <>
-      <Mypage/>
+      <MyPage/>
     </>
   );
 };
