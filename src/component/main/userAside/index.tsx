@@ -6,7 +6,7 @@ import {useSession} from "next-auth/react";
 import UnauthMenu from "@/component/main/userAside/unauthMenu";
 import {UnauthMenuContainerDiv} from "@/component/main/userAside/userAside.style";
 import { useRecoilValue } from "recoil";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 
 export const UserAsideContainer = styled.div`
   width: 327px;

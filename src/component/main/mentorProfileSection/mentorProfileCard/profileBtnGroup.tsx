@@ -1,18 +1,23 @@
 import {ProfileBtnContainerDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 import IcQuestion from "@/img/ic_send-question.svg";
 import IcFollow from "@/img/ic_follow.svg";
-import {useRecoilValue} from "recoil";
-import {userState} from "@/states/state";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {userState} from "@/states/stateUser";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
+import {mentoringState} from "@/states/stateMain";
+import { useRouter } from 'next/router';
 
 interface propsType {
   nickname: string,
 }
 const ProfileBtnGroup = ({nickname}: propsType) => {
   const user = useRecoilValue(userState);
+  const [mentoring, setMentoring] = useRecoilState(mentoringState);
   const mentorNickname = nickname;
   const {data: sessionData, update: sessionUpdate} =useSession();
+  const router = useRouter();
+
   const followMentorAxios = async (sessionData: any, userName: string, mentorName: string) => {
     try {
       await authedTokenAxios(sessionData.accessToken)
@@ -22,14 +27,22 @@ const ProfileBtnGroup = ({nickname}: propsType) => {
       refreshTokenAPI(sessionData, sessionUpdate).then()
     }
   };
+  const onClickQuestion = () => {
+    setMentoring({mentor: mentorNickname, mentee: user.name})
+    router.push({
+      pathname: '/chatting',
+      //query: {mentor: mentorNickname}
+    }).then()
+    console.log("질문!", mentoring)
+  }
   const onClickFollow = () => {
     //followMentorAxios(sessionData, user.name!, mentorNickname).then();
-    console.log(user.name, mentorNickname)
+    console.log("팔로우!", user.name, mentorNickname)
   };
 
   return (
     <ProfileBtnContainerDiv className="column marginL83">
-      <div className="btnQuestion">
+      <div className="btnQuestion" onClick={() => onClickQuestion()}>
         <div className="icBoxQuestion"><IcQuestion/></div>질문하기
       </div>
       <div className="btnFollow" onClick={() => onClickFollow()}>

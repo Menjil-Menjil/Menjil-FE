@@ -6,7 +6,7 @@ import LoginModal from "./modal/loginModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 
 const HeaderSection = styled.header`
   width: 1728px;

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import {useCallback, useEffect, useState} from "react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 import {useRecoilValue} from "recoil"
 import MentorProfileCard from "@/component/main/mentorProfileSection/mentorProfileCard";
 import useIntersect from "@/hooks/useIntersect";
