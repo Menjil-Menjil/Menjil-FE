@@ -121,13 +121,13 @@ export const AsideBtnGroup = styled.div`
   }
 `
 
-export const ChattingListDiv = styled.div`
+export const AsideListDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const ChattingCardDiv = styled.div`
+export const AsideListCardDiv = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
@@ -140,7 +140,6 @@ export const ChattingCardDiv = styled.div`
   cursor: pointer;
   p {
     width: 223px;
-    height: 45px;
     margin: 0;
     padding: 0;
   }
@@ -173,6 +172,12 @@ export const ChattingCardDiv = styled.div`
   }
   .textStyle {
     color: black;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%; /* 22.4px */
+  }
+  .techStyle {
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 400;
     line-height: 160%; /* 22.4px */

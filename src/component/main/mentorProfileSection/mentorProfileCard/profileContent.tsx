@@ -22,7 +22,7 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
       <div className="profileImageBox center">
         <Image src={imgUrl} alt="profileImage" fill sizes="20vw" style={{objectFit: "cover"}}/>
       </div>
-      <div className="profileContentBox column gap3">
+      <div className="profileContentBox column">
         <div className="marginLeft center gap10">
           <div className="textStyleNickname">{nickname}</div>
           <div className="line"/>

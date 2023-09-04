@@ -1,4 +1,4 @@
-import {ChattingCardDiv} from "@/component/main/userAside/userAside.style";
+import {AsideListCardDiv} from "@/component/main/userAside/userAside.style";
 import Image from "next/image";
 
 interface propsType {
@@ -19,7 +19,7 @@ const ChattingCard = ({data}: propsType) => {
   const diffMin = Math.floor(diffSec / (60 * 1000));
 
   return (
-    <ChattingCardDiv>
+    <AsideListCardDiv>
       <div className="mentorImgBox">
         <Image src={cardData.imgUrl} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
       </div>
@@ -50,7 +50,7 @@ const ChattingCard = ({data}: propsType) => {
           {cardData.lastMessage}
         </p>
       </div>
-    </ChattingCardDiv>
+    </AsideListCardDiv>
   );
 };
 

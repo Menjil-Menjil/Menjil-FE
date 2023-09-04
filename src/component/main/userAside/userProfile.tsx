@@ -5,7 +5,7 @@ import {UserProfileContainerDiv} from "@/component/main/userAside/userAside.styl
 import {signOut, useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 import editIc from "@/img/ic_edit.png"
 
 const UserProfile = () => {

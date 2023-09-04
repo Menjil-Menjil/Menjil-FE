@@ -54,6 +54,7 @@ export const ProfileContentContainerDiv = styled.div`
   .profileContentBox {
     width: 270px;
     margin-left: 20px;
+    gap: 6px;
     .profileJobBox {
       width: 105px;
       height: 25px;
