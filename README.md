@@ -234,3 +234,4 @@
 ## 기술 스택
 
 <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
+<img src="https://img.shields.io/badge/recoil-#3578E5?style=for-the-badge&logo=recoil&logoColor=white"> 
