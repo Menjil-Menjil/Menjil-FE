@@ -20,19 +20,20 @@ interface UserFormInterface {
   graduateDate: any; // 졸업년도. YYYY. Date가 아닌 int로 처리
   graduateMonth: any;
   major: string; // 본전공
-
   subMajor0: any; // 기타전공, 값이 없으면 null
   subMajor1: any; // 기타전공, 값이 없으면 null
   majorType0: any; // 드롭박스 체크: "복수전공" or "부전공"
   majorType1: any; // 드롭박스 체크: "복수전공" or "부전공"
-
+  // 세번째 폼
   fieldList: [string]; // 관심 분야 리스트
   techStackList: [string]; // 기술 스택 리스트
-  // 네번째
+  // 네번째 폼
   career: any; // 값이 없으면 null
   certificate: any; // 값이 없으면 null
   awards: any; // 값이 없으면 null
   activity: any; // 값이 없으면 null
+  // 멘토 추가
+  company: any; // 회사
 }
 
 interface UserRegisterApiInterface {
@@ -57,6 +58,7 @@ interface UserRegisterApiInterface {
   certificate: any; //자격증, null
   awards: any; //수상내역, null
   activity: any; //대외활동, null
+  company: any; //회사, null
 }
 
 const RegisterComponentProvider = ({
@@ -169,6 +171,7 @@ const RegisterComponentProvider = ({
         certificate: !!(data.certificate) ? data.certificate : null,
         awards: !!(data.awards) ? data.awards : null,
         activity: !!(data.activity) ? data.activity : null,
+        company: null,
       };
       console.log(JSON.stringify(submitData));
       if (!!submitData) {

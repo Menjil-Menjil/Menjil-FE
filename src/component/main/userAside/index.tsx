@@ -6,18 +6,19 @@ import { useSession } from "next-auth/react";
 import UnauthMenu from "@/component/main/userAside/unauthMenu";
 import { UnauthMenuContainerDiv } from "@/component/main/userAside/userAside.style";
 import { useRecoilValue } from "recoil";
-import { userState } from "@/states/state";
+import { userState } from "@/states/stateUser";
 
 export const UserAsideContainer = styled.div`
   width: 327px;
-  height: 470px;
+  height: 430px;
+  position: sticky;
+  top: 90px;
   border-radius: 12px;
   border: 0 solid rgba(0, 0, 0, 0.12);
-  background: #fff;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  background: white;
+  box-shadow: 0 0 4px 0 var(--box-shadow);
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
 const UserAside = () => {

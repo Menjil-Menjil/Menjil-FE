@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import {useCallback, useEffect, useState} from "react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 import {useRecoilValue} from "recoil"
 import MentorProfileCard from "@/component/main/mentorProfileSection/mentorProfileCard";
 import useIntersect from "@/hooks/useIntersect";
@@ -12,9 +12,9 @@ export const MentorProfileSectionDiv = styled.div`
   width: 995px;
   height: auto;
   border-radius: 12px;
-  border: 0 solid #BEBEBE;
-  background: #FFF;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  border: 0 solid var(--textline-color);
+  background: white;
+  box-shadow: 0 0 4px 0 var(--box-shadow);
   display: flex;
   flex-direction: column;
 `;
@@ -30,8 +30,7 @@ const MentorProfileList = () => {
   const mentorDataAxios = async (sessionData: any, index: number) => {
     try {
       return await authedTokenAxios(sessionData.accessToken)
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${"hello"}&page=${index}`)
-      //.get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${userName}&page=${index}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/mentors?nickname=${user.name}&page=${index}`)
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
       refreshTokenAPI(sessionData, sessionUpdate).then()
@@ -56,8 +55,7 @@ const MentorProfileList = () => {
   const ref = useIntersect( async (entry, observer) => {
     observer.unobserve(entry.target)
     if (hasNextPage && !isFetching) {
-      // 로딩되는 것을 눈으로 확인하기위해 일부러 타임아웃을 걸어둠
-      setTimeout(() => setFetching(true),2000);
+      setFetching(true)
     }
   })
 

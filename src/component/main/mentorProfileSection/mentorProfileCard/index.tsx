@@ -16,7 +16,7 @@ const MentorProfileCard = ({data}: propsType) => {
                       techStack={data.techStack}
                       imgUrl={data.imgUrl}/>
       <ProfileRecentQuestion />
-      <ProfileBtnGroup />
+      <ProfileBtnGroup nickname={data.nickname}/>
     </ProfileCardDiv>
   );
 }

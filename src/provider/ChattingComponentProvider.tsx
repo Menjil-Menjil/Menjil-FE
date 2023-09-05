@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Client } from "@stomp/stompjs";
 import { v5 } from "uuid";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userState } from "@/states/state";
+import { userState } from "@/states/stateUser";
 
 var client: Client | null = null;
 

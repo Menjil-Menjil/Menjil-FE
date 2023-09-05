@@ -11,7 +11,6 @@ export const DropDownBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 12px;
   position: relative;
-  font-family: "Pretendard";
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -34,7 +33,7 @@ export const DropDownBox = styled.div`
     transform: translateY(6px);
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px var(--box-shadow);
     border-radius: 12px;
     z-index: 1;
   }

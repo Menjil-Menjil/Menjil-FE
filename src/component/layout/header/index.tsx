@@ -6,14 +6,14 @@ import LoginModal from "./modal/loginModal";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import {userState} from "@/states/state";
+import {userState} from "@/states/stateUser";
 
 const HeaderSection = styled.header`
   width: 1728px;
   height: 60px;
   margin: 0 auto;
   top: 0;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid var(--section-border);
   display: flex;
   position: sticky;
   z-index: 1;

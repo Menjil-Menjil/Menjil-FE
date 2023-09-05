@@ -64,29 +64,40 @@ const GlobalStyle = createGlobalStyle`
     /* color */
     --theme-color: #e68c23;
     --input-placeholder: #afafaf;
-    --highlighted-element: #ff8a00;
+    --highlighted-element: #FF8A00;
     --selected-element: #fbbc053b;
+    --job-info-bg-color: rgba(255, 138, 0, 0.20);
+    --text-color: #707070;
+    --textline-color: #BEBEBE;
+    --logout-btn-border-color: #D8D8D8;
+    --logout-btn-text-color: #898989;
+    --follow-btn-text-color: #6A6969;
+    --border-color: #E0E0E0;
+    --section-border: #E2E2E2;
+    --aside-menu-bg-color: #FAFAFA;
+    --box-shadow: rgba(0, 0, 0, 0.25);
+    --banner-copy-text-shadow: rgba(0, 0, 0, 0.40);
   }
+
   * {
-    font-family:
-      ${pretendard.style.fontFamily}, "Pretendard", Pretendard,
-      -apple-system, BlinkMacSystemFont,
-      system-ui, Roboto, "Helvetica Neue",
-      "Segoe UI", "Apple SD Gothic Neo",
-      "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol", sans-serif;
+    font-family: ${pretendard.style.fontFamily}, "Pretendard", Pretendard,
+    -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue",
+    "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic",
+    "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
   }
+
   html,
   body {
-    font-family: 
-      ${pretendard.style.fontFamily}, "Pretendard", Pretendard,
-      -apple-system, BlinkMacSystemFont,
-      system-ui, Roboto, "Helvetica Neue",
-      "Segoe UI", "Apple SD Gothic Neo",
-      "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol", sans-serif;
+    font-family: ${pretendard.style.fontFamily}, "Pretendard", Pretendard,
+    -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue",
+    "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic",
+    "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
   }
 `;
 
