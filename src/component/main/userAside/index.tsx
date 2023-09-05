@@ -10,7 +10,7 @@ import {userState} from "@/states/stateUser";
 
 export const UserAsideContainer = styled.div`
   width: 327px;
-  height: 430px;
+  max-height: 430px;
   position: sticky;
   top: 90px;
   border-radius: 12px;

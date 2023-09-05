@@ -19,9 +19,16 @@ const UnauthMenu = () => {
   };
 
   return (
-    <UnauthMenuContainerDiv>
-      <button onClick={closeRegisterModal}>회원가입</button>
-      <button onClick={closeLoginModal}>로그인</button>
+    <>
+      <UnauthMenuContainerDiv>
+        <div className="container">
+          <p className="wrap">
+            <span className="login" onClick={closeLoginModal}>로그인</span>이 필요합니다
+          </p>
+          나에게 딱 맞는 멘토를 찾아 질문을 해주세요
+          <button onClick={closeRegisterModal}>멘토링 시작하기</button>
+        </div>
+      </UnauthMenuContainerDiv>
       {showRegisterModal && (
         <RegisterModal
           closeRegisterModal={closeRegisterModal}
@@ -34,7 +41,7 @@ const UnauthMenu = () => {
           changeModal={changeModal}
         />
       )}
-    </UnauthMenuContainerDiv>
+    </>
   );
 };
 export default UnauthMenu;
