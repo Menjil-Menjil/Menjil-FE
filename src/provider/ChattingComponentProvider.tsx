@@ -183,9 +183,9 @@ const ChattingComponentProvider = ({
     try {
       const res = await axios
         .get(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/api/chat/rooms?nickname=${"hello"}&type=${"MENTEE"}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/chat/rooms?nickname=${
+            user.name
+          }&type=${"MENTEE"}`
         )
         .then((res) => {
           setChattingRooms(() => res.data.data);
