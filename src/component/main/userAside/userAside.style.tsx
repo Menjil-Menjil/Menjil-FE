@@ -235,5 +235,8 @@ export const UnauthMenuContainerDiv = styled.div`
     color: rgba(0, 0, 0, 0.60);
     font-weight: 600;
     cursor: pointer;
+    :hover {
+      color: #FF8A00;
+    }
   }
 `;
