@@ -1,8 +1,8 @@
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import styled from "@emotion/styled";
 import { useContext, useState } from "react";
-import useDidMountEffect from "../useDidmountEffect";
 import SettingsIc from "@/img/ic_settings.svg";
+import Image from "next/image";
 
 export const ChatListForm = styled.div`
   width: 400px;
@@ -81,6 +81,8 @@ export const ChatListForm = styled.div`
     .profileImg {
       width: 53px;
       height: 53px;
+      position: relative;
+      overflow: hidden;
       flex-shrink: 0;
       border-radius: 12px;
       background: url(<path-to-image>), lightgray 50% / cover no-repeat;
@@ -164,15 +166,25 @@ const ChatList = () => {
               {selectIndex === _chattingRoom.roomId && (
                 <div className="selectedBoxLine"></div>
               )}
-              <div className="profileImg"></div>
+              <div className="profileImg">
+                <Image
+                  src={_chattingRoom.imgUrl}
+                  alt="profile"
+                  fill
+                  sizes="50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
               <div className="messageContentDiv">
                 <div className="nameHeaderDiv">
-                  <span className="mentorName">
-                    {_chattingRoom.roomId.substr(0, 5)}
+                  <span className="mentorName">{_chattingRoom.nickname}</span>
+                  <span className="messageTime">
+                    {_chattingRoom.lastMessagedTimeOfHour}시간 전
                   </span>
-                  <span className="messageTime">1시간 전</span>
                 </div>
-                <span className="messageContent">{_chattingRoom.roomId}</span>
+                <span className="messageContent">
+                  {_chattingRoom.lastMessage}
+                </span>
               </div>
             </div>
           ))}

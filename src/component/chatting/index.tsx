@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import ChatLog from "./chatLog";
 import ChatList from "./chatList";
-import ChatMenu from "./chatMenu";
 
 export const ChattingForm = styled.div`
   width: 1404px;
@@ -16,7 +15,6 @@ export const ChattingForm = styled.div`
 const Chatting = () => {
   return (
     <ChattingForm>
-      {/* <ChatMenu /> */}
       <ChatList />
       <ChatLog />
     </ChattingForm>
