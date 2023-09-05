@@ -83,8 +83,17 @@ export const MessageContentDiv = styled.div`
     }
   }
   .messageTime {
-    width: 50px;
-    height: 50px;
+    /* position: absolute; */
+    /* width: 50px;
+    height: 50px; */
+
+    color: #575757;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 `;
 
@@ -100,7 +109,7 @@ const MessageContent = () => {
           {messagesLog.map(
             (_chatMessage: any, index: number) => (
               _chatMessage.time === _chatMessage.time && (
-                <div className="messageTime">{_chatMessage.time}</div>
+                <span className="messageTime">{_chatMessage.time}</span>
               ),
               _chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
