@@ -36,7 +36,7 @@ export const TitleBoxDiv = styled.div`
   .afterWrite {
     font-weight: 600;
     font-size: 18px;
-    color: #707070;
+    color: var(--text-color);
     text-decoration-line: underline;
   }
 `;

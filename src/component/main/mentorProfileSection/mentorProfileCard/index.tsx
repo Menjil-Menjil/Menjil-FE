@@ -3,17 +3,20 @@ import ProfileRecentQuestion from "@/component/main/mentorProfileSection/mentorP
 import ProfileBtnGroup from "@/component/main/mentorProfileSection/mentorProfileCard/profileBtnGroup";
 import {ProfileCardDiv} from "@/component/main/mentorProfileSection/profileCard.style";
 
-const MentorProfileCard = (data: any) => {
+interface propsType {
+  data: any,
+}
+const MentorProfileCard = ({data}: propsType) => {
   return (
     <ProfileCardDiv>
-      <ProfileContent nickname={data.data.nickname}
-                      major={data.data.major}
-                      company={data.data.company}
-                      field={data.data.field}
-                      techStack={data.data.techStack}
-                      imgUrl={data.data.imgUrl}/>
+      <ProfileContent nickname={data.nickname}
+                      major={data.major}
+                      company={data.company}
+                      field={data.field}
+                      techStack={data.techStack}
+                      imgUrl={data.imgUrl}/>
       <ProfileRecentQuestion />
-      <ProfileBtnGroup />
+      <ProfileBtnGroup nickname={data.nickname}/>
     </ProfileCardDiv>
   );
 }

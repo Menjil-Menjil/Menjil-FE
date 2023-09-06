@@ -2,8 +2,9 @@ import ChattingComponentContext from "@/context/chattingComponentContext";
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
 import { Client } from "@stomp/stompjs";
-import useDidMountEffect from "@/component/useDidmountEffect";
-import { v4 as uuid, v5 } from "uuid";
+import { v5 } from "uuid";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { userState } from "@/states/stateUser";
 
 var client: Client | null = null;
 
@@ -14,8 +15,8 @@ const ChattingComponentProvider = ({
 }) => {
   interface chattingRoomInfo {
     roomId: string;
-    mentorProfileImage: any;
-    mentorName: any;
+    imgUrl: any;
+    nickname: any;
     lastMessage: string;
   }
   interface messageInfo {
@@ -31,23 +32,36 @@ const ChattingComponentProvider = ({
 
   const [chattingRooms, setChattingRooms] = useState<chattingRoomInfo[]>([]);
   const [chattingMentor, setChattingMentor] = useState<chattingRoomInfo>({
-    roomId: "0",
-    mentorProfileImage: 0,
-    mentorName: 0,
+    roomId: "",
+    imgUrl: 0,
+    nickname: 0,
     lastMessage: "",
   }); //멘토 데이터
 
-  const [messageInput, setMessageInput] = useState(""); //보내는 메세지
+  const [subscription, setSubscription] = useState<any>();
+  const [messageInput, setMessageInput] = useState<string>(""); //보내는 메세지
   const [messagesLog, setMessagesLog] = useState<messageInfo[]>([]); //메세지들
   const [selectIndex, setSelectIndex] = useState<any>(); //선택된 인덱스
+  const user = useRecoilValue(userState);
 
   // 채팅방 구독하기
   const subscribe = (roomId: any) => {
-    client?.subscribe(`/queue/chat/room/${roomId}`, ({ body }) => {
-      JSON.parse(body).body.data.map((message: any) => {
-        setMessagesLog((messagesLog) => [...messagesLog, message]);
-      });
-    });
+    const subscription = client?.subscribe(
+      `/queue/chat/room/${roomId}`,
+      ({ body }) => {
+        if (typeof JSON.parse(body).data.length === "number") {
+          JSON.parse(body).data.map((message: any) => {
+            setMessagesLog((messagesLog) => [...messagesLog, message]);
+          });
+        } else {
+          setMessagesLog((messagesLog) => [
+            JSON.parse(body).data,
+            ...messagesLog,
+          ]);
+        }
+      }
+    );
+    return setSubscription(() => subscription);
   };
 
   const connect = () => {
@@ -56,6 +70,9 @@ const ChattingComponentProvider = ({
       debug: function (str) {
         console.log(str);
       },
+      // onConnect: () => {
+      //   subscribe(chattingMentor.roomId);
+      // },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
@@ -65,9 +82,28 @@ const ChattingComponentProvider = ({
 
   const publish = (message: any) => {
     if (!client?.connected) return;
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ("0" + (today.getMonth() + 1)).slice(-2);
+    const day = ("0" + today.getDate()).slice(-2);
+    const hours = ("0" + today.getHours()).slice(-2);
+    const minutes = ("0" + today.getMinutes()).slice(-2);
+    const seconds = ("0" + today.getSeconds()).slice(-2);
+
+    const dateString = year + "-" + month + "-" + day;
+    const timeString = hours + ":" + minutes + ":" + seconds;
+    const nowTime = dateString + " " + timeString;
+
     client?.publish({
-      destination: "/pub/chat/message",
-      body: JSON.stringify({ roomId: chattingMentor.roomId, message }),
+      destination: `/pub/chat/room/${chattingMentor.roomId}`,
+      body: JSON.stringify({
+        roomId: chattingMentor.roomId,
+        senderType: "MENTEE",
+        senderNickname: user.name,
+        message: message,
+        messageType: "QUESTION",
+        time: nowTime,
+      }),
     });
     setMessageInput("");
   };
@@ -79,29 +115,28 @@ const ChattingComponentProvider = ({
   };
 
   const removeAllChatMessages = () => {
-    setMessagesLog([]);
+    setMessagesLog(() => []);
   };
 
   const enterChattingRoom = async (room: chattingRoomInfo) => {
-    client?.unsubscribe(`/queue/chat/room/${room.roomId}`);
+    client?.unsubscribe(subscription?.id);
     subscribe(room.roomId);
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter/`,
         {
-          menteeNickname: "hello",
-          mentorNickname: room.mentorName,
+          menteeNickname: user.name,
+          mentorNickname: room.nickname,
           roomId: room.roomId,
         }
       );
+      // console.log(res);
       // .then((res) => {
       //   setChattingRooms([...chattingRooms, chattingMentor]);
       // });
     } catch (e: any) {
       console.log(e);
     }
-    disConnect();
-    connect();
   };
 
   // 채팅방 목록에서 이동
@@ -113,22 +148,20 @@ const ChattingComponentProvider = ({
 
   // 채팅방 신규입장
   const createRoom = async () => {
-    const mentee: string = "hello";
-    const mentor: string = uuid();
+    const mentee: any = user.name;
+    const mentor: string = "mentor1";
     const randomSeed: string = mentee + "*" + mentor;
-    const roomId: string = v5(randomSeed, uuid());
+    const roomId: string = v5(randomSeed, v5.URL);
 
     const newRoom: chattingRoomInfo = {
       roomId: roomId,
-      mentorProfileImage: 0,
-      mentorName: mentor,
+      imgUrl: 0,
+      nickname: mentor,
       lastMessage: "",
     };
 
     removeAllChatMessages();
     setChattingMentor(() => newRoom);
-
-    client?.unsubscribe(`/queue/chat/room/${roomId}`);
     subscribe(roomId);
     try {
       const res = await axios
@@ -144,20 +177,17 @@ const ChattingComponentProvider = ({
     } catch (e: any) {
       alert(e);
     }
-    disConnect();
-    connect();
   };
 
   const bringAllChatRoom = useCallback(async () => {
     try {
       const res = await axios
         .get(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/api/chat/rooms?nickname=${"hello"}&type=${"MENTEE"}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/chat/rooms?nickname=${
+            user.name
+          }&type=${"MENTEE"}`
         )
         .then((res) => {
-          // console.log();
           setChattingRooms(() => res.data.data);
         });
     } catch (e: any) {
@@ -166,10 +196,10 @@ const ChattingComponentProvider = ({
   }, []);
 
   useEffect(() => {
-    if (chattingRooms.length !== 0) {
-      setSelectIndex(() => chattingRooms[chattingRooms.length - 1].roomId);
+    if (chattingMentor.roomId !== "") {
+      setSelectIndex(() => chattingMentor.roomId);
     }
-  }, [chattingRooms]);
+  }, [chattingMentor]);
 
   //채팅 메뉴 이동 시 초기 연결
   useEffect(() => {

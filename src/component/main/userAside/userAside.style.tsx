@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 
 export const UserProfileContainerDiv = styled.div`
-  margin: 15px 20px 0 20px;
-  display: flex;
-  justify-content: space-between;
+  height: 107px;
+  position: relative;
   .profileInfo {
+    margin: 15px 0 0 20px;
+    overflow: hidden;
     .profileImgBox {
       position: relative;
       width: 50px;
@@ -14,26 +15,65 @@ export const UserProfileContainerDiv = styled.div`
       overflow: hidden;
     }
     .profileContent {
-      margin: 3px 0 0 15px;
-    }
-    .line {
-      width: 1px;
-      height: 13px;
-      background: #BEBEBE;
-      margin: 0 7px;
+      position: absolute;
+      top: 18px;
+      left: 85px;
+      .titleWrapper {
+        display: flex;
+        align-items: center;
+        .editIconBox {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          margin-left: 5px;
+          overflow: hidden;
+          cursor: pointer;
+        }
+      }
+      .line {
+        width: 1px;
+        height: 13px;
+        background: var(--textline-color);
+        margin: 0 7px;
+      }
     }
     .marginB8 {
       margin-bottom: 8px;
     }
-    .marginB3 {
-      margin-bottom: 3px;
+    .marginB5 {
+      margin-bottom: 5px;
+    }
+    .wrapper {
+      width: 222px;
+      height: 13px;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .userInfoTextStyle {
+      color: var(--text-color);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .userInfoTitleStyle {
+      color: black;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 150%; /* 24px */
     }
   }
   .btnLogout {
+    position: absolute;
+    top: 15px;
+    right: 20px;
     width: 94px;
     height: 34px;
+    flex-shrink: 0;
     border-radius: 12px;
-    border: 1px solid #D8D8D8;
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -41,66 +81,53 @@ export const UserProfileContainerDiv = styled.div`
       margin: 0 4px 0 14px;
     }
     .btnLogoutTextStyle {
-      color: #898989;
+      color: var(--logout-btn-text-color);
       font-size: 14px;
       font-weight: 400;
     }
   }
-  .wrap {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .center {
-    align-items: center;
-  }
-  .userInfoTextStyle {
-    color: #707070;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: normal;
-  }
-  .userInfoTitleStyle {
-    color: #000;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 150%; /* 24px */
-  }
 `;
 
 export const AsideBtnGroup = styled.div`
+  width: 100%;
+  height: 47px;
   display: flex;
   align-items: center;
-  margin-top: 18px;
+  border-top: 1px solid var(--border-color);
   * {
     font-size: 15px;
     font-weight: 600;
   }
-  input[type="radio"] {
-    display: none;
-  }
-  label {
-    margin: 0 6px 0 20px;
-    cursor: pointer;
-    color: #707070;
-  }
-  input[type="radio"]:checked + label{
-    color: rgba(0, 0, 0, 0.80);
-  }
   button {
-    margin: 0 43px 0 auto;
+    margin: 0 18px 0 auto;
     border: none;
     background: none;
     cursor: pointer;
   }
+  .radioBtnGroup {
+    display: flex;
+    margin-left: 20px;
+    gap: 15px;
+    input[type="radio"] {
+      display: none;
+    }
+    label {
+      cursor: pointer;
+      color: var(--text-color);
+    }
+    input[type="radio"]:checked + label{
+      color: black;
+    }
+  }
 `
 
-export const ChattingListDiv = styled.div`
+export const AsideListDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const ChattingCardDiv = styled.div`
+export const AsideListCardDiv = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
@@ -109,11 +136,10 @@ export const ChattingCardDiv = styled.div`
   justify-content: center;
   gap: 15px;
   box-sizing: border-box;
-  border-bottom: 1px solid #E0E0E0;
+  border-top: 1px solid var(--border-color);
   cursor: pointer;
   p {
     width: 223px;
-    height: 45px;
     margin: 0;
     padding: 0;
   }
@@ -129,29 +155,35 @@ export const ChattingCardDiv = styled.div`
     justify-content: space-between;
   }
   .timeText {
-    color: #707070;
+    color: var(--border-color);
     text-align: right;
     font-size: 12px;
     font-weight: 500;
   }
   .timeTextColor {
-     color: #FF8A00;
+     color: var(--highlighted-element);
   }
   .circle {
     margin-left: 5px;
     width: 7px;
     height: 7px;
-    background-color: #FF8A00;
+    background-color: var(--highlighted-element);
     border-radius: 50%;
   }
   .textStyle {
-    color: #000;
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 160%; /* 22.4px */
+  }
+  .techStyle {
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 400;
     line-height: 160%; /* 22.4px */
   }
   .titleStyle {
-    color: #000;
+    color: black;
     font-size: 16px;
     font-weight: 600;
   }
@@ -169,21 +201,42 @@ export const ChattingCardDiv = styled.div`
 `;
 
 export const UnauthMenuContainerDiv = styled.div`
-  height: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  height: 147px;
+  color: black;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.836%;
+  p {margin: 0; padding: 0;}
   button {
-    background: none;
+    width: 287px;
+    height: 42px;
+    margin-top: 20px;
+    cursor: pointer;
     border: none;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 600;
+    border-radius: 12px;
+    background: #FF8A00;
+    color: #FFF;
+    text-shadow: 0 0 2px #E88510;
+    font-size: 14px;
+    font-weight: 700;
   }
-  a {
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 20px;
+  .container {
+    height: 107px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .wrap {
+    font-size: 16px;
+  }
+  .login {
+    color: rgba(0, 0, 0, 0.60);
     font-weight: 600;
+    cursor: pointer;
+    :hover {
+      color: #FF8A00;
+    }
   }
 `;

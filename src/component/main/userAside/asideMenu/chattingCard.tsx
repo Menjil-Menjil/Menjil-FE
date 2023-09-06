@@ -1,40 +1,47 @@
-import {ChattingCardDiv} from "@/component/main/userAside/userAside.style";
+import {AsideListCardDiv} from "@/component/main/userAside/userAside.style";
 import Image from "next/image";
-import {useEffect, useState} from "react";
 
 interface propsType {
   data: any
-  index: number
 }
-const ChattingCard = ({data, index}: propsType) => {
+
+const DAY_HOUR = 24;
+const ONE_HOUR = 1;
+const HIGHLIGHTED_MIN_HOUR = 2;
+
+const ChattingCard = ({data}: propsType) => {
   const cardData: any = data;
-  const cardIndex: number = index;
-  const [lineStyle, setLineStyle] = useState<any>()
-  useEffect(() => {
-    if (cardIndex > 1) setLineStyle({border: "none"})
-  }, [cardIndex])
+  const cardDate = new Date(data.lastMessageTime);
+  const today = new Date();
+  const diffSec = today.getTime() - cardDate.getTime();
+  const diffDate = Math.floor(diffSec / (24 * 60 * 60 * 1000));
+  const diffHour = Math.floor(diffSec / (60 * 60 * 1000));
+  const diffMin = Math.floor(diffSec / (60 * 1000));
 
   return (
-    <ChattingCardDiv style={lineStyle}>
+    <AsideListCardDiv>
       <div className="mentorImgBox">
-        <Image src={cardData.imgUrl} alt="img" fill sizes="50vw" style={{objectFit: "cover"}}/>
+        <Image src={cardData.imgUrl} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
       </div>
       <div>
         <div className="spaceBetween">
           <div className="titleStyle">
             {cardData.nickname}
           </div>
-          {cardData.lastMessagedTimeOfHour < 2 ?
+          {diffHour < HIGHLIGHTED_MIN_HOUR ?
             <div className="wrapper">
               <div className="timeText timeTextColor">
-                {cardData.lastMessagedTimeOfHour}시간 전
+                {diffHour < ONE_HOUR ?
+                  `${diffMin}분 전` :
+                  `${diffHour}시간 전`
+                }
               </div>
               <div className="circle"></div>
             </div> :
             <div className="timeText">
-              {cardData.lastMessagedTimeOfHour < 24 ?
-                `${cardData.lastMessagedTimeOfHour}시간 전` :
-                `${Math.floor(cardData.lastMessagedTimeOfHour / 24)}일 전`
+              {diffHour < DAY_HOUR ?
+                `${diffHour}시간 전` :
+                `${diffDate}일 전`
               }
             </div>
           }
@@ -43,7 +50,7 @@ const ChattingCard = ({data, index}: propsType) => {
           {cardData.lastMessage}
         </p>
       </div>
-    </ChattingCardDiv>
+    </AsideListCardDiv>
   );
 };
 
