@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {ProfileContentContainerDiv} from "@/component/main/mentorProfileSection/profileCard.style";
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 
 interface propsType {
   nickname: string,
@@ -39,7 +39,7 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
         <div className="marginLeft techStack">
           {techStackList && techStackList.map((data: any, index: number) => {
             if (index < 4) {
-              return <>{data}<span></span></>
+              return <Fragment key={index}>{data}<span/></Fragment>
             }
           })}
         </div>
