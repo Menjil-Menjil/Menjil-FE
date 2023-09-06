@@ -7,6 +7,7 @@ import {userState} from "@/states/stateUser";
 import {useRecoilValue} from "recoil"
 import styled from "@emotion/styled";
 import FollowingCard from "@/component/main/userAside/asideMenu/followingCard";
+import RightIc from "@/img/ic_right_arrow_20.svg"
 
 export const AsideMenuContainer = styled.div`
   height: 323px;
@@ -84,7 +85,13 @@ const AsideMenu = () => {
           <Radio value="mentors" defaultChecked onChange={handleMenuChange}>관심멘토</Radio>
           <Radio value="chat" defaultChecked={false} onChange={handleMenuChange}>채팅목록</Radio>
         </div>
-        <button className="btnStyle">더보기</button>
+        <button className="btnStyle">
+          {menuComponent === "mentors" ?
+            "모든 멘토" :
+            "모든 채팅"
+          }
+          <RightIc/>
+        </button>
       </AsideBtnGroup>
       {menuComponent === "mentors" && (
         <AsideListDiv>

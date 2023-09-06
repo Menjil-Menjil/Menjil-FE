@@ -94,15 +94,23 @@ export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid var(--border-color);
-  * {
-    font-size: 15px;
-    font-weight: 600;
-  }
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   button {
+    display: flex;
+    align-items: center;
     margin: 0 18px 0 auto;
     border: none;
     background: none;
     cursor: pointer;
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 11px;
+    font-weight: 500;
+    * {
+      stroke: rgba(0, 0, 0, 0.70);
+    }
   }
   .radioBtnGroup {
     display: flex;
