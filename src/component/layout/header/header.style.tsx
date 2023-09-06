@@ -69,7 +69,7 @@ export const MemberMenu = styled.div`
     display: flex;
     margin: 25px;
     gap: 25px;
-    svg {
+    * {
       cursor: pointer;
     }
   }
