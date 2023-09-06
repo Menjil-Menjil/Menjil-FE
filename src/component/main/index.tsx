@@ -13,6 +13,7 @@ export const MainContainerDiv = styled.div`
 `;
 
 export const MainContentsContainerDiv = styled.div`
+  min-height: 1000px;
   margin: 40px 0;
   display: flex;
   gap: 30px;

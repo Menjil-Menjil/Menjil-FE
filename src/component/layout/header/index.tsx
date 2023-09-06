@@ -1,5 +1,3 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import RegisterModal from "./modal/registerModal";
 import LoginModal from "./modal/loginModal";
@@ -7,49 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import {userState} from "@/states/stateUser";
-
-const HeaderSection = styled.header`
-  height: 60px;
-  margin: 0 auto;
-  top: 0;
-  border-bottom: 1px solid var(--section-border);
-  display: flex;
-  position: sticky;
-  z-index: 1;
-  background-color: white;
-  align-items: center;
-  justify-content: space-around;
-  gap: 280px;
-  user-select: none;
-  font-weight: 700;
-  font-size: 20px;
-  .category {
-    display: flex;
-    gap: 60px;
-    align-items: center;
-    .logo {
-      font-family: var(--logo-font);
-      font-style: normal;
-      font-weight: 700;
-      font-size: 36px;
-      line-height: 54px;
-      color: var(--theme-color);
-    }
-  }
-  .member {
-    display: flex;
-    gap: 30px;
-    .login {
-      
-    }
-  }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #3f3f3f;
-  white-space: nowrap;
-`;
+import {HeaderSection, StyledLink} from "@/component/layout/header/header.style";
 
 const Header = () => {
   const router = useRouter();
@@ -100,6 +56,13 @@ const Header = () => {
     }
     //로컬로그아웃함수;
   };
+  const unAuthUserLogoutHandler = () => {
+    if (sessionData && !user.name) {
+      signOut({ redirect: false, callbackUrl: "/" }).then(() => {
+        alert("아직 회원가입이 완료되지 않았습니다. 나가시겠습니까?")
+      });
+    }
+  }
 
   // const getChatList = async () => {
   //   try {
@@ -120,38 +83,33 @@ const Header = () => {
     <>
       <HeaderSection>
         <div className="category">
-          <StyledLink className="logo" href="/">
+          <StyledLink className="logo" href="/" onClick={unAuthUserLogoutHandler}>
             menjil
           </StyledLink>
-          <StyledLink
-            className="chatting"
-            href="/chatting"
-            // onClick={getChatList}
-          >
+          <StyledLink className="chatting" href="/chatting" onClick={unAuthUserLogoutHandler}>
             멘토링
           </StyledLink>
-          <StyledLink className="follows" href="/follows">
+          <StyledLink className="follows" href="/follows"  onClick={unAuthUserLogoutHandler}>
             관심 멘토
           </StyledLink>
-          <StyledLink className="community" href="/community">
+          <StyledLink className="community" href="/community" onClick={unAuthUserLogoutHandler}>
             커뮤니티
           </StyledLink>
         </div>
         <div className="member">
           {sessionData?.user ? (
-            <StyledLink href="" className="login" onClick={logOutHandler}>
-              {sessionData.accessToken ? "로그아웃" : "나가기"}
+            <StyledLink href="" onClick={logOutHandler}>
+              {user.name ?
+                "로그아웃" :
+                "나가기"
+              }
             </StyledLink>
           ) : (
             <>
-              <StyledLink
-                href=""
-                className="register"
-                onClick={closeRegisterModal}
-              >
+              <StyledLink href="" onClick={closeRegisterModal}>
                 회원가입
               </StyledLink>
-              <StyledLink href="" className="login" onClick={closeLoginModal}>
+              <StyledLink href="" onClick={closeLoginModal}>
                 로그인
               </StyledLink>
             </>
