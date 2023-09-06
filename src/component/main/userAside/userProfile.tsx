@@ -25,7 +25,7 @@ const UserProfile = () => {
     <UserProfileContainerDiv>
       <div className="profileInfo">
         <div className="profileImgBox">
-          <Image src={user.image} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
+          <Image src={user.image} alt="profile" fill sizes="20vw" style={{objectFit: "cover"}}/>
         </div>
         <div className="profileContent userInfoTextStyle">
           <div className="titleWrapper userInfoTitleStyle marginB8">

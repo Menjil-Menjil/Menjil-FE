@@ -9,16 +9,20 @@ import { useRecoilValue } from "recoil";
 import { userState } from "@/states/stateUser";
 
 export const UserAsideContainer = styled.div`
-  width: 327px;
-  max-height: 430px;
-  position: sticky;
-  top: 90px;
-  border-radius: 12px;
-  border: 0 solid rgba(0, 0, 0, 0.12);
-  background: white;
-  box-shadow: 0 0 4px 0 var(--box-shadow);
-  display: flex;
-  flex-direction: column;
+  height: auto;
+  .asideContainer {
+    position: sticky;
+    top: 90px;
+    z-index: 2;
+    width: 327px;
+    max-height: 430px;
+    border-radius: 12px;
+    border: 0 solid rgba(0, 0, 0, 0.12);
+    background: white;
+    box-shadow: 0 0 4px 0 var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const UserAside = () => {
@@ -27,18 +31,16 @@ const UserAside = () => {
 
   return (
     <UserAsideContainer>
-      {sessionStatus === "unauthenticated" ? (
-        <UnauthMenu />
-      ) : !!user.name ? (
-        <>
+      {!user.name ? (
+        <div className="asideContainer">
+          <UnauthMenu />
+        </div>
+      ) :
+        <div className="asideContainer">
           <UserProfile />
           <AsideMenu />
-        </>
-      ) : (
-        <UnauthMenuContainerDiv>
-          <Link href="/register">회원가입</Link>
-        </UnauthMenuContainerDiv>
-      )}
+        </div>
+     }
     </UserAsideContainer>
   );
 };

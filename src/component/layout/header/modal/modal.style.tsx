@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 // 모달 창 뒷배경
 export const ModalBox = styled.div`
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   top: 0;
   left: 0;

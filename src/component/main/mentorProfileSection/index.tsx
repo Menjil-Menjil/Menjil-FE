@@ -7,6 +7,7 @@ import {userState} from "@/states/stateUser";
 import {useRecoilValue} from "recoil"
 import MentorProfileCard from "@/component/main/mentorProfileSection/mentorProfileCard";
 import useIntersect from "@/hooks/useIntersect";
+import defaultProfileImg from "@/img/img_default-profile.png"
 
 export const MentorProfileSectionDiv = styled.div`
   width: 995px;
@@ -21,6 +22,16 @@ export const MentorProfileSectionDiv = styled.div`
 
 const MentorProfileList = () => {
   const [mentorProfileDataList, setMentorProfileDataList] = useState<any[]>([]);
+  const defaultProfileDataList = [
+    {
+      nickname: "멘토멘토",
+      major: "컴퓨터공학과",
+      company: "멘질멘질",
+      field: "기본정보",
+      techStack: "기본정보",
+      imgUrl: defaultProfileImg,
+    }
+  ];
   const {data: sessionData, update: sessionUpdate} =useSession();
   const user = useRecoilValue(userState);
   const [page, setPage] = useState<number>(0);
@@ -75,6 +86,9 @@ const MentorProfileList = () => {
           return <MentorProfileCard key={index} data={data}></MentorProfileCard>
         }) :
         <>
+          {defaultProfileDataList.map((data: any, index: number) => {
+            return <MentorProfileCard key={index} data={data}></MentorProfileCard>
+          })}
           <div>로그인 필요</div>
         </>
       }
