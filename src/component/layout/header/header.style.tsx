@@ -32,6 +32,14 @@ export const HeaderSection = styled.header`
   .member {
     display: flex;
     gap: 30px;
+    .login {
+      color: black;
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 `;
 

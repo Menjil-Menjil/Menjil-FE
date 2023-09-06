@@ -120,10 +120,10 @@ const Header = () => {
             </>
           ) : (
             <>
-              <StyledLink href="" onClick={closeRegisterModal}>
+              <StyledLink href="" className="login" onClick={closeRegisterModal}>
                 회원가입
               </StyledLink>
-              <StyledLink href="" onClick={closeLoginModal}>
+              <StyledLink href="" className="login" onClick={closeLoginModal}>
                 로그인
               </StyledLink>
             </>
