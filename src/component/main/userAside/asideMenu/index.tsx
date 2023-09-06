@@ -71,7 +71,7 @@ const AsideMenu = () => {
   };
 
   useEffect(() => {
-    if (!!user.name) {
+    if (!!user.name && sessionData?.user) {
       chatLogAxios(sessionData).then();
       //followingAxios(sessionData).then();
     }

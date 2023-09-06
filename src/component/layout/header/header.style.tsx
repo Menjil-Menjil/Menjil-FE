@@ -40,3 +40,29 @@ export const StyledLink = styled(Link)`
   color: #3f3f3f;
   white-space: nowrap;
 `;
+
+export const MemberMenu = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 22.5px */
+  p { margin: 0; padding: 0; }
+  .line {
+    width: 1px;
+    height: 14px;
+    margin: 0 7px;
+    background: #BEBEBE;
+  }
+  .iconWrap {
+    display: flex;
+    margin: 25px;
+    gap: 25px;
+    svg {
+      cursor: pointer;
+    }
+  }
+`;
