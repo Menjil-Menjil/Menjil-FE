@@ -9,7 +9,6 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import {userState} from "@/states/stateUser";
 
 const HeaderSection = styled.header`
-  width: 1728px;
   height: 60px;
   margin: 0 auto;
   top: 0;
@@ -19,6 +18,8 @@ const HeaderSection = styled.header`
   z-index: 1;
   background-color: white;
   align-items: center;
+  justify-content: space-around;
+  gap: 280px;
   user-select: none;
   font-weight: 700;
   font-size: 20px;
@@ -26,9 +27,7 @@ const HeaderSection = styled.header`
     display: flex;
     gap: 60px;
     align-items: center;
-    flex-grow: 1;
     .logo {
-      margin-left: 200px;
       font-family: var(--logo-font);
       font-style: normal;
       font-weight: 700;
@@ -39,10 +38,9 @@ const HeaderSection = styled.header`
   }
   .member {
     display: flex;
-    margin-left: 90px;
     gap: 30px;
     .login {
-      margin-right: 200px;
+      
     }
   }
 `;

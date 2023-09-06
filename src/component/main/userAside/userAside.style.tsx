@@ -201,21 +201,42 @@ export const AsideListCardDiv = styled.div`
 `;
 
 export const UnauthMenuContainerDiv = styled.div`
-  height: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  height: 147px;
+  color: black;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140.836%;
+  p {margin: 0; padding: 0;}
   button {
-    background: none;
+    width: 287px;
+    height: 42px;
+    margin-top: 20px;
+    cursor: pointer;
     border: none;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 600;
+    border-radius: 12px;
+    background: #FF8A00;
+    color: #FFF;
+    text-shadow: 0 0 2px #E88510;
+    font-size: 14px;
+    font-weight: 700;
   }
-  a {
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 20px;
+  .container {
+    height: 107px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .wrap {
+    font-size: 16px;
+  }
+  .login {
+    color: rgba(0, 0, 0, 0.60);
     font-weight: 600;
+    cursor: pointer;
+    :hover {
+      color: #FF8A00;
+    }
   }
 `;
