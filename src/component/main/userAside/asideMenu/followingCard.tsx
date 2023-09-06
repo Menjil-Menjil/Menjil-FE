@@ -1,6 +1,7 @@
-import {AsideListCardDiv} from "@/component/main/userAside/userAside.style";
+import {FollowingCardDiv} from "@/component/main/userAside/userAside.style";
 import Image from "next/image";
 import mentorImg from "@/img/img_profile-image-1.png"
+import unfollowIc from "@/img/ic_unfollow.png"
 
 interface propsType {
   data: any
@@ -9,24 +10,23 @@ const FollowingCard = ({data}: propsType) => {
   const mentorData: any = data;
 
   return (
-    <AsideListCardDiv>
-      <div className="mentorImgBox">
-        <Image src={mentorImg} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
-      </div>
-      <div>
-        <div className="spaceBetween">
-          <div className="titleStyle">
-            {"닉네임"}
-          </div>
+    <FollowingCardDiv>
+      <Image src={mentorImg} alt="profileImg" width={35} height={35} style={{borderRadius: 9}}/>
+      <div className="content">
+        <div className="wrapper">
+          <div className="title">{"닉네임"}</div>
+          <div className="line"></div>
+          <div className="textStyle">{"백엔드"}</div>
         </div>
-        <p className="textStyle">
-          {"네이버 클라우드 | 백엔드"}
-        </p>
-        <p className="techStyle">
-          {"Java" + " " + "Spring Boot" + " " + "typescript" + " " + "AWS"}
+        <p className="techStack">
+          {"Java"}<span/>
+          {"Spring Boot"}<span/>
+          {"typescript"}<span/>
+          {"AWSsssssssssssssssssssssssss"}<span/>
         </p>
       </div>
-    </AsideListCardDiv>
+      <Image src={unfollowIc} alt="unfollow" className="unfollowBtn" width={16} height={16}/>
+    </FollowingCardDiv>
   );
 };
 export default FollowingCard;

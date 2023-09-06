@@ -127,7 +127,7 @@ export const AsideListDiv = styled.div`
   align-items: center;
 `;
 
-export const AsideListCardDiv = styled.div`
+export const ChatLogCardDiv = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
@@ -197,6 +197,61 @@ export const AsideListCardDiv = styled.div`
   .wrapper {
     display: flex;
     align-items: center;
+  }
+`;
+
+export const FollowingCardDiv = styled.div`
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-sizing: border-box;
+  border-top: 1px solid #E0E0E0;
+  color: black;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    p { margin: 0; padding: 0; }
+    .wrapper {
+      display: flex;
+      align-items: center;
+      .line {
+        width: 1px;
+        height: 10px;
+        margin: 0 8px;
+        background: #ADADAD;
+      }
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .techStack {
+      width: 205px;
+      color: rgba(0, 0, 0, 0.70);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      span {
+        margin: 0 4px;
+      }
+    }
+  }
+  .unfollowBtn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    cursor: pointer;
   }
 `;
 

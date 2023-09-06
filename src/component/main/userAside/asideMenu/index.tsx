@@ -89,10 +89,13 @@ const AsideMenu = () => {
       {menuComponent === "mentors" && (
         <AsideListDiv>
           {followingList && followingList.map((data: any, index: number) => {
-            if (index < 3) {
+            if (index < 4) {
               return <FollowingCard key={index} data={data}/>
             }
           })}
+          <FollowingCard data={undefined}/>
+          <FollowingCard data={undefined}/>
+          <FollowingCard data={undefined}/>
           <FollowingCard data={undefined}/>
         </AsideListDiv>
       )}

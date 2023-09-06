@@ -19,7 +19,7 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
   }, [field, techStack]);
   return (
     <ProfileContentContainerDiv>
-      <div className="profileImageBox center">
+      <div className="profileImageBox">
         <Image src={imgUrl} alt="profileImage" fill sizes="20vw" style={{objectFit: "cover"}}/>
       </div>
       <div className="profileContentBox column">
@@ -29,17 +29,17 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
           <div>{major}</div>
         </div>
         <div className="marginBottom profileJobBox center">{company}</div>
-         <div className="center gap8 marginLeft">
+         <div className="gap8 marginLeft center">
            {fieldList && fieldList.map((data: any, index: number) => {
              if (index < 4) {
                return <div key={index}>{data}</div>
              }
            })}
          </div>
-        <div className="center gap10 marginLeft">
+        <div className="marginLeft techStack">
           {techStackList && techStackList.map((data: any, index: number) => {
             if (index < 4) {
-              return <div className="techStack" key={index}>{data}</div>
+              return <>{data}<span></span></>
             }
           })}
         </div>

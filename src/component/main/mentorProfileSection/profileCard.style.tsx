@@ -55,6 +55,7 @@ export const ProfileContentContainerDiv = styled.div`
     width: 250px;
     margin-left: 20px;
     gap: 6px;
+    overflow: hidden;
     .profileJobBox {
       width: 105px;
       height: 25px;
@@ -68,10 +69,15 @@ export const ProfileContentContainerDiv = styled.div`
       line-height: 150%; /* 25.5px */
     }
     .techStack {
+      width: 100%;
+      display: inline;
       color: var(--text-color);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      span {
+        margin: 0 5px;
+      }
     }
     .gap8 { gap: 8px }
     .gap10 { gap: 10px; }
