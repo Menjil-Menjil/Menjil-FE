@@ -36,10 +36,10 @@ const ProfileContent = ({nickname, major, company, field, techStack, imgUrl}: pr
              }
            })}
          </div>
-        <div className="center gap10 textStyleTech marginLeft">
+        <div className="center gap10 marginLeft">
           {techStackList && techStackList.map((data: any, index: number) => {
             if (index < 4) {
-              return <div key={index}>{data}</div>
+              return <div className="techStack" key={index}>{data}</div>
             }
           })}
         </div>
