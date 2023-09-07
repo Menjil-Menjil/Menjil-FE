@@ -1,4 +1,4 @@
-import {AsideListCardDiv} from "@/component/main/userAside/userAside.style";
+import {ChatLogCardDiv} from "@/component/main/userAside/userAside.style";
 import Image from "next/image";
 
 interface propsType {
@@ -10,7 +10,7 @@ const ONE_HOUR = 1;
 const HIGHLIGHTED_MIN_HOUR = 2;
 
 const ChattingCard = ({data}: propsType) => {
-  const cardData: any = data;
+  const chattingData: any = data;
   const cardDate = new Date(data.lastMessageTime);
   const today = new Date();
   const diffSec = today.getTime() - cardDate.getTime();
@@ -19,14 +19,14 @@ const ChattingCard = ({data}: propsType) => {
   const diffMin = Math.floor(diffSec / (60 * 1000));
 
   return (
-    <AsideListCardDiv>
+    <ChatLogCardDiv>
       <div className="mentorImgBox">
-        <Image src={cardData.imgUrl} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
+        <Image src={chattingData.imgUrl} alt="img" fill sizes="10vw" style={{objectFit: "cover"}}/>
       </div>
       <div>
         <div className="spaceBetween">
           <div className="titleStyle">
-            {cardData.nickname}
+            {chattingData.nickname}
           </div>
           {diffHour < HIGHLIGHTED_MIN_HOUR ?
             <div className="wrapper">
@@ -47,10 +47,10 @@ const ChattingCard = ({data}: propsType) => {
           }
         </div>
         <p className="textStyle ellipsis">
-          {cardData.lastMessage}
+          {chattingData.lastMessage}
         </p>
       </div>
-    </AsideListCardDiv>
+    </ChatLogCardDiv>
   );
 };
 

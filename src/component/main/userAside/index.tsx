@@ -7,8 +7,10 @@ import UnauthMenu from "@/component/main/userAside/unauthMenu";
 import { UnauthMenuContainerDiv } from "@/component/main/userAside/userAside.style";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/states/stateUser";
+import TopBtn from "@/component/topBtn";
 
 export const UserAsideContainer = styled.div`
+  position: relative;
   height: auto;
   .asideContainer {
     position: sticky;
@@ -30,18 +32,24 @@ const UserAside = () => {
   const user = useRecoilValue(userState);
 
   return (
-    <UserAsideContainer>
-      {!user.name ? (
-        <div className="asideContainer">
-          <UnauthMenu />
-        </div>
-      ) :
-        <div className="asideContainer">
-          <UserProfile />
-          <AsideMenu />
-        </div>
-     }
-    </UserAsideContainer>
+    <>
+      <UserAsideContainer>
+        {!user.name ? (
+          <div className="asideContainer">
+            <UnauthMenu />
+          </div>
+        ) : (
+          <div className="asideContainer">
+            <UserProfile />
+            <AsideMenu />
+          </div>
+        )
+        }
+        <TopBtn/>
+      </UserAsideContainer>
+
+    </>
+
   );
 };
 export default UserAside;

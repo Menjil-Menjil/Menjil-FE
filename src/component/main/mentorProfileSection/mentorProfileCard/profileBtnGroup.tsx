@@ -5,18 +5,18 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import {userState} from "@/states/stateUser";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
-import {mentoringState} from "@/states/stateMain";
+import {followEventState, mentoringState} from "@/states/stateMain";
 import { useRouter } from 'next/router';
-import {useState} from "react";
 
 interface propsType {
   nickname: string,
 }
 const ProfileBtnGroup = ({nickname}: propsType) => {
-  const mentorNickname = nickname;
+  const mentorNickname: string = nickname;
   const user = useRecoilValue(userState);
   const [mentoring, setMentoring] = useRecoilState(mentoringState);
-  const [isFollowing, setIsFollowing] = useState<boolean>();
+  const [followEvent, setFollowEvent] = useRecoilState(followEventState);
+  //const [isFollowing, setIsFollowing] = useState<boolean>();
   const {data: sessionData, update: sessionUpdate} =useSession();
   const router = useRouter();
 
@@ -25,10 +25,9 @@ const ProfileBtnGroup = ({nickname}: propsType) => {
       const response = await authedTokenAxios(sessionData.accessToken)
         .post(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/request`, {
           userNickname: userName,
-          followName: mentorName,
+          followNickname: mentorName,
         })
-
-      return response.data.data.message
+      return response.data.message
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
       refreshTokenAPI(sessionData, sessionUpdate).then()
@@ -42,10 +41,12 @@ const ProfileBtnGroup = ({nickname}: propsType) => {
     }).then()
     console.log("질문!", mentoring)
   }
-  const onClickFollow = () => {
-    followMentorAxios(sessionData, user.name!, mentorNickname).then((response) => {
-      console.log(response)
-    })
+  const onClickFollow = async () => {
+    await followMentorAxios(sessionData, user.name!, mentorNickname)
+      .then((response) => {
+        console.log(response, followEvent)
+        setFollowEvent({followEvent: true})
+      })
   };
 
   return (

@@ -17,7 +17,7 @@ export const ProfileCardDiv = styled.div`
   height: 144px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   box-sizing: border-box;
   flex-shrink: 0;
   border-top: solid 1px rgba(0, 0, 0, 0.12);
@@ -52,9 +52,10 @@ export const ProfileContentContainerDiv = styled.div`
     overflow: hidden;
   }
   .profileContentBox {
-    width: 270px;
+    width: 250px;
     margin-left: 20px;
     gap: 6px;
+    overflow: hidden;
     .profileJobBox {
       width: 105px;
       height: 25px;
@@ -67,8 +68,16 @@ export const ProfileContentContainerDiv = styled.div`
       font-weight: 700;
       line-height: 150%; /* 25.5px */
     }
-    .textStyleTech {
+    .techStack {
+      width: 100%;
+      display: inline;
       color: var(--text-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      span {
+        margin: 0 5px;
+      }
     }
     .gap8 { gap: 8px }
     .gap10 { gap: 10px; }
