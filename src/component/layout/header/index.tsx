@@ -104,7 +104,7 @@ const Header = () => {
             <>
               {user.name ? (
                 <MemberMenu>
-                  <Image src={user.image} alt="profile" width={26} height={26} style={{borderRadius: 7}}/>
+                  <Image src={user.image} alt="profile" width={26} height={26} style={{borderRadius: 7, objectFit: "cover"}}/>
                   <p>{user.name} 님</p>
                   <div className="line"/>
                   <StyledLink href="" onClick={logOutHandler}><p>로그아웃</p></StyledLink>

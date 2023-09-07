@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 import FollowingCard from "@/component/main/userAside/asideMenu/followingCard";
 import RightIc from "@/img/ic_right_arrow_20.svg"
 import {followEventState} from "@/states/stateMain";
+import Link from "next/link";
 
 export const AsideMenuContainer = styled.div`
   height: 323px;
@@ -91,13 +92,11 @@ const AsideMenu = () => {
           <Radio value="mentors" defaultChecked onChange={handleMenuChange}>관심멘토</Radio>
           <Radio value="chat" defaultChecked={false} onChange={handleMenuChange}>채팅목록</Radio>
         </div>
-        <button className="btnStyle">
-          {menuComponent === "mentors" ?
-            "모든 멘토" :
-            "모든 채팅"
-          }
-          <RightIc/>
-        </button>
+        {menuComponent === "mentors" ? (
+          <Link href="/follows">모든 멘토<RightIc/></Link>
+        ):(
+          <Link href="/chatting">모든 채팅<RightIc/></Link>
+        )}
       </AsideBtnGroup>
       {menuComponent === "mentors" && (
         <AsideListDiv>

@@ -98,13 +98,12 @@ export const AsideBtnGroup = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  button {
+  a {
     display: flex;
     align-items: center;
-    margin: 0 18px 0 auto;
-    border: none;
-    background: none;
+    margin: 0 11px 0 auto;
     cursor: pointer;
+    text-decoration: none;
     color: rgba(0, 0, 0, 0.70);
     font-size: 11px;
     font-weight: 500;
