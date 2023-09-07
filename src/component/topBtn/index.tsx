@@ -9,7 +9,7 @@ export const TopButtonDiv = styled.div`
   top: 580px;
   margin-left: 276px;
   cursor: pointer;
-  z-index: 4;
+  z-index: 2;
 `;
 
 const TopButton = () => {
