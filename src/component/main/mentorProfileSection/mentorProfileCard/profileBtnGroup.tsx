@@ -41,29 +41,37 @@ const ProfileBtnGroup = ({nickname}: propsType) => {
       return response.data.data
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
-      refreshTokenAPI(sessionData, sessionUpdate).then()
+      if (!!sessionData?.accessToken) {
+        refreshTokenAPI(sessionData, sessionUpdate).then()
+      }
     }
   };
   const onClickQuestion = () => {
-    setMentoring({mentor: mentorNickname, mentee: user.name})
-    router.push({
-      pathname: '/chatting',
-      //query: {mentor: mentorNickname}
-    }).then()
-    console.log("질문!", mentoring)
+    if(!!user.name && !!mentorNickname) {
+      setMentoring({mentor: mentorNickname, mentee: user.name})
+      router.push({
+        pathname: '/chatting',
+        //query: {mentor: mentorNickname}
+      }).then()
+      console.log("질문!", mentoring)
+    }
   }
   const onClickFollow = async () => {
-    await followMentorAxios(sessionData, user.name!, mentorNickname)
-      .then((response) => {
-        console.log(response, followEvent)
-        setFollowEvent({followEvent: true})
-      })
+    if(!!user.name && !!mentorNickname) {
+      await followMentorAxios(sessionData, user.name!, mentorNickname)
+        .then((response) => {
+          console.log(response, followEvent)
+          setFollowEvent({followEvent: true})
+        })
+    }
   };
 
   useEffect(() => {
-    isFollowingAxios(sessionData, user.name!, mentorNickname).then((response) => {
-      setIsFollowing(response);
-    })
+    if (!!user.name && !!mentorNickname) {
+      isFollowingAxios(sessionData, user.name!, mentorNickname).then((response) => {
+        setIsFollowing(response);
+      })
+    }
   }, [isFollowingAxios, mentorNickname, sessionData, user.name]);
 
   return (
