@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
-import Link from "next/link";
 import UserProfile from "@/component/main/userAside/userProfile";
 import AsideMenu from "@/component/main/userAside/asideMenu";
-import { useSession } from "next-auth/react";
 import UnauthMenu from "@/component/main/userAside/unauthMenu";
-import { UnauthMenuContainerDiv } from "@/component/main/userAside/userAside.style";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/states/stateUser";
 import TopBtn from "@/component/topBtn";
@@ -27,7 +24,6 @@ export const UserAsideContainer = styled.div`
 `;
 
 const UserAside = () => {
-  const { status: sessionStatus } = useSession();
   const user = useRecoilValue(userState);
 
   return (
@@ -43,7 +39,6 @@ const UserAside = () => {
             </>
           )}
         </div>
-
       </UserAsideContainer>
       <TopBtn/>
     </>
