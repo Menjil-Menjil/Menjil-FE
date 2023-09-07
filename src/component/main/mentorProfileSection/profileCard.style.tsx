@@ -113,32 +113,45 @@ export const ProfileBtnContainerDiv = styled.div`
   font-size: 16px;
   font-weight: 600;
   gap: 7px;
-  div {
+  button {
     width: 119px;
     height: 38px;
+    position: relative;
     background: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
   .btnQuestion {
-    border-radius: 12px;
     border: 1px solid var(--highlighted-element);
     color: var(--highlighted-element);
   }
   .btnFollow {
     border: none;
     color: var(--follow-btn-text-color);
-    justify-content: center;
   }
-  .icBoxQuestion {
-    width: 24px;
-    height: 24px;
-    margin: 4px 8px 0 13px;
+  .btnFollowChecked {
+    border: none;
+    color: white;
+    background-color: var(--follow-btn-text-color);
+    * {
+      fill: white;
+      stroke: white;
+    }
   }
-  .icBoxFollow {
-    width: 24px;
+  .btnContent {
     height: 24px;
-    margin-right: 8px;
+    position: absolute;
+    top: 9px;
+    left: 13px;
+    display: flex;
+    gap: 8px;
   }
 `;

@@ -5,11 +5,10 @@ import topBtnImg from "@/img/img_top_btn.png"
 import Image from "next/image";
 
 export const TopButtonDiv = styled.div`
-  position: sticky;
-  top: 580px;
-  margin-left: 276px;
+  position: fixed;
+  bottom: 32px;
+  right: 184px;
   cursor: pointer;
-  z-index: 2;
 `;
 
 const TopButton = () => {

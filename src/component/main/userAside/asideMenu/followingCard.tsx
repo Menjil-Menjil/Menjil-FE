@@ -36,7 +36,7 @@ const FollowingCard = ({data, userName}: propsType) => {
 
   return (
     <FollowingCardDiv>
-      <Image src={mentorData.imgUrl} alt="profileImg" width={35} height={35} style={{borderRadius: 9}}/>
+      <Image src={mentorData.imgUrl} alt="profileImg" width={35} height={35} style={{borderRadius: 9, objectFit: "cover"}}/>
       <div className="content">
         <div className="wrapper">
           <div className="title">{mentorData.nickname}</div>

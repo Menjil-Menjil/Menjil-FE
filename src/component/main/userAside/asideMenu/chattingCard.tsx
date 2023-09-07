@@ -46,7 +46,7 @@ const ChattingCard = ({data}: propsType) => {
             </div>
           }
         </div>
-        <p className="textStyle ellipsis">
+        <p className={`textStyle ${diffHour<ONE_HOUR ? "newChatTextStyle" : "oldChatTextStyle"} ellipsis`}>
           {chattingData.lastMessage}
         </p>
       </div>
