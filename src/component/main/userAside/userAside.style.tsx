@@ -162,10 +162,10 @@ export const ChatLogCardDiv = styled.div`
     justify-content: space-between;
   }
   .timeText {
-    color: var(--border-color);
+    color: #525252;
     text-align: right;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 400;
   }
   .timeTextColor {
      color: var(--highlighted-element);
@@ -178,10 +178,17 @@ export const ChatLogCardDiv = styled.div`
     border-radius: 50%;
   }
   .textStyle {
+    font-size: 13px;
+    font-style: normal;
+    line-height: 155%; /* 20.15px */
+  }
+  .newChatTextStyle {
     color: black;
-    font-size: 14px;
+    font-weight: 500;
+  }
+  .oldChatTextStyle {
+    color: #525252;
     font-weight: 400;
-    line-height: 160%; /* 22.4px */
   }
   .techStyle {
     color: var(--text-color);
@@ -191,8 +198,10 @@ export const ChatLogCardDiv = styled.div`
   }
   .titleStyle {
     color: black;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    line-height: normal;
+    margin-bottom: 5px;
   }
   .ellipsis {
     overflow: hidden;
