@@ -94,6 +94,7 @@ export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
@@ -129,9 +130,12 @@ export const AsideBtnGroup = styled.div`
 `
 
 export const AsideListDiv = styled.div`
+  height: 276px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
+  overflow: auto;
 `;
 
 export const ChatLogCardDiv = styled.div`
@@ -219,6 +223,7 @@ export const ChatLogCardDiv = styled.div`
 export const FollowingCardDiv = styled.div`
   width: 100%;
   height: 60px;
+  flex-shrink: 0;
   padding: 0 20px;
   position: relative;
   display: flex;

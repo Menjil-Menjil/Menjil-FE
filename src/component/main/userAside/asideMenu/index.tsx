@@ -101,9 +101,7 @@ const AsideMenu = () => {
       {menuComponent === "mentors" && (
         <AsideListDiv>
           {followingList && followingList.map((data: any, index: number) => {
-            if (index < 4) {
-              return <FollowingCard key={index} data={data} userName={user.name!}/>
-            }
+            return <FollowingCard key={index} data={data} userName={user.name!}/>
           })}
         </AsideListDiv>
       )}
