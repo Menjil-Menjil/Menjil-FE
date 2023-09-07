@@ -10,7 +10,6 @@ import { userState } from "@/states/stateUser";
 import TopBtn from "@/component/topBtn";
 
 export const UserAsideContainer = styled.div`
-  position: relative;
   height: auto;
   .asideContainer {
     position: sticky;
@@ -34,22 +33,20 @@ const UserAside = () => {
   return (
     <>
       <UserAsideContainer>
-        {!user.name ? (
-          <div className="asideContainer">
+        <div className="asideContainer">
+          {!user.name ? (
             <UnauthMenu />
-          </div>
-        ) : (
-          <div className="asideContainer">
-            <UserProfile />
-            <AsideMenu />
-          </div>
-        )
-        }
-        <TopBtn/>
+          ) : (
+            <>
+              <UserProfile />
+              <AsideMenu />
+            </>
+          )}
+        </div>
+
       </UserAsideContainer>
-
+      <TopBtn/>
     </>
-
   );
 };
 export default UserAside;

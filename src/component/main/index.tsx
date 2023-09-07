@@ -5,7 +5,6 @@ import UserAside from "@/component/main/userAside";
 
 export const MainContainerDiv = styled.div`
   width: 1728px;
-  min-height: 1117px;
   margin: 5px auto;
   display: flex;
   flex-direction: column;
