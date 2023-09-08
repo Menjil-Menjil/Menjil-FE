@@ -75,15 +75,19 @@ export const FollowCardDiv = styled.div`
         display: flex;
         align-items: center;
         gap: 8px;
-        .stackBox {
-          display: flex;
+      }
+      .techStack {
+        max-width: 280px;
+        white-space: nowrap;
+        .techBox {
           padding: 2px 8px;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
           border-radius: 5px;
           background: #EBEAE8;
-          * {font-size: 13px;}
+          font-size: 13px;
+        }
+        .ellipsis {
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

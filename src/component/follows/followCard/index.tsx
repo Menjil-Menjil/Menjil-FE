@@ -1,22 +1,56 @@
 import {FollowCardDiv} from "@/component/follows/followCard/followCard.style";
-import profileImg from "@/img/img_default-profile.png"
 import unfollowIc from "@/img/ic_unfollow.png"
 import JobIc from "@/img/ic_job.svg"
 import SchoolIc from "@/img/ic_school.svg"
 import Image from "next/image";
+import {useEffect, useState} from "react";
+import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
+import {useSession} from "next-auth/react";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {userState} from "@/states/stateUser";
+import {followEventState} from "@/states/stateMain";
 
-const profileStyle = {
-  borderRadius: '12px'
+interface dataType {
+  profileData: any,
+  lastAnswerList: any,
 }
-const FollowCard = () => {
+const FollowCard = ({profileData, lastAnswerList}: dataType) => {
+  const userName = useRecoilValue(userState).name;
+  const [, setFollowEvent] = useRecoilState(followEventState);
+  const [techStackList, setTechStackList] = useState<string[]>();
+  const {data: sessionData, update: sessionUpdate} =useSession();
+  const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: string) => {
+    try {
+      await authedTokenAxios(sessionData.accessToken)
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/request`, {
+          userNickname: userName,
+          followNickname: mentorName,
+        })
+      setFollowEvent({followEvent: true})
+    } catch (error: any) {
+      console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+      refreshTokenAPI(sessionData, sessionUpdate).then()
+    }
+  };
+
+  useEffect(() => {
+    setTechStackList(profileData.techStack.split(", "))
+  }, [profileData.techStack]);
+
   return (
     <FollowCardDiv>
       <div className="cardWrap">
-        <Image src={unfollowIc} className="unfollowBtn" alt="profile" width={24} height={24} />
+        <Image src={unfollowIc} alt="unfollow"
+               width={24} height={24}
+               className="unfollowBtn"
+               onClick={() => onClickUnfollowBtn(sessionData, userName!, profileData.nickname)}/>
         <div className="container containerTitle">
-          <Image src={profileImg} alt="profile" width={50} height={50} style={profileStyle}/>
+          <Image src={profileData.imgUrl} alt="profile" width={50} height={50} style={{
+            borderRadius: "12px",
+            objectFit: "cover"
+          }}/>
           <div>
-            <p className="titleText">박서영</p>
+            <p className="titleText">{profileData.nickname}</p>
             <div className="wrap">
               <p className="highlightedColor">멘티 23명</p>
               <p className="normalColor">답변 26개</p>
@@ -27,23 +61,19 @@ const FollowCard = () => {
           <JobIc/>
           <div className="wrap">
             <div className="line-wrap">
-              <p>네이버클라우드</p>
+              <p>{profileData.company}</p>
               <div className="line"/>
               <p>프론트엔드</p>
             </div>
-            <div className="line-wrap">
-              <div className="stackBox">
-                <p className="normalColor">React</p>
-              </div>
-              <div className="stackBox">
-                <p className="normalColor">NEXT.JS</p>
-              </div>
-              <div className="stackBox">
-                <p className="normalColor">GitHub</p>
-              </div>
-              <div className="stackBox">
-                <p className="normalColor">Redux</p>
-              </div>
+            <div className="line-wrap techStack">
+              {techStackList && techStackList.map((data: any, index: number) => {
+                if (index < 4) {
+                  return (
+                    <p key={index} className={`techBox normalColor ${index>2 ? "ellipsis" : ""}`}>
+                      {data}<span/>
+                    </p>
+                  )}
+              })}
             </div>
           </div>
         </div>
