@@ -30,6 +30,7 @@ const MentorProfileList = () => {
       field: "기본정보",
       techStack: "기본정보",
       imgUrl: defaultProfileImg,
+      lastAnsweredMessage: ["기본정보", "last answer"]
     }
   ];
   const {data: sessionData, update: sessionUpdate} =useSession();

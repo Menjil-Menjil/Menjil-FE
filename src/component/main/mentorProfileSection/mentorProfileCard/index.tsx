@@ -15,7 +15,7 @@ const MentorProfileCard = ({data}: propsType) => {
                       field={data.field}
                       techStack={data.techStack}
                       imgUrl={data.imgUrl}/>
-      <ProfileRecentQuestion />
+      <ProfileRecentQuestion lastAnswerList={data.lastAnsweredMessage}/>
       <ProfileBtnGroup nickname={data.nickname}/>
     </ProfileCardDiv>
   );
