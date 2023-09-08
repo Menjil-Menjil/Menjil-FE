@@ -5,6 +5,9 @@ interface Mentoring {
   mentor?: string;
   mentee?: string;
 }
+interface Follow {
+  followEvent: boolean;
+}
 
 export const mentoringState = atom<Mentoring>({
   // key 값 참고 자료: https://velog.io/@kyung-baa/Recoil-Duplicate-atom-key
@@ -12,5 +15,12 @@ export const mentoringState = atom<Mentoring>({
   default: {
     mentor: '',
     mentee: '',
+  }
+});
+
+export const followEventState = atom<Follow>({
+  key: `followEventState/${uuidv4()}`,
+  default: {
+    followEvent: false,
   }
 });

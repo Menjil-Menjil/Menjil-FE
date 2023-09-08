@@ -94,15 +94,23 @@ export const AsideBtnGroup = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid var(--border-color);
-  * {
-    font-size: 15px;
-    font-weight: 600;
-  }
-  button {
-    margin: 0 18px 0 auto;
-    border: none;
-    background: none;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  a {
+    display: flex;
+    align-items: center;
+    margin: 0 11px 0 auto;
     cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 11px;
+    font-weight: 500;
+    * {
+      stroke: rgba(0, 0, 0, 0.70);
+    }
   }
   .radioBtnGroup {
     display: flex;
@@ -122,12 +130,15 @@ export const AsideBtnGroup = styled.div`
 `
 
 export const AsideListDiv = styled.div`
+  height: 276px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
+  overflow: auto;
 `;
 
-export const AsideListCardDiv = styled.div`
+export const ChatLogCardDiv = styled.div`
   width: 100%;
   height: 92px;
   display: flex;
@@ -155,10 +166,10 @@ export const AsideListCardDiv = styled.div`
     justify-content: space-between;
   }
   .timeText {
-    color: var(--border-color);
+    color: #525252;
     text-align: right;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 400;
   }
   .timeTextColor {
      color: var(--highlighted-element);
@@ -171,10 +182,17 @@ export const AsideListCardDiv = styled.div`
     border-radius: 50%;
   }
   .textStyle {
+    font-size: 13px;
+    font-style: normal;
+    line-height: 155%; /* 20.15px */
+  }
+  .newChatTextStyle {
     color: black;
-    font-size: 14px;
+    font-weight: 500;
+  }
+  .oldChatTextStyle {
+    color: #525252;
     font-weight: 400;
-    line-height: 160%; /* 22.4px */
   }
   .techStyle {
     color: var(--text-color);
@@ -184,8 +202,10 @@ export const AsideListCardDiv = styled.div`
   }
   .titleStyle {
     color: black;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
+    line-height: normal;
+    margin-bottom: 5px;
   }
   .ellipsis {
     overflow: hidden;
@@ -197,6 +217,62 @@ export const AsideListCardDiv = styled.div`
   .wrapper {
     display: flex;
     align-items: center;
+  }
+`;
+
+export const FollowingCardDiv = styled.div`
+  width: 100%;
+  height: 60px;
+  flex-shrink: 0;
+  padding: 0 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-sizing: border-box;
+  border-top: 1px solid #E0E0E0;
+  color: black;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    p { margin: 0; padding: 0; }
+    .wrapper {
+      display: flex;
+      align-items: center;
+      .line {
+        width: 1px;
+        height: 10px;
+        margin: 0 8px;
+        background: #ADADAD;
+      }
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .techStack {
+      width: 205px;
+      color: rgba(0, 0, 0, 0.70);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      span {
+        margin: 0 4px;
+      }
+    }
+  }
+  .unfollowBtn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    cursor: pointer;
   }
 `;
 

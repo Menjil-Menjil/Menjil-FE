@@ -17,7 +17,7 @@ export const ProfileCardDiv = styled.div`
   height: 144px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   box-sizing: border-box;
   flex-shrink: 0;
   border-top: solid 1px rgba(0, 0, 0, 0.12);
@@ -52,9 +52,10 @@ export const ProfileContentContainerDiv = styled.div`
     overflow: hidden;
   }
   .profileContentBox {
-    width: 270px;
+    width: 250px;
     margin-left: 20px;
     gap: 6px;
+    overflow: hidden;
     .profileJobBox {
       width: 105px;
       height: 25px;
@@ -67,8 +68,16 @@ export const ProfileContentContainerDiv = styled.div`
       font-weight: 700;
       line-height: 150%; /* 25.5px */
     }
-    .textStyleTech {
+    .techStack {
+      width: 100%;
+      display: inline;
       color: var(--text-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      span {
+        margin: 0 5px;
+      }
     }
     .gap8 { gap: 8px }
     .gap10 { gap: 10px; }
@@ -104,32 +113,45 @@ export const ProfileBtnContainerDiv = styled.div`
   font-size: 16px;
   font-weight: 600;
   gap: 7px;
-  div {
+  button {
     width: 119px;
     height: 38px;
+    position: relative;
     background: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
   .btnQuestion {
-    border-radius: 12px;
     border: 1px solid var(--highlighted-element);
     color: var(--highlighted-element);
   }
   .btnFollow {
     border: none;
     color: var(--follow-btn-text-color);
-    justify-content: center;
   }
-  .icBoxQuestion {
-    width: 24px;
-    height: 24px;
-    margin: 4px 8px 0 13px;
+  .btnFollowChecked {
+    border: none;
+    color: white;
+    background-color: var(--follow-btn-text-color);
+    * {
+      fill: white;
+      stroke: white;
+    }
   }
-  .icBoxFollow {
-    width: 24px;
+  .btnContent {
     height: 24px;
-    margin-right: 8px;
+    position: absolute;
+    top: 9px;
+    left: 13px;
+    display: flex;
+    gap: 8px;
   }
 `;

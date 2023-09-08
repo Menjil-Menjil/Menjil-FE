@@ -7,6 +7,9 @@ import {userState} from "@/states/stateUser";
 import {useRecoilValue} from "recoil"
 import styled from "@emotion/styled";
 import FollowingCard from "@/component/main/userAside/asideMenu/followingCard";
+import RightIc from "@/img/ic_right_arrow_20.svg"
+import {followEventState} from "@/states/stateMain";
+import Link from "next/link";
 
 export const AsideMenuContainer = styled.div`
   height: 323px;
@@ -42,10 +45,11 @@ const Radio = ({ children, value, defaultChecked, onChange }: RadioElementType) 
 
 const AsideMenu = () => {
   const user = useRecoilValue(userState);
+  const followEvent = useRecoilValue(followEventState);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [chatLogDataList, setChatLogDataList] = useState<any[]>();
   const [followingList, setFollowingList] = useState<any[]>();
-  const [menuComponent, setMenuComponent] = useState("mentors");
+  const [menuComponent, setMenuComponent] = useState<string>("mentors");
   const handleMenuChange = (e: any) => {
     setMenuComponent(e.target.value)
   };
@@ -62,7 +66,7 @@ const AsideMenu = () => {
   const followingAxios = async (sessionData: any) => {
     try {
       const result = await authedTokenAxios(sessionData.accessToken)
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/following`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/following?nickname=${user.name}`)
       setFollowingList(result.data.data)
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
@@ -73,9 +77,13 @@ const AsideMenu = () => {
   useEffect(() => {
     if (!!user.name && sessionData?.user) {
       chatLogAxios(sessionData).then();
-      //followingAxios(sessionData).then();
     }
   }, [sessionData, user.name]);
+  useEffect(() => {
+    if (!!user.name && sessionData?.user) {
+      followingAxios(sessionData).then();
+    }
+  }, [followEvent, sessionData, user.name]);
 
   return (
     <AsideMenuContainer>
@@ -84,16 +92,17 @@ const AsideMenu = () => {
           <Radio value="mentors" defaultChecked onChange={handleMenuChange}>관심멘토</Radio>
           <Radio value="chat" defaultChecked={false} onChange={handleMenuChange}>채팅목록</Radio>
         </div>
-        <button className="btnStyle">더보기</button>
+        {menuComponent === "mentors" ? (
+          <Link href="/follows">모든 멘토<RightIc/></Link>
+        ):(
+          <Link href="/chatting">모든 채팅<RightIc/></Link>
+        )}
       </AsideBtnGroup>
       {menuComponent === "mentors" && (
         <AsideListDiv>
           {followingList && followingList.map((data: any, index: number) => {
-            if (index < 3) {
-              return <FollowingCard key={index} data={data}/>
-            }
+            return <FollowingCard key={index} data={data} userName={user.name!}/>
           })}
-          <FollowingCard data={undefined}/>
         </AsideListDiv>
       )}
       {menuComponent === "chat" && (
