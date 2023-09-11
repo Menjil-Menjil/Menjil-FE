@@ -88,18 +88,25 @@ export const ProfileContentContainerDiv = styled.div`
 export const ProfileRecentQuestionContainerDiv = styled.div`
   font-size: 15px;
   font-weight: 500;
+  line-height: normal;
   p {
     width: 320px;
     height: 18px;
-    margin: 8px 0 0 0;
+    margin: 0;
     padding: 0;
   }
-  .textStyleQuestionTitle {
+  .titleBox {
     color: var(--text-color);
     font-weight: 700;
+    margin-bottom: 16px;
   }
-  .marginBottom {
-    margin-bottom: 8px;
+  .questionWrap {
+    min-width: 315px;
+    height: 44px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
   .ellipsis {
     white-space: nowrap;
