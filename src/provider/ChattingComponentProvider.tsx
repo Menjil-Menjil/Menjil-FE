@@ -22,12 +22,18 @@ const ChattingComponentProvider = ({
   interface messageInfo {
     message: string;
     messageType: string;
+    messageList: messageList;
     order: number;
     roomId: any;
     senderNickname: string;
     senderType: string;
     time: any;
     _id: any;
+  }
+  interface messageList {
+    answer: string;
+    question_summary: string;
+    similarity_percent: Number;
   }
 
   const [chattingRooms, setChattingRooms] = useState<chattingRoomInfo[]>([]);
@@ -42,6 +48,7 @@ const ChattingComponentProvider = ({
   const [messageInput, setMessageInput] = useState<string>(""); //보내는 메세지
   const [messagesLog, setMessagesLog] = useState<messageInfo[]>([]); //메세지들
   const [selectIndex, setSelectIndex] = useState<any>(); //선택된 인덱스
+
   const user = useRecoilValue(userState);
 
   // 채팅방 구독하기
@@ -50,10 +57,14 @@ const ChattingComponentProvider = ({
       `/queue/chat/room/${roomId}`,
       ({ body }) => {
         if (typeof JSON.parse(body).data.length === "number") {
+          //채팅이 여러 개일 경우
+          console.log(JSON.parse(body));
           JSON.parse(body).data.map((message: any) => {
             setMessagesLog((messagesLog) => [...messagesLog, message]);
           });
         } else {
+          //하나씩 오는 대화 아래에 표시
+          console.log(JSON.parse(body));
           setMessagesLog((messagesLog) => [
             JSON.parse(body).data,
             ...messagesLog,
@@ -193,7 +204,22 @@ const ChattingComponentProvider = ({
     } catch (e: any) {
       alert(e);
     }
-  }, []);
+  }, [user.name]);
+
+  // const showQuestion = (index: any, answer: string) => {
+  //   const message : messageInfo = {
+  //     message: ;
+  //     messageType: ;
+  //     messageList: ;
+  //     order: ;
+  //     roomId: ;
+  //     senderNickname: ;
+  //     senderType: ;
+  //     time: ;
+  //     _id: ;
+  //   };
+  //   publish();
+  // };
 
   useEffect(() => {
     if (chattingMentor.roomId !== "") {
@@ -225,6 +251,7 @@ const ChattingComponentProvider = ({
         enterChattingRoom,
         selectIndex,
         setSelectIndex,
+        // showQuestion,
       }}
     >
       {children}
