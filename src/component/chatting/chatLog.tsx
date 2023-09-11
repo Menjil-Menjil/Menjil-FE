@@ -148,7 +148,7 @@ export const ChatLogForm = styled.div`
 `;
 
 const ChatLog = () => {
-  const { chattingMentor, publish, messageInput, setMessageInput, subscribe } =
+  const { chattingMentor, publish, messageInput, setMessageInput } =
     useContext<any>(ChattingComponentContext);
 
   return (
@@ -185,7 +185,7 @@ const ChatLog = () => {
             disabled={messageInput.length === 0 ? true : false}
             onClick={() => {
               console.log(messageInput);
-              publish(messageInput);
+              publish(messageInput, "QUESTION", "MENTEE");
             }}
           >
             <SendIc style={{ marginRight: "5px" }} /> 전송하기

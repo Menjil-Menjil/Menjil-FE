@@ -78,6 +78,11 @@ export const MessageContentDiv = styled.div`
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            margin-top: 5px;
+            margin-bottom: 4px;
+            :hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -161,9 +166,6 @@ const MessageContent = () => {
                       style={{ objectFit: "cover" }}
                     />
                   </div>
-                  {/* <span className="mentorMessageBubble">
-                    {_chatMessage.message}
-                  </span> */}
                   {_chatMessage.messageList ? (
                     <div className="mentorMessageBubble">
                       <span>{_chatMessage.message}</span>
@@ -177,7 +179,13 @@ const MessageContent = () => {
                               </span>
                               <span
                                 className="answer"
-                                // onClick={() => showQuestion(index,  _messageList.answer)}
+                                onClick={() =>
+                                  showQuestion(
+                                    index + 1,
+                                    _messageList.question_summary,
+                                    _messageList.answer
+                                  )
+                                }
                               >
                                 {"A. " + _messageList.answer}
                               </span>

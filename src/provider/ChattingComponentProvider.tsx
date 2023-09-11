@@ -91,7 +91,7 @@ const ChattingComponentProvider = ({
       client.activate();
   };
 
-  const publish = (message: any) => {
+  const publish = (message: any, messageType: string, senderType: string) => {
     if (!client?.connected) return;
     const today = new Date();
     const year = today.getFullYear();
@@ -109,13 +109,14 @@ const ChattingComponentProvider = ({
       destination: `/pub/chat/room/${chattingMentor.roomId}`,
       body: JSON.stringify({
         roomId: chattingMentor.roomId,
-        senderType: "MENTEE",
+        senderType: senderType,
         senderNickname: user.name,
         message: message,
-        messageType: "QUESTION",
+        messageType: messageType,
         time: nowTime,
       }),
     });
+
     setMessageInput("");
   };
 
@@ -206,20 +207,12 @@ const ChattingComponentProvider = ({
     }
   }, [user.name]);
 
-  // const showQuestion = (index: any, answer: string) => {
-  //   const message : messageInfo = {
-  //     message: ;
-  //     messageType: ;
-  //     messageList: ;
-  //     order: ;
-  //     roomId: ;
-  //     senderNickname: ;
-  //     senderType: ;
-  //     time: ;
-  //     _id: ;
-  //   };
-  //   publish();
-  // };
+  const showQuestion = (index: any, AI_SUMMARY: string, AI_ANSWER: string) => {
+    console.log(index + "번 대화");
+    publish(index + "번 대화", "SELECT", "MENTEE");
+    publish(AI_SUMMARY, "AI_SUMMARY", "MENTOR");
+    publish(AI_ANSWER, "AI_ANSWER", "MENTOR");
+  };
 
   useEffect(() => {
     if (chattingMentor.roomId !== "") {
@@ -251,7 +244,7 @@ const ChattingComponentProvider = ({
         enterChattingRoom,
         selectIndex,
         setSelectIndex,
-        // showQuestion,
+        showQuestion,
       }}
     >
       {children}
