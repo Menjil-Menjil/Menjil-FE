@@ -29,17 +29,58 @@ export const MessageContentDiv = styled.div`
     }
     .mentorMessageBubble {
       max-width: 600px;
-      max-height: 145px;
       flex-shrink: 0;
       border-radius: 0px 12px 12px 12px;
       background: #f0f0ef;
-      display: inline-block;
+      display: block;
       padding: 15px 20px;
       color: black;
       font-size: 15px;
       font-style: normal;
       font-weight: 400;
       line-height: 150%; /* 22.5px */
+      .answerBox {
+        display: flex;
+        margin-top: 9px;
+        .numberBox {
+          width: 18px;
+          height: 18px;
+          flex-shrink: 0;
+          border-radius: 3px;
+          background: #878787;
+          color: #fff;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 150%; /* 21px */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 6px;
+        }
+        .textBox {
+          display: block;
+          .summary {
+            color: #000;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; /* 22.5px */
+          }
+          .answer {
+            max-width: 580px;
+            display: block;
+            color: #1e85ff;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; /* 22.5px */
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+      }
     }
     .mentorMessageTime {
       color: #575757;
@@ -89,7 +130,6 @@ export const MessageContentDiv = styled.div`
 
     color: #575757;
     text-align: center;
-    font-family: Pretendard;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -98,10 +138,9 @@ export const MessageContentDiv = styled.div`
 `;
 
 const MessageContent = () => {
-  const { messagesLog, chattingMentor } = useContext<any>(
+  const { messagesLog, chattingMentor, showQuestion } = useContext<any>(
     ChattingComponentContext
   );
-
   return (
     <MessageContentDiv>
       {messagesLog && messagesLog.length > 0 && (
@@ -122,9 +161,40 @@ const MessageContent = () => {
                       style={{ objectFit: "cover" }}
                     />
                   </div>
-                  <span className="mentorMessageBubble">
+                  {/* <span className="mentorMessageBubble">
                     {_chatMessage.message}
-                  </span>
+                  </span> */}
+                  {_chatMessage.messageList ? (
+                    <div className="mentorMessageBubble">
+                      <span>{_chatMessage.message}</span>
+                      {_chatMessage.messageList.map(
+                        (_messageList: any, index: any) => (
+                          <div className="answerBox" key={index}>
+                            <div className="numberBox">{index + 1}</div>
+                            <div className="textBox">
+                              <span className="summary">
+                                {_messageList.question_summary}
+                              </span>
+                              <span
+                                className="answer"
+                                // onClick={() => showQuestion(index,  _messageList.answer)}
+                              >
+                                {"A. " + _messageList.answer}
+                              </span>
+                              <span className="percent">
+                                {_messageList.similarity_percent}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : (
+                    <span className="mentorMessageBubble">
+                      {_chatMessage.message}
+                    </span>
+                  )}
+
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
                 </li>
               ) : (
