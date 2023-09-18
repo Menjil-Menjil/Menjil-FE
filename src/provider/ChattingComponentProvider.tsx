@@ -210,8 +210,12 @@ const ChattingComponentProvider = ({
   const showQuestion = (index: any, AI_SUMMARY: string, AI_ANSWER: string) => {
     console.log(index + "번 대화");
     publish(index + "번 대화", "SELECT", "MENTEE");
-    publish(AI_SUMMARY, "AI_SUMMARY", "MENTOR");
-    publish(AI_ANSWER, "AI_ANSWER", "MENTOR");
+    setTimeout(() => {
+      publish(AI_SUMMARY, "AI_SUMMARY", "MENTOR");
+    }, 100);
+    setTimeout(() => {
+      publish(AI_ANSWER, "AI_ANSWER", "MENTOR");
+    }, 200);
   };
 
   useEffect(() => {

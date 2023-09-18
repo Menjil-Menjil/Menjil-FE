@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import Image from "next/image";
@@ -146,8 +146,18 @@ const MessageContent = () => {
   const { messagesLog, chattingMentor, showQuestion } = useContext<any>(
     ChattingComponentContext
   );
+  const content1Ref = useRef<HTMLDivElement>(null);
+  // const onContent1Click = () => {
+  //   content1Ref.current?.scrollTo({
+  //     left: 0,
+  //     top: document.body.scrollHeight,
+  //     behavior: "smooth",
+  //   });
+  // };
+
   return (
-    <MessageContentDiv>
+    <MessageContentDiv ref={content1Ref}>
+      {/* {onContent1Click} */}
       {messagesLog && messagesLog.length > 0 && (
         <ul>
           {messagesLog.map(
@@ -198,11 +208,11 @@ const MessageContent = () => {
                       )}
                     </div>
                   ) : (
+                    // style = {_chatMessage.messageType === "AI_SUMMARY" ? (color: "#1e85ff") : (color: "black")}
                     <span className="mentorMessageBubble">
                       {_chatMessage.message}
                     </span>
                   )}
-
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
                 </li>
               ) : (
