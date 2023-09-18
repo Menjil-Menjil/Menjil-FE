@@ -127,6 +127,7 @@ export const ChatListForm = styled.div`
         line-height: 150%; /* 21px */
         overflow: hidden;
         text-overflow: ellipsis;
+        /* white-space: nowrap; */
       }
     }
   }

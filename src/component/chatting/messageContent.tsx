@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import ChattingComponentContext from "@/context/chattingComponentContext";
 import Image from "next/image";
@@ -78,6 +78,11 @@ export const MessageContentDiv = styled.div`
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            margin-top: 5px;
+            margin-bottom: 4px;
+            :hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -141,8 +146,18 @@ const MessageContent = () => {
   const { messagesLog, chattingMentor, showQuestion } = useContext<any>(
     ChattingComponentContext
   );
+  const content1Ref = useRef<HTMLDivElement>(null);
+  // const onContent1Click = () => {
+  //   content1Ref.current?.scrollTo({
+  //     left: 0,
+  //     top: document.body.scrollHeight,
+  //     behavior: "smooth",
+  //   });
+  // };
+
   return (
-    <MessageContentDiv>
+    <MessageContentDiv ref={content1Ref}>
+      {/* {onContent1Click} */}
       {messagesLog && messagesLog.length > 0 && (
         <ul>
           {messagesLog.map(
@@ -161,9 +176,6 @@ const MessageContent = () => {
                       style={{ objectFit: "cover" }}
                     />
                   </div>
-                  {/* <span className="mentorMessageBubble">
-                    {_chatMessage.message}
-                  </span> */}
                   {_chatMessage.messageList ? (
                     <div className="mentorMessageBubble">
                       <span>{_chatMessage.message}</span>
@@ -177,7 +189,13 @@ const MessageContent = () => {
                               </span>
                               <span
                                 className="answer"
-                                // onClick={() => showQuestion(index,  _messageList.answer)}
+                                onClick={() =>
+                                  showQuestion(
+                                    index + 1,
+                                    _messageList.question_summary,
+                                    _messageList.answer
+                                  )
+                                }
                               >
                                 {"A. " + _messageList.answer}
                               </span>
@@ -190,11 +208,11 @@ const MessageContent = () => {
                       )}
                     </div>
                   ) : (
+                    // style = {_chatMessage.messageType === "AI_SUMMARY" ? (color: "#1e85ff") : (color: "black")}
                     <span className="mentorMessageBubble">
                       {_chatMessage.message}
                     </span>
                   )}
-
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
                 </li>
               ) : (
