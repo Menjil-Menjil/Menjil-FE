@@ -27,7 +27,6 @@ export const FollowsContainerDiv = styled.div`
 
 const Follows = () => {
   const user = useRecoilValue(userState);
-  //const followEvent = useRecoilValue(followEventState);
   const [followingList, setFollowingList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [page, setPage] = useState<number>(0);

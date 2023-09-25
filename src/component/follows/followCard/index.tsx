@@ -18,7 +18,6 @@ interface dataType {
 }
 const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataType) => {
   const userName = useRecoilValue(userState).name;
-  //const [, setFollowEvent] = useRecoilState(followEventState);
   const [color, setColor] = useState("blue");
   const [isFollow, setIsFollow] = useState<boolean>(true);
   const [lastAnswerList, setLastAnswerList] = useState<string[]>();
