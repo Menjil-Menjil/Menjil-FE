@@ -5,7 +5,6 @@ import {useCallback, useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
 import {useRecoilValue} from "recoil";
 import {userState} from "@/states/stateUser";
-import {followEventState} from "@/states/stateMain";
 import useIntersect from "@/hooks/useIntersect";
 export const FollowsContainerDiv = styled.div`
   width: 1300px;
@@ -28,7 +27,7 @@ export const FollowsContainerDiv = styled.div`
 
 const Follows = () => {
   const user = useRecoilValue(userState);
-  const followEvent = useRecoilValue(followEventState);
+  //const followEvent = useRecoilValue(followEventState);
   const [followingList, setFollowingList] = useState<any[]>([]);
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [page, setPage] = useState<number>(0);

@@ -1,14 +1,14 @@
 import {FollowCardDiv} from "@/component/follows/followCard/followCard.style";
 import unfollowIc from "@/img/ic_unfollow.png"
+import UnfollowIc from "@/img/ic_unfollow.svg"
 import JobIc from "@/img/ic_job.svg"
 import SchoolIc from "@/img/ic_school.svg"
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
-import {useRecoilState, useRecoilValue} from "recoil";
+import {useRecoilValue} from "recoil";
 import {userState} from "@/states/stateUser";
-import {followEventState} from "@/states/stateMain";
 
 interface dataType {
   profileData: any,
@@ -18,18 +18,25 @@ interface dataType {
 }
 const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataType) => {
   const userName = useRecoilValue(userState).name;
-  const [, setFollowEvent] = useRecoilState(followEventState);
+  //const [, setFollowEvent] = useRecoilState(followEventState);
+  const [color, setColor] = useState("blue");
+  const [isFollow, setIsFollow] = useState<boolean>(true);
   const [lastAnswerList, setLastAnswerList] = useState<string[]>();
   const [techStackList, setTechStackList] = useState<string[]>();
-  const {data: sessionData, update: sessionUpdate} =useSession();
+  const {data: sessionData, update: sessionUpdate} = useSession();
   const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: string) => {
     try {
-      await authedTokenAxios(sessionData.accessToken)
+      const result = await authedTokenAxios(sessionData.accessToken)
         .post(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/request`, {
           userNickname: userName,
           followNickname: mentorName,
         })
-      setFollowEvent({followEvent: true})
+      if (result.data.message === "팔로우가 정상적으로 생성되었습니다") {
+        setIsFollow(true);
+      } else {
+        setIsFollow(false);
+      }
+      //setFollowEvent({followEvent: true})
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
       refreshTokenAPI(sessionData, sessionUpdate).then()
@@ -49,13 +56,20 @@ const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataTyp
     }
   }, [recentAnswerList, profileData.techStack]);
 
+  useEffect(() => {
+    if(isFollow) setColor("blue")
+    else setColor("red")
+  }, [isFollow])
+
   return (
     <FollowCardDiv>
       <div className="cardWrap">
-        <Image src={unfollowIc} alt="unfollow"
+        <UnfollowIc
                width={24} height={24}
                className="unfollowBtn"
-               onClick={() => onClickUnfollowBtn(sessionData, userName!, profileData.nickname)}/>
+               fill={color}
+               onClick={() => onClickUnfollowBtn(sessionData, userName!, profileData.nickname)}>
+        </UnfollowIc>
         <div className="container containerTitle">
           <Image src={profileData.imgUrl} alt="profile" width={50} height={50} style={{
             borderRadius: "12px",
