@@ -12,11 +12,14 @@ import {followEventState} from "@/states/stateMain";
 
 interface dataType {
   profileData: any,
-  lastAnswerList: any,
+  recentAnswerList: any,
+  followers: number,
+  answers: number,
 }
-const FollowCard = ({profileData, lastAnswerList}: dataType) => {
+const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataType) => {
   const userName = useRecoilValue(userState).name;
   const [, setFollowEvent] = useRecoilState(followEventState);
+  const [lastAnswerList, setLastAnswerList] = useState<string[]>();
   const [techStackList, setTechStackList] = useState<string[]>();
   const {data: sessionData, update: sessionUpdate} =useSession();
   const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: string) => {
@@ -35,7 +38,16 @@ const FollowCard = ({profileData, lastAnswerList}: dataType) => {
 
   useEffect(() => {
     setTechStackList(profileData.techStack.split(", "))
-  }, [profileData.techStack]);
+    setLastAnswerList(recentAnswerList)
+    if (recentAnswerList.length > 1) {
+      setLastAnswerList(recentAnswerList)
+    } else if (recentAnswerList.length === 0) {
+      setLastAnswerList(["아직 답변한 질문이 없습니다"])
+    } else {
+      const list = [recentAnswerList]
+      setLastAnswerList(list)
+    }
+  }, [recentAnswerList, profileData.techStack]);
 
   return (
     <FollowCardDiv>
@@ -52,8 +64,8 @@ const FollowCard = ({profileData, lastAnswerList}: dataType) => {
           <div>
             <p className="titleText">{profileData.nickname}</p>
             <div className="wrap">
-              <p className="highlightedColor">멘티 23명</p>
-              <p className="normalColor">답변 26개</p>
+              <p className="highlightedColor">멘티 {followers}명</p>
+              <p className="normalColor">답변 {answers}개</p>
             </div>
           </div>
         </div>
@@ -63,7 +75,7 @@ const FollowCard = ({profileData, lastAnswerList}: dataType) => {
             <div className="line-wrap">
               <p>{profileData.company}</p>
               <div className="line"/>
-              <p>프론트엔드</p>
+              <p>{profileData.field}</p>
             </div>
             <div className="line-wrap techStack">
               {techStackList && techStackList.map((data: any, index: number) => {
@@ -80,16 +92,21 @@ const FollowCard = ({profileData, lastAnswerList}: dataType) => {
         <div className="container containerSchool">
           <SchoolIc/>
           <div className="wrap">
-            <p>서울과학기술대학교</p>
+            <p>{profileData.school}</p>
             <div className="line"/>
-            <p>컴퓨터공학 전공</p>
+            <p>{profileData.major} 전공</p>
           </div>
         </div>
         <div className="hr"/>
         <div className="container containerQuestion">
           <p className="titleText normalColor">최근 답변한 질문</p>
-          <p>자소서에 다른 직무 유형은 어떻게 작성하면 좋을까요?</p>
-          <p>입사 후 포부 문항 작성 요령이 궁금합니다.</p>
+          {
+            lastAnswerList && lastAnswerList.map((data, index) => {
+              return (
+                <p key={index} className="ellipsis">{data}</p>
+              )
+            })
+          }
         </div>
       </div>
       <div className="container containerBtnGroup">

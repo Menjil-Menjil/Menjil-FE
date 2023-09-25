@@ -102,6 +102,7 @@ export const FollowCardDiv = styled.div`
     }
   }
   .containerQuestion {
+    height: 73px;
     flex-direction: column;
     gap: 8px;
     .titleText {
@@ -109,10 +110,14 @@ export const FollowCardDiv = styled.div`
       font-size: 13px;
       font-weight: 600;
     }
+    .ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   .containerBtnGroup {
     justify-content: center;
-    margin: 25px auto;
     gap: 15px;
     button {
       width: 160px;
