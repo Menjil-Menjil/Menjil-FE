@@ -58,8 +58,7 @@ const AsideMenu = () => {
   const [followingList, setFollowingList] = useState<any[]>();
   const [menuComponent, setMenuComponent] = useState<string>("mentors");
   const handleMenuChange = (e: any) => {
-    setMenuComponent(e.target.value);
-  };
+
   const followingAxios = async (sessionData: any) => {
     try {
       const result = await authedTokenAxios(sessionData.accessToken).get(
