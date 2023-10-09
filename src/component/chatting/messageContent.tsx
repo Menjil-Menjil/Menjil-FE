@@ -1,7 +1,12 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import ChattingComponentContext from "@/context/chattingComponentContext";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import {
+  aiQuestionState,
+  chatMessagesState,
+  nowSubscribeState,
+} from "@/states/stateSubscribe";
 
 export const MessageContentDiv = styled.div`
   width: 100%;
@@ -143,29 +148,31 @@ export const MessageContentDiv = styled.div`
 `;
 
 const MessageContent = () => {
-  const { messagesLog, chattingMentor, showQuestion } = useContext<any>(
-    ChattingComponentContext
-  );
   const content1Ref = useRef<HTMLDivElement>(null);
-  // const onContent1Click = () => {
-  //   content1Ref.current?.scrollTo({
-  //     left: 0,
-  //     top: document.body.scrollHeight,
-  //     behavior: "smooth",
-  //   });
-  // };
+  const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
+  const [messagesLog, setMessagesLog] = useRecoilState(chatMessagesState); //메세지들
+  const [aiQuestion, setAiQuestion] = useRecoilState(aiQuestionState); //보내는 메세지
+
+  const moveScroll = () => {
+    content1Ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    moveScroll();
+  }, [messagesLog]);
 
   return (
-    <MessageContentDiv ref={content1Ref}>
-      {/* {onContent1Click} */}
+    <MessageContentDiv>
       {messagesLog && messagesLog.length > 0 && (
         <ul>
+          <div ref={content1Ref} />
           {messagesLog.map(
-            (_chatMessage: any, index: number) => (
-              _chatMessage.time === _chatMessage.time && (
-                <span className="messageTime">{_chatMessage.time}</span>
-              ),
-              _chatMessage.senderType === "MENTOR" ? (
+            (_chatMessage: any, index: number) =>
+              // _chatMessage.time === _chatMessage.time && (
+              //   <span className="messageTime">{_chatMessage.time}</span>
+              // ),
+              _chatMessage.roomId === chattingMentor.roomId &&
+              (_chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
                   <div className="messageMentorProfileImage">
                     <Image
@@ -179,7 +186,7 @@ const MessageContent = () => {
                   {_chatMessage.messageList ? (
                     <div className="mentorMessageBubble">
                       <span>{_chatMessage.message}</span>
-                      {_chatMessage.messageList.map(
+                      {_chatMessage?.messageList?.map(
                         (_messageList: any, index: any) => (
                           <div className="answerBox" key={index}>
                             <div className="numberBox">{index + 1}</div>
@@ -190,11 +197,11 @@ const MessageContent = () => {
                               <span
                                 className="answer"
                                 onClick={() =>
-                                  showQuestion(
-                                    index + 1,
-                                    _messageList.question_summary,
-                                    _messageList.answer
-                                  )
+                                  setAiQuestion({
+                                    index: index + 1,
+                                    AI_SUMMARY: _messageList.question_summary,
+                                    AI_ANSWER: _messageList.answer,
+                                  })
                                 }
                               >
                                 {"A. " + _messageList.answer}
@@ -222,8 +229,7 @@ const MessageContent = () => {
                     {_chatMessage.message}
                   </span>
                 </li>
-              )
-            )
+              ))
           )}
         </ul>
       )}

@@ -5,6 +5,8 @@ import SendIc from "@/img/ic_send.svg";
 import DotIc from "@/img/ic_dot-horizontal.svg";
 import MessageContent from "./messageContent";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { nowSubscribeState, pubMessageState } from "@/states/stateSubscribe";
 
 export const ChatLogForm = styled.div`
   position: relative;
@@ -148,8 +150,9 @@ export const ChatLogForm = styled.div`
 `;
 
 const ChatLog = () => {
-  const { chattingMentor, publish, messageInput, setMessageInput } =
-    useContext<any>(ChattingComponentContext);
+  const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
+  const [messageInput, setMessageInput] = useRecoilState(pubMessageState); //보내는 메세지
+  const [message, setMessage] = useState<string>();
 
   return (
     <ChatLogForm>
@@ -176,16 +179,16 @@ const ChatLog = () => {
         <div className="sendMessageBoxDiv">
           <textarea
             placeholder={"멘토에게 질문하고 싶은 점을 입력해주세요!"}
-            value={messageInput}
-            onChange={(e) => setMessageInput(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             className="messageInputDiv"
           />
           <button
             className="sendBtn"
-            disabled={messageInput.length === 0 ? true : false}
+            disabled={message === "" ? true : false}
             onClick={() => {
-              console.log(messageInput);
-              publish(messageInput, "QUESTION", "MENTEE");
+              setMessageInput(message);
+              setMessage("");
             }}
           >
             <SendIc style={{ marginRight: "5px" }} /> 전송하기

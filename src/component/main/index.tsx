@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 import MainBanner from "./mainBanner";
 import MentorProfileList from "./mentorProfileSection";
 import UserAside from "@/component/main/userAside";
+import { useRecoilState } from "recoil";
+import { chatMessagesState, nowSubscribeState } from "@/states/stateSubscribe";
+import { useEffect } from "react";
 
 export const MainContainerDiv = styled.div`
   width: 1728px;
@@ -19,12 +22,26 @@ export const MainContentsContainerDiv = styled.div`
 `;
 
 const Main = () => {
+  const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
+  const [messagesLog, setMessagesLog] = useRecoilState(chatMessagesState); //메세지들
+  //초기화
+  useEffect(() => {
+    setChattingMentor({
+      roomId: "",
+      imgUrl: "",
+      nickname: "",
+      lastMessage: "",
+      lastMessageTime: "",
+    });
+    setMessagesLog([]);
+  }, [setChattingMentor, setMessagesLog]);
+
   return (
     <MainContainerDiv>
-      <MainBanner/>
+      <MainBanner />
       <MainContentsContainerDiv>
-        <MentorProfileList/>
-        <UserAside/>
+        <MentorProfileList />
+        <UserAside />
       </MainContentsContainerDiv>
     </MainContainerDiv>
   );
