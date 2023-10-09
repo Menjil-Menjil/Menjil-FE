@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { useContext, useState } from "react";
 import SettingsIc from "@/img/ic_settings.svg";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { nowSubscribeState, subscribeState } from "@/states/stateSubscribe";
 
 export const ChatListForm = styled.div`
   width: 400px;
@@ -127,20 +129,18 @@ export const ChatListForm = styled.div`
         line-height: 150%; /* 21px */
         overflow: hidden;
         text-overflow: ellipsis;
+        /* white-space: nowrap; */
       }
     }
   }
 `;
 
 const ChatList = () => {
-  const {
-    chattingRooms,
-    moveChattingRoom,
-    chattingMentor,
-    createRoom,
-    selectIndex,
-    setSelectIndex,
-  } = useContext<any>(ChattingComponentContext);
+  const { moveChattingRoom, selectIndex, setSelectIndex } = useContext<any>(
+    ChattingComponentContext
+  );
+  const [chattingRooms, setChattingRooms] = useRecoilState(subscribeState);
+  const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
 
   return (
     <ChatListForm>
@@ -150,25 +150,26 @@ const ChatList = () => {
       </div>
       {chattingRooms && chattingRooms.length > 0 && (
         <div className="chatListDiv">
-          {chattingRooms.map((_chattingRoom: any, index: any) => (
+          {chattingRooms.map((_chattingRooms: any, index: any) => (
             <div
               className={
-                selectIndex !== _chattingRoom.roomId
+                selectIndex !== _chattingRooms.roomId
                   ? "chatListBox"
                   : "selectedChatListBox"
               }
               key={index}
               onClick={() => {
-                setSelectIndex(_chattingRoom.roomId);
-                moveChattingRoom(_chattingRoom);
+                setChattingMentor(() => _chattingRooms);
+                setSelectIndex(_chattingRooms.roomId);
+                moveChattingRoom(_chattingRooms);
               }}
             >
-              {selectIndex === _chattingRoom.roomId && (
+              {selectIndex === _chattingRooms.roomId && (
                 <div className="selectedBoxLine"></div>
               )}
               <div className="profileImg">
                 <Image
-                  src={_chattingRoom.imgUrl}
+                  src={_chattingRooms.imgUrl}
                   alt="profile"
                   fill
                   sizes="50vw"
@@ -177,21 +178,19 @@ const ChatList = () => {
               </div>
               <div className="messageContentDiv">
                 <div className="nameHeaderDiv">
-                  <span className="mentorName">{_chattingRoom.nickname}</span>
+                  <span className="mentorName">{_chattingRooms.nickname}</span>
                   <span className="messageTime">
-                    {_chattingRoom.lastMessagedTimeOfHour}시간 전
+                    {_chattingRooms.lastMessagedTimeOfHour}시간 전
                   </span>
                 </div>
                 <span className="messageContent">
-                  {_chattingRoom.lastMessage}
+                  {_chattingRooms.lastMessage}
                 </span>
               </div>
             </div>
           ))}
         </div>
       )}
-      <button onClick={createRoom}>채팅방 생성하기</button>
-      {chattingMentor == null ? "header" : chattingMentor.roomId}
     </ChatListForm>
   );
 };

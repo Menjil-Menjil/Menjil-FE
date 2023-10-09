@@ -75,15 +75,19 @@ export const FollowCardDiv = styled.div`
         display: flex;
         align-items: center;
         gap: 8px;
-        .stackBox {
-          display: flex;
+      }
+      .techStack {
+        max-width: 280px;
+        white-space: nowrap;
+        .techBox {
           padding: 2px 8px;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
           border-radius: 5px;
           background: #EBEAE8;
-          * {font-size: 13px;}
+          font-size: 13px;
+        }
+        .ellipsis {
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -98,6 +102,7 @@ export const FollowCardDiv = styled.div`
     }
   }
   .containerQuestion {
+    height: 73px;
     flex-direction: column;
     gap: 8px;
     .titleText {
@@ -105,10 +110,14 @@ export const FollowCardDiv = styled.div`
       font-size: 13px;
       font-weight: 600;
     }
+    .ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   .containerBtnGroup {
     justify-content: center;
-    margin: 25px auto;
     gap: 15px;
     button {
       width: 160px;
