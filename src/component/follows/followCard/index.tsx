@@ -1,6 +1,6 @@
 import {FollowCardDiv} from "@/component/follows/followCard/followCard.style";
 import unfollowIc from "@/img/ic_unfollow.png"
-import UnfollowIc from "@/img/ic_unfollow.svg"
+import followIc from "@/img/ic_follow.png"
 import JobIc from "@/img/ic_job.svg"
 import SchoolIc from "@/img/ic_school.svg"
 import Image from "next/image";
@@ -9,6 +9,7 @@ import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {useRecoilValue} from "recoil";
 import {userState} from "@/states/stateUser";
+import {useRouter} from "next/router";
 
 interface dataType {
   profileData: any,
@@ -18,11 +19,12 @@ interface dataType {
 }
 const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataType) => {
   const userName = useRecoilValue(userState).name;
-  const [color, setColor] = useState("blue");
+  const [src, setSrc] = useState(unfollowIc);
   const [isFollow, setIsFollow] = useState<boolean>(true);
   const [lastAnswerList, setLastAnswerList] = useState<string[]>();
   const [techStackList, setTechStackList] = useState<string[]>();
   const {data: sessionData, update: sessionUpdate} = useSession();
+  const router =useRouter();
   const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: string) => {
     try {
       const result = await authedTokenAxios(sessionData.accessToken)
@@ -35,11 +37,14 @@ const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataTyp
       } else {
         setIsFollow(false);
       }
-      //setFollowEvent({followEvent: true})
     } catch (error: any) {
       console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
       refreshTokenAPI(sessionData, sessionUpdate).then()
     }
+  };
+
+  const onClickMoreInfoBtn = (nickname: string) => {
+    router.push(`/follows/${nickname}`).then()
   };
 
   useEffect(() => {
@@ -56,19 +61,19 @@ const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataTyp
   }, [recentAnswerList, profileData.techStack]);
 
   useEffect(() => {
-    if(isFollow) setColor("blue")
-    else setColor("red")
+    if(isFollow) setSrc(unfollowIc)
+    else setSrc(followIc)
   }, [isFollow])
 
   return (
     <FollowCardDiv>
       <div className="cardWrap">
-        <UnfollowIc
-               width={24} height={24}
-               className="unfollowBtn"
-               fill={color}
-               onClick={() => onClickUnfollowBtn(sessionData, userName!, profileData.nickname)}>
-        </UnfollowIc>
+        <Image
+          src={src}
+          alt="icon"
+          width={24} height={24}
+          className="unfollowBtn"
+          onClick={() => onClickUnfollowBtn(sessionData, userName!, profileData.nickname)}/>
         <div className="container containerTitle">
           <Image src={profileData.imgUrl} alt="profile" width={50} height={50} style={{
             borderRadius: "12px",
@@ -124,7 +129,7 @@ const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataTyp
       </div>
       <div className="container containerBtnGroup">
         <button className="chatBtn">채팅하기</button>
-        <button className="moreBtn">프로필 더보기</button>
+        <button className="moreBtn" onClick={() => onClickMoreInfoBtn(profileData.nickname)}>프로필 더보기</button>
       </div>
 
     </FollowCardDiv>

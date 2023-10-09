@@ -78,7 +78,7 @@ const Follows = () => {
         {followingList && followingList.map((data, index) => {
           return (
             <FollowCard key={index}
-                        profileData={data.followingUserInfo}
+                        profileData={data.followingUserDto}
                         recentAnswerList={data.lastAnsweredMessages}
                         followers={data.followersCount}
                         answers={data.answersCount}/>

@@ -53,16 +53,16 @@ const AsideMenu = () => {
   const handleMenuChange = (e: any) => {
     setMenuComponent(e.target.value)
   };
-  const chatLogAxios = async (sessionData: any) => {
-    try {
-      const result = await authedTokenAxios(sessionData.accessToken)
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${user.name}`)
-      setChatLogDataList(result.data.data)
-    } catch (error: any) {
-      console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
-      refreshTokenAPI(sessionData, sessionUpdate).then()
-    }
-  };
+  // const chatLogAxios = async (sessionData: any) => {
+  //   try {
+  //     const result = await authedTokenAxios(sessionData.accessToken)
+  //       .get(`${process.env.NEXT_PUBLIC_API_URL}/api/main/userinfo?nickname=${user.name}`)
+  //     setChatLogDataList(result.data.data)
+  //   } catch (error: any) {
+  //     console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+  //     refreshTokenAPI(sessionData, sessionUpdate).then()
+  //   }
+  // };
   const followingAxios = async (sessionData: any) => {
     try {
       const result = await authedTokenAxios(sessionData.accessToken)
@@ -74,11 +74,11 @@ const AsideMenu = () => {
     }
   };
 
-  useEffect(() => {
-    if (!!user.name && sessionData?.user) {
-      chatLogAxios(sessionData).then();
-    }
-  }, [sessionData, user.name]);
+  // useEffect(() => {
+  //   if (!!user.name && sessionData?.user) {
+  //     chatLogAxios(sessionData).then();
+  //   }
+  // }, [sessionData, user.name]);
   useEffect(() => {
     if (!!user.name && sessionData?.user) {
       followingAxios(sessionData).then();
