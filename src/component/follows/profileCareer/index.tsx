@@ -38,7 +38,7 @@ interface props {
   careerData: any
 }
 const ProfileCareer = ({careerData}: props) => {
-  const subTitle = careerData.split(" ")[0];
+  const subTitle = careerData;
   return (
     <ProfileCareerContainerDiv>
       <div className="recentBox">
