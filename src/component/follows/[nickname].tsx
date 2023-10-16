@@ -10,6 +10,7 @@ import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {useEffect, useState} from "react";
 import ProfileAnswers from "@/component/follows/profileAnswers";
+import ProfileCareer from "@/component/follows/profileCareer";
 
 export const ProfileContainerDiv = styled.div`
   width: 1300px;
@@ -174,7 +175,7 @@ const Profile = () => {
           <ProfileAnswers answerList={answerDataList}/>
         )}
         {menuComponent === "career" && (
-          <>career</>
+          <ProfileCareer careerData={profileDto.career}/>
         )}
         {menuComponent === "certificate" && (
           <>certificate</>
