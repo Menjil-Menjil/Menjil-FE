@@ -54,7 +54,7 @@ const Profile = () => {
   const {data: sessionData, update: sessionUpdate} = useSession();
   const [profileDto, setProfileDto] = useState<any>();
   const [answerCount, setAnswerCount] = useState<number>();
-  const [answerDataList, setAnswerDataList] = useState<[]>();
+  const [answerDataList, setAnswerDataList] = useState<any[]>([]);
   const [menuComponent, setMenuComponent] = useState<string>("answers");
   const handleMenuChange = (e: any) => {
     setMenuComponent(e.target.value)
@@ -171,7 +171,19 @@ const Profile = () => {
             </ProfileContentBox>
         }
         {menuComponent === "answers" && (
-          <ProfileAnswers/>
+          <ProfileAnswers answerList={answerDataList}/>
+        )}
+        {menuComponent === "career" && (
+          <>career</>
+        )}
+        {menuComponent === "certificate" && (
+          <>certificate</>
+        )}
+        {menuComponent === "awards" && (
+          <>awards</>
+        )}
+        {menuComponent === "activity" && (
+          <>activity</>
         )}
       </ProfileBox>
     </ProfileContainerDiv>
