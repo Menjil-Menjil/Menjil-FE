@@ -184,7 +184,7 @@ const Profile = () => {
           <>awards</>
         )}
         {menuComponent === "activity" && (
-          <>activity</>
+          <ProfileCareer careerData={profileDto.activity}/>
         )}
       </ProfileBox>
     </ProfileContainerDiv>

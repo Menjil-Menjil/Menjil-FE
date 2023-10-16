@@ -12,9 +12,15 @@ export const ProfileCareerContainerDiv = styled.div`
     width: 215px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
     .title {
+      margin-bottom: 5px;
       font-size: 18px;
+    }
+    .subTitle {
+      color: rgba(0, 0, 0, 0.80);
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 10px;
     }
     .term {
       color: #606060;
@@ -32,10 +38,12 @@ interface props {
   careerData: any
 }
 const ProfileCareer = ({careerData}: props) => {
+  const subTitle = careerData.split(" ")[0];
   return (
     <ProfileCareerContainerDiv>
       <div className="recentBox">
         <div className="title">Shopby</div>
+        {subTitle && <div className="subTitle">subTitle</div>}
         <div className="term">2021.12 ~ 현재</div>
       </div>
       <div className="careerListBox">
