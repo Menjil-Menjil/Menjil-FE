@@ -5,6 +5,8 @@ interface props {
   answerTime: string
 }
 const ProfileAnswerCard = ({questionOrigin, questionSummary, answer, answerTime}: props) => {
+  const answerDate = new Date(answerTime)
+    .toLocaleDateString("ko-KR", {year: "numeric", month: "long", day: "numeric" });
   return (
     <div className="lineBarBox">
       <div className="answerBox alignBox">
@@ -19,7 +21,7 @@ const ProfileAnswerCard = ({questionOrigin, questionSummary, answer, answerTime}
       </div>
       <div className="viewsBox alignBox">0</div>
       <div className="likesBox alignBox">0</div>
-      <div className="postDateBox alignBox">{answerTime.split(" ")[0]}</div>
+      <div className="postDateBox alignBox">{answerDate}</div>
     </div>
   );
 };

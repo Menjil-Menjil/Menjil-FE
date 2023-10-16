@@ -24,9 +24,9 @@ export const ProfileAnswersContainerDiv = styled.div`
       justify-content: center;
     }
     .answerBox {
-      width: 655px;
+      width: 615px;
       gap: 5px;
-      margin: 14px 0 10px 0;
+      margin: 14px 40px 10px 0;
       .wrapper {
         display: flex;
         gap: 20px;
