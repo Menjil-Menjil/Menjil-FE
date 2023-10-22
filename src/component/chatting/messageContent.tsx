@@ -168,9 +168,6 @@ const MessageContent = () => {
           <div ref={content1Ref} />
           {messagesLog.map(
             (_chatMessage: any, index: number) =>
-              // _chatMessage.time === _chatMessage.time && (
-              //   <span className="messageTime">{_chatMessage.time}</span>
-              // ),
               _chatMessage.roomId === chattingMentor.roomId &&
               (_chatMessage.senderType === "MENTOR" ? (
                 <li className="mentorMessage" key={index}>
@@ -200,7 +197,7 @@ const MessageContent = () => {
                                   setAiQuestion({
                                     index: index + 1,
                                     AI_SUMMARY: _messageList.question_summary,
-                                    AI_ANSWER: _messageList.answer,
+                                    AI_SUMMARY_ANSWER: _messageList.answer,
                                   })
                                 }
                               >

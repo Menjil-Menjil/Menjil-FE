@@ -58,7 +58,7 @@ const AsideMenu = () => {
   const [followingList, setFollowingList] = useState<any[]>();
   const [menuComponent, setMenuComponent] = useState<string>("mentors");
   const handleMenuChange = (e: any) => {
-    setMenuComponent(e.target.value)
+    setMenuComponent(e.target.value);
   };
 
   const followingAxios = async (sessionData: any) => {
