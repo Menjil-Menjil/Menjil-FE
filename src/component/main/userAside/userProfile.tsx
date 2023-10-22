@@ -30,7 +30,7 @@ const UserProfile = () => {
         <div className="profileContent userInfoTextStyle">
           <div className="titleWrapper userInfoTitleStyle marginB8">
             {user.name} 님
-            <Link href="/mypage">
+            <Link href="/profile">
               <div className="editIconBox">
                 <Image src={editIc} alt="profile" fill sizes="50vw" style={{objectFit: "cover"}}/>
               </div>

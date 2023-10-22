@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import ProfileAnswerCard from "@/component/profile/profileAnswers/profileAnswerCard";
 
 export const ProfileAnswersContainerDiv = styled.div`
   margin: 25px 30px;
@@ -23,9 +24,9 @@ export const ProfileAnswersContainerDiv = styled.div`
       justify-content: center;
     }
     .answerBox {
-      width: 655px;
+      width: 615px;
       gap: 5px;
-      margin: 14px 0 10px 0;
+      margin: 14px 40px 10px 0;
       .wrapper {
         display: flex;
         gap: 20px;
@@ -40,7 +41,16 @@ export const ProfileAnswersContainerDiv = styled.div`
         }
       }
       .answer {
-        color: #000;
+        p {
+          margin: 0;
+          padding: 0;
+          color: #000;
+          font-size: 14px;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         .aColor {
           color: #FF8A00;
         }
@@ -56,8 +66,19 @@ export const ProfileAnswersContainerDiv = styled.div`
       width: 111px;
     }
   }
+  .scrollBox {
+    height: 470px;
+    overflow: auto;
+  }
+  .scrollBox::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
-const ProfileAnswers = () => {
+
+interface props {
+  answerList: any[]|undefined
+}
+const ProfileAnswers = ({answerList}: props) => {
   return (
     <ProfileAnswersContainerDiv>
       <div className="lineBarBox">
@@ -66,20 +87,16 @@ const ProfileAnswers = () => {
         <p className="likesBox">추천수</p>
         <p className="postDateBox">작성일자</p>
       </div>
-      <div className="lineBarBox">
-        <div className="answerBox alignBox">
-          <div className="wrapper">
-            <div className="icon qColor">Q</div>
-            멘티의 질문 제목
-          </div>
-          <div className="wrapper answer">
-            <div className="icon aColor">A</div>
-            답변 요약본의 한 줄 (이후 ...)
-          </div>
-        </div>
-        <div className="viewsBox alignBox">0</div>
-        <div className="likesBox alignBox">0</div>
-        <div className="postDateBox alignBox">2023년 09월 15일</div>
+      <div className="scrollBox">
+        {answerList && answerList.map((data, index) => {
+          return (
+            <ProfileAnswerCard key={index}
+                               questionOrigin={data.questionOrigin}
+                               questionSummary={data.questionSummary}
+                               answer={data.answer}
+                               answerTime={data.answerTime}
+            />)
+        })}
       </div>
     </ProfileAnswersContainerDiv>
   );

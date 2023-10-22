@@ -1,4 +1,4 @@
-import Profile from "../../component/follows/[nickname]";
+import Profile from "../../component/profile/[nickname]";
 
 const profiles = () => {
   return (
