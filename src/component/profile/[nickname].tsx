@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import {ProfileBox, ProfileContentBox} from "@/component/follows/[nickname].style";
+import {ProfileBox, ProfileContentBox} from "@/component/profile/[nickname].style";
 import Image from "next/image";
 import SendQuestionIc from "@/img/ic_send-question.svg"
 import followIc from "@/img/ic_follow.png"
@@ -9,8 +9,8 @@ import {userState} from "@/states/stateUser";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {useEffect, useState} from "react";
-import ProfileAnswers from "@/component/follows/profileAnswers";
-import ProfileCareer from "@/component/follows/profileCareer";
+import ProfileAnswers from "@/component/profile/profileAnswers";
+import ProfileCareer from "@/component/profile/profileCareer";
 
 export const ProfileContainerDiv = styled.div`
   width: 1300px;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import ProfileAnswerCard from "@/component/follows/profileAnswers/profileAnswerCard";
+import ProfileAnswerCard from "@/component/profile/profileAnswers/profileAnswerCard";
 
 export const ProfileAnswersContainerDiv = styled.div`
   margin: 25px 30px;
