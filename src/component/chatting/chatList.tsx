@@ -134,6 +134,15 @@ export const ChatListForm = styled.div`
     }
   }
 `;
+const DAY_HOUR = 24;
+const ONE_HOUR = 1;
+const HIGHLIGHTED_MIN_HOUR = 2;
+
+interface timeData {
+  diffDate: any;
+  diffHour: any;
+  diffMin: any;
+}
 
 const ChatList = () => {
   const { moveChattingRoom, selectIndex, setSelectIndex } = useContext<any>(
@@ -141,6 +150,20 @@ const ChatList = () => {
   );
   const [chattingRooms, setChattingRooms] = useRecoilState(subscribeState);
   const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
+  const [timeCheck, setTimeCheck] = useState<timeData>();
+
+  // const timeCalculate = (data: any) => {
+  //   const cardDate = new Date(data.lastMessageTime);
+  //   const today = new Date();
+  //   const diffSec = today.getTime() - cardDate.getTime();
+  //   const diffHour = Math.floor(diffSec / (60 * 60 * 1000));
+  //   const nowTime: timeData = {
+  //     diffDate: Math.floor(diffSec / (24 * 60 * 60 * 1000)),
+  //     diffHour: diffHour,
+  //     diffMin: Math.floor(diffSec / (60 * 1000)),
+  //   };
+  //   setTimeCheck(nowTime);
+  // };
 
   return (
     <ChatListForm>
@@ -180,7 +203,7 @@ const ChatList = () => {
                 <div className="nameHeaderDiv">
                   <span className="mentorName">{_chattingRooms.nickname}</span>
                   <span className="messageTime">
-                    {_chattingRooms.lastMessagedTimeOfHour}시간 전
+                    {_chattingRooms.lastMessageTime}
                   </span>
                 </div>
                 <span className="messageContent">

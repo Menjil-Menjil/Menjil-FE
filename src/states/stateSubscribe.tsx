@@ -30,7 +30,7 @@ interface messageList {
 interface ai_question {
   index: any;
   AI_SUMMARY: string;
-  AI_ANSWER: string;
+  AI_SUMMARY_ANSWER: string;
 }
 
 export const subscribeState = atom<ISubscribe[]>({
@@ -62,5 +62,9 @@ export const pubMessageState = atom<any>({
 
 export const aiQuestionState = atom<ai_question>({
   key: `aiQuestionState/${uuidv4()}`,
-  default: { index: "", AI_SUMMARY: "", AI_ANSWER: "" },
+  default: {
+    index: "",
+    AI_SUMMARY: "",
+    AI_SUMMARY_ANSWER: "",
+  },
 });
