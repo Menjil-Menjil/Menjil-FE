@@ -20,7 +20,7 @@ const Stomp = () => {
   const [messagesLog, setMessagesLog] = useRecoilState(chatMessagesState); //메세지들
   const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
   const [messageInput, setMessageInput] = useRecoilState(pubMessageState); //보내는 메세지
-  const [aiQuestion, setAiQuestion] = useRecoilState(aiQuestionState); //보내는 메세지
+  const [aiQuestion, setAiQuestion] = useRecoilState(aiQuestionState);
   const user = useRecoilValue(userState);
 
   const connect = () => {
@@ -62,6 +62,7 @@ const Stomp = () => {
     const subscription = client?.subscribe(
       `/queue/chat/room/${roomId}`,
       ({ body }) => {
+        console.log(JSON.parse(body).data);
         if (typeof JSON.parse(body).data.length === "number") {
           //채팅이 여러 개일 경우
           JSON.parse(body).data.map((message: any) => {
@@ -109,15 +110,22 @@ const Stomp = () => {
     setMessageInput("");
   };
 
-  const showQuestion = (index: any, AI_SUMMARY: string, AI_ANSWER: string) => {
+  const showQuestion = (
+    index: any,
+    AI_SUMMARY: string,
+    AI_SUMMARY_ANSWER: string
+  ) => {
     console.log(index + "번 대화");
-    publish(index + "번 대화", "SELECT", "MENTEE");
+    publish(index + "번 대화", "AI_SELECT", "MENTEE");
     setTimeout(() => {
       publish(AI_SUMMARY, "AI_SUMMARY", "MENTOR");
     }, 100);
     setTimeout(() => {
-      publish(AI_ANSWER, "AI_ANSWER", "MENTOR");
+      publish(AI_SUMMARY_ANSWER, "AI_SUMMARY_ANSWER", "MENTOR");
     }, 200);
+    setTimeout(() => {
+      publish("도움이 되셨나요?", "AI_SUMMARY_RATING", "MENTOR");
+    }, 300);
   };
 
   useEffect(() => {
@@ -153,7 +161,7 @@ const Stomp = () => {
       showQuestion(
         aiQuestion.index,
         aiQuestion.AI_SUMMARY,
-        aiQuestion.AI_ANSWER
+        aiQuestion.AI_SUMMARY_ANSWER
       );
   }, [aiQuestion]);
 

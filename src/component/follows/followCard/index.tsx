@@ -44,7 +44,7 @@ const FollowCard = ({profileData, recentAnswerList, followers, answers}: dataTyp
   };
 
   const onClickMoreInfoBtn = (nickname: string) => {
-    router.push(`/follows/${nickname}`).then()
+    router.push(`/profile/${nickname}`).then()
   };
 
   useEffect(() => {

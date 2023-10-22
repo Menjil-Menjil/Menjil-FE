@@ -152,7 +152,6 @@ export const ProfileContentBox = styled.div`
             font-weight: 600;
           }
         }
-        
       }
     }
   }

@@ -84,6 +84,7 @@ const ProfileBtnGroup = ({ nickname, imgUrl }: propsType) => {
       console.log("질문!", mentoring);
     }
   };
+
   const onClickFollow = async () => {
     if (!!user.name && !!mentorNickname) {
       await followMentorAxios(sessionData, user.name!, mentorNickname).then(
@@ -110,22 +111,22 @@ const ProfileBtnGroup = ({ nickname, imgUrl }: propsType) => {
       lastMessageTime: "",
     };
     setChattingMentor(newRoom);
-
+    if (
+      chattingRooms.find(
+        (_chattingRooms) => _chattingRooms.nickname === mentor
+      ) === undefined
+    )
+      setChattingRooms((chattingRooms) => [...chattingRooms, newRoom]);
     try {
-      const res = await authedTokenAxios(sessionData.accessToken)
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter`, {
+      const res = await authedTokenAxios(sessionData.accessToken).post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/chat/room/enter`,
+        {
           menteeNickname: mentee,
           mentorNickname: mentor,
           roomId: roomId,
-        })
-        .then((res) => {
-          if (
-            chattingRooms.find(
-              (_chattingRooms) => _chattingRooms.nickname === mentor
-            ) === undefined
-          )
-            setChattingRooms((chattingRooms) => [...chattingRooms, newRoom]);
-        });
+        }
+      );
+      // .then((res) => {});
     } catch (error: any) {
       console.log(
         `${error.response?.data?.code}: ${error.response?.data?.message}`
