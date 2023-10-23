@@ -6,6 +6,7 @@ import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
 import {useSession} from "next-auth/react";
 import {useRecoilState} from "recoil";
 import {followEventState} from "@/states/stateMain";
+import {useRouter} from "next/router";
 
 interface propsType {
   data: any;
@@ -16,6 +17,12 @@ const FollowingCard = ({data, userName}: propsType) => {
   const [techStackList, setTechStackList] = useState<string[]>();
   const {data: sessionData, update: sessionUpdate} =useSession();
   const [, setFollowEvent] = useRecoilState(followEventState);
+  const router =useRouter();
+
+  const onClickMoreInfoBtn = (nickname: string) => {
+    router.push(`/profile/${nickname}`).then()
+  };
+
   const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: string) => {
     try {
       await authedTokenAxios(sessionData.accessToken)
@@ -36,8 +43,11 @@ const FollowingCard = ({data, userName}: propsType) => {
 
   return (
     <FollowingCardDiv>
-      <Image src={mentorData.imgUrl} alt="profileImg" width={35} height={35} style={{borderRadius: 9, objectFit: "cover"}}/>
-      <div className="content">
+      <Image src={mentorData.imgUrl} alt="profileImg" width={35} height={35}
+             style={{borderRadius: 9, objectFit: "cover", cursor: "pointer"}}
+             onClick={() => onClickMoreInfoBtn(mentorData.nickname)}
+      />
+      <div className="content" onClick={() => onClickMoreInfoBtn(mentorData.nickname)}>
         <div className="wrapper">
           <div className="title">{mentorData.nickname}</div>
           <div className="line"></div>
