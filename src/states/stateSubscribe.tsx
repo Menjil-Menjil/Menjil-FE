@@ -28,6 +28,7 @@ interface messageList {
 }
 
 interface ai_question {
+  questionId: any;
   index: any;
   AI_SUMMARY: string;
   AI_SUMMARY_ANSWER: string;
@@ -63,8 +64,14 @@ export const pubMessageState = atom<any>({
 export const aiQuestionState = atom<ai_question>({
   key: `aiQuestionState/${uuidv4()}`,
   default: {
+    questionId: "",
     index: "",
     AI_SUMMARY: "",
     AI_SUMMARY_ANSWER: "",
   },
+});
+
+export const ratingState = atom<any>({
+  key: `ratingState/${uuidv4()}`,
+  default: { questionId: "", likeStatus: "" },
 });
