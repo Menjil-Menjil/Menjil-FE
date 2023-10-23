@@ -95,6 +95,8 @@ const ProfileAnswers = ({answerList}: props) => {
                                questionSummary={data.questionSummary}
                                answer={data.answer}
                                answerTime={data.answerTime}
+                               views={data.views}
+                               likes={data.likes}
             />)
         })}
       </div>

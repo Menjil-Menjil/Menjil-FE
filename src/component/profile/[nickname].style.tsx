@@ -119,6 +119,7 @@ export const ProfileContentBox = styled.div`
           display: flex;
           gap: 20px;
           .techData {
+            height: 40px;
             margin-left: 9px;
           }
           .data {
@@ -159,9 +160,9 @@ export const ProfileContentBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
+    position: relative;
+    bottom: 20px;
     input[type="radio"] {
-      position: relative;
-      bottom: 0;
       display: none;
     }
     label {

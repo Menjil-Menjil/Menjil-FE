@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import {ProfileBox, ProfileContentBox} from "@/component/profile/[nickname].style";
 import Image from "next/image";
 import SendQuestionIc from "@/img/ic_send-question.svg"
-import followIc from "@/img/ic_follow.png"
 import {useRecoilValue} from "recoil";
 import {userState} from "@/states/stateUser";
 import {authedTokenAxios, refreshTokenAPI} from "@/lib/jwt";
@@ -11,6 +10,8 @@ import {useSession} from "next-auth/react";
 import {useEffect, useState} from "react";
 import ProfileAnswers from "@/component/profile/profileAnswers";
 import ProfileCareer from "@/component/profile/profileCareer";
+import unfollowIc from "@/img/ic_unfollow.png";
+import followIc from "@/img/ic_follow.png"
 
 export const ProfileContainerDiv = styled.div`
   width: 1300px;
@@ -57,6 +58,8 @@ const Profile = () => {
   const [answerCount, setAnswerCount] = useState<number>();
   const [answerDataList, setAnswerDataList] = useState<any[]>([]);
   const [menuComponent, setMenuComponent] = useState<string>("answers");
+  const [isFollow, setIsFollow] = useState<boolean>(true);
+  const [src, setSrc] = useState(unfollowIc);
   const handleMenuChange = (e: any) => {
     setMenuComponent(e.target.value)
   };
@@ -70,6 +73,23 @@ const Profile = () => {
       refreshTokenAPI(sessionData, sessionUpdate).then()
     }
   };
+  const onClickUnfollowBtn = async (sessionData: any, userName: string, mentorName: any) => {
+    try {
+      const result = await authedTokenAxios(sessionData.accessToken)
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/follow/request`, {
+          userNickname: userName,
+          followNickname: mentorName,
+        })
+      if (result.data.message === "팔로우가 정상적으로 생성되었습니다") {
+        setIsFollow(true);
+      } else {
+        setIsFollow(false);
+      }
+    } catch (error: any) {
+      console.log(`${error.response?.data?.code}: ${error.response?.data?.message}`)
+      refreshTokenAPI(sessionData, sessionUpdate).then()
+    }
+  };
 
   useEffect(() => {
     myMentorAxios(sessionData, userName, profileNickname).then((result) => {
@@ -77,7 +97,12 @@ const Profile = () => {
       setAnswerCount(result.data.answersCount)
       setAnswerDataList(result.data.answers)
     })
-  }, [profileNickname, sessionData, userName])
+  }, [profileNickname, sessionData, userName]);
+
+  useEffect(() => {
+    if(isFollow) setSrc(unfollowIc)
+    else setSrc(followIc)
+  }, [isFollow]);
 
   return (
     <ProfileContainerDiv>
@@ -99,8 +124,8 @@ const Profile = () => {
                                 <SendQuestionIc/>
                                 채팅하기
                             </button>
-                            <button className="button">
-                                <Image src={followIc} alt="follow" width={21} height={21}/>
+                            <button className="button" onClick={() => onClickUnfollowBtn(sessionData, userName!, profileNickname)}>
+                                <Image src={src} alt="follow" width={21} height={21}/>
                                 관심멘토
                             </button>
                         </div>
@@ -175,16 +200,22 @@ const Profile = () => {
           <ProfileAnswers answerList={answerDataList}/>
         )}
         {menuComponent === "career" && (
-          <ProfileCareer careerData={profileDto.career}/>
+          <ProfileCareer careerData={profileDto.career ? profileDto.career
+                          :"Shopby 라인업 유지보수 및 레거시 환경 개선, Shopby Pro Modern Skin 신규 스킨 개발, Shopby Pro Skin 기본 스킨 개발(Another 스킨), Shopby Pro Admin 회원・운영 개발"}
+                         title={profileDto.company}
+                         subtitle={profileDto.field}/>
         )}
         {menuComponent === "certificate" && (
-          <>certificate</>
+          <>{profileDto.certificate}</>
         )}
         {menuComponent === "awards" && (
-          <>awards</>
+          <>{profileDto.awards}</>
         )}
         {menuComponent === "activity" && (
-          <ProfileCareer careerData={profileDto.activity}/>
+          <ProfileCareer careerData={profileDto.activity ? profileDto.activity
+                          : "디프만 10기 (디프만 - IT 연합동아리), 우아한 테크 캠프 4기 (우아한형제들), SW마에스트로 11기 (과학기술정보통신부 주관), NOA(Network Of All) (하드웨어 및 소프트웨어 융합 교내 동아리)"}
+                         title="디프만 10기"
+                         subtitle="IT 연합동아리"/>
         )}
       </ProfileBox>
     </ProfileContainerDiv>
