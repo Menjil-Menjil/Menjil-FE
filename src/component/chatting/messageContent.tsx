@@ -6,7 +6,10 @@ import {
   aiQuestionState,
   chatMessagesState,
   nowSubscribeState,
+  ratingState,
 } from "@/states/stateSubscribe";
+import PointingIc from "@/img/ic_pointing.svg";
+import axios from "axios";
 
 export const MessageContentDiv = styled.div`
   width: 100%;
@@ -46,7 +49,7 @@ export const MessageContentDiv = styled.div`
       line-height: 150%; /* 22.5px */
       .answerBox {
         display: flex;
-        margin-top: 9px;
+        margin-top: 20px;
         .numberBox {
           width: 18px;
           height: 18px;
@@ -102,6 +105,51 @@ export const MessageContentDiv = styled.div`
       display: flex;
       align-items: flex-end;
     }
+    .ratingBox {
+      width: 285px;
+      height: 33px;
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-between;
+      .ratingBox_Yes {
+        display: inline-flex;
+        box-sizing: border-box;
+        height: 33px;
+        padding: 0 7px 0 34.5px;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 7.5px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        border: 1px solid #ff8a00;
+        background: rgba(255, 138, 0, 0.2);
+        color: #ff8a00;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 150%; /* 21px */
+        :hover {
+          cursor: pointer;
+        }
+      }
+      .ratingBox_No {
+        display: flex;
+        width: 125px;
+        padding: 6px 0px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        background: #b6b3b3;
+        color: #fff;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 150%; /* 21px */
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
   .menteeMessage {
     display: flex;
@@ -152,6 +200,7 @@ const MessageContent = () => {
   const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
   const [messagesLog, setMessagesLog] = useRecoilState(chatMessagesState); //메세지들
   const [aiQuestion, setAiQuestion] = useRecoilState(aiQuestionState); //보내는 메세지
+  const [ratingSelect, setRatingSelect] = useRecoilState(ratingState); //도움이 됐어요 메세지
 
   const moveScroll = () => {
     content1Ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -160,6 +209,23 @@ const MessageContent = () => {
   useEffect(() => {
     moveScroll();
   }, [messagesLog]);
+
+  const rating = async (Id: any, questionId: any, likeStatus: any) => {
+    try {
+      const res = await axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/ratings`, {
+          Id: Id,
+          questionId: questionId,
+          likeStatus: likeStatus,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    } catch (e: any) {
+      console.log(e);
+    }
+    setRatingSelect({ questionId, likeStatus });
+  };
 
   return (
     <MessageContentDiv>
@@ -182,39 +248,81 @@ const MessageContent = () => {
                   </div>
                   {_chatMessage.messageList ? (
                     <div className="mentorMessageBubble">
-                      <span>{_chatMessage.message}</span>
+                      <div style={{ display: "block" }}>
+                        {_chatMessage.message}
+                      </div>
                       {_chatMessage?.messageList?.map(
-                        (_messageList: any, index: any) => (
+                        (_messageList: any, index: any, messageList: any) => (
                           <div className="answerBox" key={index}>
                             <div className="numberBox">{index + 1}</div>
                             <div className="textBox">
                               <span className="summary">
                                 {_messageList.question_summary}
                               </span>
-                              <span
-                                className="answer"
-                                onClick={() =>
-                                  setAiQuestion({
-                                    index: index + 1,
-                                    AI_SUMMARY: _messageList.question_summary,
-                                    AI_SUMMARY_ANSWER: _messageList.answer,
-                                  })
-                                }
-                              >
-                                {"A. " + _messageList.answer}
-                              </span>
-                              <span className="percent">
-                                {_messageList.similarity_percent}
-                              </span>
+                              {messageList.length !== index + 1 && (
+                                <>
+                                  <span
+                                    className="answer"
+                                    onClick={() =>
+                                      setAiQuestion({
+                                        questionId: _messageList.question_id,
+                                        index: index + 1,
+                                        AI_SUMMARY:
+                                          _messageList.question_summary,
+                                        AI_SUMMARY_ANSWER: _messageList.answer,
+                                      })
+                                    }
+                                  >
+                                    {"A. " + _messageList.answer}
+                                  </span>
+                                  <span className="percent">
+                                    유사도 : {_messageList.similarity_percent}%
+                                  </span>
+                                </>
+                              )}
                             </div>
                           </div>
                         )
                       )}
                     </div>
                   ) : (
-                    // style = {_chatMessage.messageType === "AI_SUMMARY" ? (color: "#1e85ff") : (color: "black")}
-                    <span className="mentorMessageBubble">
+                    <span
+                      className="mentorMessageBubble"
+                      style={
+                        _chatMessage.messageType === "AI_SUMMARY_ANSWER"
+                          ? { color: "#1e85ff" }
+                          : { color: "black" }
+                      }
+                    >
                       {_chatMessage.message}
+                      {_chatMessage.messageType === "AI_SUMMARY_RATING" && (
+                        <div className="ratingBox">
+                          <div
+                            className="ratingBox_Yes"
+                            onClick={() =>
+                              rating(
+                                _chatMessage._id,
+                                aiQuestion.questionId,
+                                true
+                              )
+                            }
+                          >
+                            도움이 됐어요 <PointingIc />
+                          </div>
+                          <div
+                            className="ratingBox_No"
+                            onClick={() =>
+                              rating(
+                                _chatMessage._id,
+                                aiQuestion.questionId,
+                                false
+                              )
+                            }
+                          >
+                            아니요
+                          </div>
+                        </div>
+                      )}
                     </span>
                   )}
                   <span className="mentorMessageTime">{_chatMessage.time}</span>
