@@ -15,10 +15,26 @@ export const ProfileContentBox = styled.div`
   flex-direction: column;
   border-radius: 12px 12px 0 0;
   background: #FFF;
+  p { margin: 0; padding: 0;}
   .profileInfo {
     display: flex;
     margin: 30px 30px;
     gap: 15px;
+    .btnSetting {
+      width: 23px;
+      height: 23px;
+      position: relative;
+      top: 62px;
+      left: -100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+    }
     .wrap {
       display: flex;
       flex-direction: column;
@@ -106,6 +122,34 @@ export const ProfileContentBox = styled.div`
           }
         }
       }
+    }
+  }
+  .btnGroup {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    input[type="radio"] {
+      position: relative;
+      bottom: 0;
+      display: none;
+    }
+    label {
+      width: 120px;
+      height: 42px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #746D6D;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 24px */
+    }
+    input[type="radio"]:checked + label {
+      color: black;
+      border-bottom: 2px solid #FF8A00;
     }
   }
 `;

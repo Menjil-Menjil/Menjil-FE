@@ -35,22 +35,24 @@ export const ProfileCareerContainerDiv = styled.div`
   }
 `;
 interface props {
-  careerData: any
+  careerData: any,
+  title: string,
+  subtitle: any
 }
-const ProfileCareer = ({careerData}: props) => {
-  const subTitle = careerData;
+const ProfileCareer = ({careerData, title, subtitle}: props) => {
   return (
     <ProfileCareerContainerDiv>
       <div className="recentBox">
-        <div className="title">Shopby</div>
-        {subTitle && <div className="subTitle">subTitle</div>}
+        <div className="title">{title}</div>
+        {subtitle && <div className="subTitle">{subtitle}</div>}
         <div className="term">2021.12 ~ 현재</div>
       </div>
       <div className="careerListBox">
-        <div>Shopby 라인업 유지보수 및 레거시 환경 개선</div>
-        <div>Shopby Pro Modern Skin 신규 스킨 개발</div>
-        <div>Shopby Pro Skin 기본 스킨 개발(Another 스킨)</div>
-        <div>Shopby Pro Admin 회원・운영 개발</div>
+        {careerData && careerData.split(",").map((data: any, index: number) => {
+          return (
+            <div key={index}>{data}</div>
+          )
+        })}
       </div>
     </ProfileCareerContainerDiv>
   );
