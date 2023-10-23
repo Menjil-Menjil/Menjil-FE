@@ -4,7 +4,7 @@ import {
   nowSubscribeState,
   pubMessageState,
   subscribeState,
-  ISubscribe,
+  ratingState,
 } from "@/states/stateSubscribe";
 import { userState } from "@/states/stateUser";
 import { Client } from "@stomp/stompjs";
@@ -21,6 +21,7 @@ const Stomp = () => {
   const [chattingMentor, setChattingMentor] = useRecoilState(nowSubscribeState);
   const [messageInput, setMessageInput] = useRecoilState(pubMessageState); //보내는 메세지
   const [aiQuestion, setAiQuestion] = useRecoilState(aiQuestionState);
+  const [ratingSelect, setRatingSelect] = useRecoilState(ratingState);
   const user = useRecoilValue(userState);
 
   const connect = () => {
@@ -164,6 +165,17 @@ const Stomp = () => {
         aiQuestion.AI_SUMMARY_ANSWER
       );
   }, [aiQuestion]);
+
+  //도움이 됐어요 클릭
+  useEffect(() => {
+    if (ratingSelect.questionId !== "") {
+      const newItems = [...messagesLog.slice(1)];
+      setMessagesLog(newItems);
+      ratingSelect.likeStatus === true
+        ? publish("도움이 됐어요", "AI_C_RATING", "MENTEE")
+        : publish("아니요", "AI_C_RATING", "MENTEE");
+    }
+  }, [ratingSelect]);
 
   return <></>;
 };
