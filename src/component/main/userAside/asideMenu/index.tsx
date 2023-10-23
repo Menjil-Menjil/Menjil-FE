@@ -113,7 +113,7 @@ const AsideMenu = () => {
           {followingList &&
             followingList.map((data: any, index: number) => {
               return (
-                <FollowingCard key={index} data={data} userName={user.name!} />
+                <FollowingCard key={index} data={data} userName={user.name!}/>
               );
             })}
         </AsideListDiv>
