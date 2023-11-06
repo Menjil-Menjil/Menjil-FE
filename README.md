@@ -2,6 +2,7 @@
 # 멘질멘질(MenjilMenjil)
 
 링크: [http://menjil-menjil.com/](http://menjil-menjil.com/)
+<br/>
 
 ## 소개
 <img width="860" alt="Untitled" src="https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/f12a915e-4246-4b52-b44a-eecfb22a1758">
