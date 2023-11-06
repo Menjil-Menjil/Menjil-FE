@@ -24,6 +24,9 @@
 
 ## 기술 스택
 ### 프론트엔드
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white">
 
 
 ### 백엔드
@@ -230,8 +233,3 @@ ex) `feat(변경한 파일) : 변경 내용 (/#issue num)`
 - Init : Initial commit을 하는 경우
 ```
 
-## 기술 스택
-
-<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
-<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
-<img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white"> 
