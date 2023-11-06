@@ -5,7 +5,7 @@
 
 ## 소개
 
-![Untitled](README%20bbc725b2e3aa4913b5beb9cc69d51bab/Untitled.png)
+<img width="860" alt="Untitled" src="https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/f12a915e-4246-4b52-b44a-eecfb22a1758">
 
 ### 주요 기능 소개
 
