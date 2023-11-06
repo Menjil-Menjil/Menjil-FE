@@ -11,11 +11,11 @@
 
 ### 멤버
 프론트엔드
-[Ye-kki](https://github.com/orgs/Menjil-Menjil/people/Ye-kki)
-[니나노래](https://github.com/orgs/Menjil-Menjil/people/ninanoray)
+- [Ye-kki](https://github.com/orgs/Menjil-Menjil/people/Ye-kki)
+- [니나노래](https://github.com/orgs/Menjil-Menjil/people/ninanoray)
 
 백엔드
-[megymj](https://github.com/orgs/Menjil-Menjil/people/megymj)
+- [megymj](https://github.com/orgs/Menjil-Menjil/people/megymj)
 
 
 <br/><br/>
