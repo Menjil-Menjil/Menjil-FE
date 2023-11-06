@@ -6,6 +6,9 @@
 ## 소개
 <img width="860" alt="Untitled" src="https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/f12a915e-4246-4b52-b44a-eecfb22a1758">
 
+https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/b5589232-3096-49ae-99b7-550064564470
+
+
 ### 주요 기능 소개
 <img width="860" alt="%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-11-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3 59 25" src="https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/2f542b66-0706-4612-b70c-48e6f8ae4314">
 
