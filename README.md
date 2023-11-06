@@ -10,7 +10,12 @@
 <img width="860" alt="%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-11-06_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_3 59 25" src="https://github.com/Menjil-Menjil/Menjil-FE/assets/77103814/2f542b66-0706-4612-b70c-48e6f8ae4314">
 
 ### 멤버
+프론트엔드
+[Ye-kki](https://github.com/orgs/Menjil-Menjil/people/Ye-kki)
+[니나노래](https://github.com/orgs/Menjil-Menjil/people/ninanoray)
 
+백엔드
+[megymj](https://github.com/orgs/Menjil-Menjil/people/megymj)
 
 
 <br/><br/>
