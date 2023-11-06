@@ -1,221 +1,191 @@
 # Menjil-FE
+# 멘질멘질(MenjilMenjil)
 
-## 👩‍💻 Coding Conventions
+링크: [http://menjil-menjil.com/](http://menjil-menjil.com/)
 
-<details>
-<summary>명명규칙(Naming Conventions)</summary>
-<div markdown="1">
+## 소개
 
-1. 이름으로부터 의도가 읽혀질 수 있게 쓴다.
+![Untitled](README%20bbc725b2e3aa4913b5beb9cc69d51bab/Untitled.png)
 
-- ex)
+### 주요 기능 소개
 
-  ```jsx
-  // bad
-  function q() {
-    // ...stuff...
-  }
+![스크린샷 2023-11-06 오후 3.59.25.png](README%20bbc725b2e3aa4913b5beb9cc69d51bab/%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-11-06_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_3.59.25.png)
 
-  // good
-  function query() {
-    // ..stuff..
-  }
-  ```
+## CI/CD
 
-2. 오브젝트, 함수, 그리고 인스턴스에는 `camelCase`를 사용한다.
+![스크린샷 2023-11-06 오후 4.03.05.png](README%20bbc725b2e3aa4913b5beb9cc69d51bab/%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-11-06_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_4.03.05.png)
 
-- ex)
+## 인프라 구조
 
-  ```jsx
-  // bad
-  const OBJEcttsssss = {};
-  const this_is_my_object = {};
-  function c() {}
+![스크린샷 2023-11-06 오후 4.06.26.png](README%20bbc725b2e3aa4913b5beb9cc69d51bab/%25E1%2584%2589%25E1%2585%25B3%25E1%2584%258F%25E1%2585%25B3%25E1%2584%2585%25E1%2585%25B5%25E1%2586%25AB%25E1%2584%2589%25E1%2585%25A3%25E1%2586%25BA_2023-11-06_%25E1%2584%258B%25E1%2585%25A9%25E1%2584%2592%25E1%2585%25AE_4.06.26.png)
 
-  // good
-  const thisIsMyObject = {};
-  function thisIsMyFunction() {}
-  ```
+## Coding Conventions
 
-3. 클래스나 constructor에는 `PascalCase`를 사용한다.
+### 1. 명명규칙(Naming Conventions)
 
-- ex)
-
-  ```jsx
-  // bad
-  function user(options) {
-    this.name = options.name;
-  }
-
-  const bad = new user({
-    name: "nope",
-  });
-
-  // good
-  class User {
-    constructor(options) {
-      this.name = options.name;
+1. 이름으로부터 의도가 읽을 수 있게 쓴다.
+    
+    ```jsx
+    // bad
+    function q() {
+      // ...stuff...
     }
-  }
+    
+    // good
+    function query() {
+      // ..stuff..
+    }
+    ```
+    
+2. 오브젝트, 함수, 그리고 인스턴스에는 `camelCase`를 사용한다.
+    
+    ```jsx
+    // bad
+    const OBJEcttsssss = {};
+    const this_is_my_object = {};
+    function c() {}
+    
+    // good
+    const thisIsMyObject = {};
+    function thisIsMyFunction() {}
+    ```
+    
+3. 함수 이름은 동사 + 명사 형태로 작성한다.
+`postUserInformation( )`
+4. 약어 사용은 최대한 지양한다.
+5. 이름에 네 단어 이상이 들어가면 팀원과 상의를 거친 후 사용한다
 
-  const good = new User({
-    name: "yup",
-  });
-  ```
-
-4. 함수 이름은 동사 + 명사 형태로 작성한다.
-   ex) `postUserInformation( )`
-5. 약어 사용은 최대한 지양한다.
-6. 이름에 네 단어 이상이 들어가면 팀원과 상의를 거친 후 사용한다
-   </div>
-   </details>
-
-<details>
-<summary>블록(Blocks)</summary>
-<div markdown="1">
+### 2. 블록(Blocks)
 
 1. 복수행의 블록에는 중괄호({})를 사용한다.
+    
+    ```jsx
+    // bad
+    if (test)
+      return false;
+    
+    // good
+    if (test) return false;
+    // good
+    if (test) {
+      return false;
+    }
+    
+    // bad
+    function() { return false; }
+    
+    // good
+    function() {
+      return false;
+    }
+    ```
+    
+2. 복수행 블록의 `if` 와 `else` 를 이용하는 경우  는  블록 끝의 중괄호( } )와 같은 행에 위치시킨다.
+    
+    ```jsx
+    // bad
+    if (test) { thing1(); thing2(); }
+    else { thing3(); }
+    
+    // good
+    if (test) { thing1(); thing2(); }
+    else { thing3(); }
+    ```
+    
 
-- ex)
-
-  ```jsx
-  // bad
-  if (test)
-    return false;
-
-  // good
-  if (test) return false;
-
-  // good
-  if (test) {
-    return false;
-  }
-
-  // bad
-  function() { return false; }
-
-  // good
-  function() {
-    return false;
-  }
-
-  ```
-
-2. 복수행 블록의 `if` 와 `else` 를 이용하는 경우 `else` 는 `if` 블록 끝의 중괄호( } )와 같은 행에 위치시킨다.
-
-- ex)
-  `java // bad if (test) { thing1(); thing2(); } else { thing3(); } // good if (test) { thing1(); thing2(); } else { thing3(); }`
-  </div>
-  </details>
-
-<details>
-<summary>코멘트(Comments)</summary>
-<div markdown="1">
+### 3. 코멘트(Comments)
 
 1. 복수형의 코멘트는 `/** ... */` 를 사용한다.
-
-- ex)
-
-  ```jsx
-  // good
-  /**
-   * @param {String} tag
-   * @return {Element} element
-   */
-  function make(tag) {
-    // ...stuff...
-
-    return element;
-  }
-  ```
-
+    
+    ```jsx
+    // good
+    /**
+     * @param {String} tag
+     * @return {Element} element
+     */
+    function make(tag) {
+      // ...stuff...
+    
+      return element;
+    }
+    ```
+    
 2. 단일 행의 코멘트에는 `//` 을 사용하고 코멘트를 추가하고 싶은 코드의 상부에 배치한다. 그리고 코멘트의 앞에 빈 행을 넣는다.
+    
+    ```jsx
+    // bad
+    const active = true; // is current tab
+    
+    // good
+    // is current tab
+    const active = true;
+    
+    // good
+    function getType() { console.log('fetching type...');
+    // set the default type to 'no type'
+    const type = this._type || 'no type'; return type; }
+    ```
+    
 
-- ex)
-  `jsx // bad const active = true; // is current tab // good // is current tab const active = true; // good function getType() { console.log('fetching type...'); // set the default type to 'no type' const type = this._type || 'no type'; return type; }`
-  </div>
-  </details>
-
-<details>
-<summary>문자열(Strings)</summary>
-<div markdown="1">
+### 4. 문자열(Strings)
 
 1. 문자열에는 싱크쿼트 `''` 를 사용한다.
-
-- ex)
-
-  ```jsx
-  // bad
-  const name = "Capt. Janeway";
-
-  // good
-  const name = "Capt. Janeway";
-  ```
-
+    
+    ```jsx
+    // bad
+    const name = "Capt. Janeway";
+    
+    // good
+    const name = 'Capt. Janeway';
+    ```
+    
 2. 프로그램에서 문자열을 생성하는 경우는 문자열 연결이 아닌 `template strings`를 이용한다.
+    
+    ```jsx
+    // bad
+    function sayHi(name) { return 'How are you, ' + name + '?'; }
+    // bad
+    function sayHi(name) { return ['How are you, ', name, '?'].join(); }
+    
+    // good
+    function sayHi(name) { return `How are you, ${name}?`; }
+    ```
+    
 
-- ex)
-  `` jsx // bad function sayHi(name) { return 'How are you, ' + name + '?'; } // bad function sayHi(name) { return ['How are you, ', name, '?'].join(); } // good function sayHi(name) { return `How are you, ${name}?`; } ``
-  </div>
-  </details>
-
-<details>
-<summary>함수(Functions)</summary>
-<div markdown="1">
+### 5. 함수(Functions)
 
 1. 화살표 함수를 사용한다.
+    
+    ```jsx
+    const arr2 = [1, 2, 3];
+    const pow2 = arr.map((x) => x * x);
+    ```
+    
 
-- ex)
-
-  ```jsx
-  var arr1 = [1, 2, 3];
-  var pow1 = arr.map(function(x) {
-    // ES5 Not Good
-    return x * x;
-  });
-
-  const arr2 = [1, 2, 3];
-  const pow2 = arr.map((x) => x * x); // ES6 Good
-  ```
-
-</div>
-</details>
-
-<details>
-<summary>조건식과 등가식(Comparison Operators & Equality)</summary>
-<div markdown="1">
+### 6. 조건식과 등가식(Comparison Operators & Equality)
 
 1. `==` 이나 `!=` 보다 `===` 와 `!==` 을 사용한다.
 2. 단축형을 사용한다.
-
-- ex)
-
-  ```jsx
-  // bad
-  if (name !== "") {
-    // ...stuff...
-  }
-
-  // good
-  if (name) {
-    // ...stuff...
-  }
-  ```
-
+    
+    ```jsx
+    // bad
+    if (name != '') {
+      // ...stuff...
+    }
+    
+    // good
+    if (name name !== '') {
+      // ...stuff...
+    }
+    ```
+    
 3. 비동기 함수를 사용할 때 `Promise`함수의 사용은 지양하고 `async`, `await`를 쓰도록 한다
-   </div>
-   </details>
-   
-</br>
 
-## 🧵 Commit Convention
+## Commit Conventions
 
-<aside>
-📍  git commit message convention
+ex) `feat(변경한 파일) : 변경 내용 (/#issue num)`
 
-`ex) feat(변경한 파일) : 변경 내용 (/#issue num)`
-
-```plain
+```
 - feat:      새로운 기능 구현
 - fix:       버그, 오류 해결
 - chore:     src 또는 test 파일을 수정하지 않는 기타 변경 사항 ( 새로운 파일 생성, 파일 이동, 이름 변경 등 )
