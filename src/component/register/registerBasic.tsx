@@ -158,11 +158,11 @@ const RegisterBasic = () => {
           <div className="titleBox">직장</div>
           <input
             type="text"
-            placeholder="예) 네이버클라우드"
+            placeholder="없으면 생략가능"
             className="inputBox"
             style={{ width: "363px", marginRight: "40px" }}
             {...register("company", {
-              required: true,
+              required: false,
               pattern: {
                 // input의 정규식 패턴
                 value: /^[가-힣]{1,20}$/,
@@ -181,7 +181,7 @@ const RegisterBasic = () => {
             max="2900"
             style={{ width: "144px", marginRight: "20px" }}
             {...register("companyYear", {
-              required: true,
+              required: false,
             })}
           />
         </InputContainer>
