@@ -7,17 +7,9 @@ import {
   InputContainer,
   TitleBoxDiv,
 } from "@/component/register/register.style";
-import styled from "@emotion/styled";
 import RegisterComponentContext from "@/context/RegisterComponentContext";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-
-export const TestDiv = styled.div`
-  width: 110px;
-  height: 110px;
-  margin-bottom: 25px;
-  background-color: #d9d9d9;
-`;
 
 const RegisterBasic = () => {
   const {
